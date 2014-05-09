@@ -1,8 +1,11 @@
+var error;
+
 $(document).ready(function(e) 
 {
     
 	//alert('hello world');
 	signupForm();
+
 	
 	
 	
@@ -26,8 +29,8 @@ function signupForm()
 		// bind to the submit event of our form
 		$("#signup").submit(function(event){
 		// show loading bar until the json is recieved
-		$('#loading').html('<img src="img/loading.gif">');
 		validation();
+		
     // abort any pending request
 		if (request) {
 			request.abort();
@@ -45,12 +48,13 @@ function signupForm()
 		// Disabled form elements will not be serialized.
 		
 			
-		//if(validation()==true)
-		//{
-			$inputs.prop("disabled", true);
+		if(error.length==0)
+		{
+			$('#loading').html("<img src='img/loading.gif'>");
+			 $inputs.prop("disabled", true);
 		// fire off the request to /form.php
 			request = $.ajax({
-				url: "http://www.fajjemobile.info/korkster/signup_form.php",
+				url: "http://www.fajjemobile.info/korkster.com/signup_form.php",
 				type: "post",
 				data: serializedData
 			});
@@ -58,9 +62,25 @@ function signupForm()
 				// callback handler that will be called on success
 			request.done(function (response, textStatus, jqXHR){
 				// log a message to the console
+				
 				console.log("Hooray, it worked!");
-				$('loading').html('');
-				window.location.href = "your-questions.html";
+				$('#loading').html('');
+				
+				if(response=="success")
+				{
+					$('#loading').html('You have been REGISTERED successfully!');
+				}
+				else if(response == "username already exist")
+				{
+					$('#loading').html('Username not available! Select a different username!');
+					
+				}
+				else
+				{
+					$('#loading').html('Sorry, There has been an error in our system! We are working on it. Thank You for your patience. ' + response);
+				}
+				
+				//window.location.href = "your-questions.html";
 			});
 		
 			// callback handler that will be called on failure
@@ -82,7 +102,7 @@ function signupForm()
 			});
 			
 			
-		//} // if clause end's here of validation
+		} // if clause end's here of validation
 	
 		// prevent default posting of form
 		event.preventDefault();
@@ -95,7 +115,10 @@ function signupForm()
 function validation()
 
 {
-	var error = document.getElementById('error');
+	error = [];
+	
+	var errorDiv = document.getElementById('error');
+	errorDiv.innerHTML = "";
 	var username = document.getElementById('username').value;
 	var firstName = document.getElementById('firstName').value;
 	var lastName = document.getElementById('lastName').value;
@@ -104,8 +127,31 @@ function validation()
 	var verifyPassword = document.getElementById('verifyPassword').value;
 	
 	if(password != verifyPassword)
-	{error.innerHTML = "Password doesn't match!";}
-	else if (username!=null || firstName !=null lastName !=){error.innerHTML = "";}
-	else { error.innerHTML = "All good!"; }
+	{
+		error.push("Password Doesnot Match!");
+	}
+	
+	nullCheck(username,"Username");
+	nullCheck(firstName,"First Name");
+	nullCheck(lastName,"Last Name");
+	nullCheck(email,"Email");
+	nullCheck(password,"Password");
+	nullCheck(verifyPassword,"Verify Password");
+	
+	for(var i=0; i<error.length; i++)
+	{
+		errorDiv.innerHTML += error[i];
+	}
+}
+
+
+function nullCheck(inputField,nameToPrintOnScreen)
+{
+	
+	if(inputField==null || inputField=="")
+	{
+		var e = nameToPrintOnScreen+" Cannot be left empty! <br/>"
+		error.push(e + "");
+	}
 	
 }

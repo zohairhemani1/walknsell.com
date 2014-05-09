@@ -98,9 +98,9 @@
                     
                     <div id="error"></div>
                     
-                    	<input type="text" class="form-control txt_boxes" placeholder="First Name" name="firstName">
-                        <input type="text" class="form-control txt_boxes" placeholder="Last Name" name="lastName">
-                        <input type="email" class="form-control txt_boxes" placeholder="Email Address" name="email">
+                    	<input type="text" class="form-control txt_boxes" placeholder="First Name" name="firstName" id="firstName">
+                        <input type="text" class="form-control txt_boxes" placeholder="Last Name" name="lastName" id="lastName">
+                        <input type="email" class="form-control txt_boxes" placeholder="Email Address" name="email" id="email">
                         <select class="form-control" name="college">
                         	<option value="" selected>College</option>
                             <option value="india">India</option>
@@ -108,15 +108,10 @@
                             <option value="pakistan">Pakistan</option>
                             <option value="sri lanka">Sri Lanka</option>
                         </select>
-                        <input type="text" class="form-control txt_boxes" placeholder="Create your Username" name="username">
+                        <input type="text" class="form-control txt_boxes" placeholder="Create your Username" name="username" id="username">
                         <input type="password" class="form-control txt_boxes" placeholder="Create a Password" name="password" id="password">
                         <input type="password" class="form-control txt_boxes" placeholder="Confirm Password" name="verifyPassword" id="verifyPassword">
-                        
-                        <?php
-								  require_once('recaptchalib.php');
-								  $publickey = "6LcEDukSAAAAAGWbdg9rxd_zMLindrxQZnTxnxeU"; // you got this from the signup page
-								  echo recaptcha_get_html($publickey);
-       					?>
+                      
                         
                         <div id="loading"></div>
                         <input type="submit" class="btn_signup" value="submit" />
