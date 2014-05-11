@@ -374,8 +374,9 @@ button.btn_signup:active{border-bottom:none; top:2px;}
 .cate_desc article.header_bg_para img{ width:100%; margin:0 auto; display:block;}
 .cate_desc .kork_desc {border:1px solid #dedede; width:1000px; margin:20px auto 0 auto; background:#fff; padding:8px;}
 .cate_desc .full_article_bg{background:#f4f4f4;}
-.cate_desc .left_kork{float:left; width:634px;}
-.kork_desc .right_kork{float:right; width:350px;}
+.cate_desc .left_kork{float:left; width:628px;}
+.kork_desc .right_kork{float:right; width:342px;}
+
 .kork_desc .right_kork h3{font-size:22px; font-family: 'Open Sans' Arial, Helvetica, sans-serif; color:#303030; line-height:25px; padding-right:60px;}
 .kork_desc .right_kork h4{text-transform:uppercase; font:14px 'Open Sans',Arial, Helvetica, sans-serif; line-height:18px; margin:10px 0; color:#303030; border-top:1px solid #dedede; border-bottom:1px solid #dedede; padding:5px 0;}
 span.orange{color:#f5a532;}
