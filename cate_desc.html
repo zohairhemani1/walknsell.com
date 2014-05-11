@@ -1,16 +1,29 @@
 <!doctype html>
-<html>
-<head>
+<html><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>::korkster::</title>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="css/jquery.bxslider.css" type="text/css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/media.css" type="text/css">
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
 <link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
+
+<style>
+.modal-dialog {
+
+padding-top: 180px;
+}
+
+.modal-body {
+border-bottom: 0px;
+}
+</style>
 
 <script src="js/modern.js"></script>
 <script src="js/jquery.min.js"></script>
@@ -46,7 +59,7 @@ function parallax(){
 </head>
 
 <body>
-<div class="container cate_desc">
+<div class="cate_desc">
 	<div class="header_bg static_top">
         <header>
         <a id="simple-menu" class="icon-menu" href="#sidr"></a>
@@ -56,7 +69,7 @@ function parallax(){
             <li class="home"><a href="#">HOME</a></li>
              <li class="to_do"><a href="#">START SELLING</a></li>
               <!-- <li class="bubble"><a href="#"><img src="img/bubble.png" width="24" alt=""></a></li> -->
-              <li class="shopping"><a href="#">SIGN IN</a></li>
+              <li class="shopping"><a href="#"  data-toggle="modal" data-target="#message">SIGN IN</a></li>
               <li id="sales"><a href="#">JOIN</a></li>
               <!-- <li class="admin"><a href="#">ZOHAIR HEMANI</a></li> -->
           </ul>
@@ -67,7 +80,7 @@ function parallax(){
                     <li class="home"><a href="#">HOME</a></li>
                     <li class="to_do"><a href="#">START SELLING</a></li>
                     <!-- <li class="bubble"><a href="#"><img src="img/bubble.png" width="24" alt=""></a></li> -->
-                    <li class="shopping"><a href="#">SIGN IN</a></li>
+                    <li class="shopping"><a href="#"  data-toggle="modal" data-target="#message">SIGN IN</a></li>
                     <li id="join"><a href="#">JOIN</a></li>
                     <!-- <li class="admin"><a href="#">ZOHAIR HEMANI</a></li> -->
                 </ul>
@@ -216,7 +229,9 @@ function parallax(){
                </h4>
                
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-              <a href="#" class="btn_signup">order now</a>	
+        
+              <a href="#" class="btn_signup" data-toggle="modal" data-target="#message">contact now</a>
+              
               </div>                
         	<div class="clear"></div>
         </div>
@@ -289,6 +304,32 @@ function parallax(){
         </div>
     </footer>
 </div>
+
+    <div class="modal fade" id="message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h1 class="modal-title" id="myModalLabel">Contact Now</h1>
+                    <p>Please enter your message!</p>
+                  </div>
+                  <div class="modal-body">
+              		<form action="#">
+                    	<textarea type="text" class="form-control txt_boxes" placeholder="Enter Your Message"></textarea>
+                       
+
+                        <button type="submit" class="btn_signup">send</button>
+                        
+                    </form>
+                     <div class="clearfix"></div>
+                  </div>
+                  
+                </div>
+               
+              </div>
+</div>
+    
+
 <script type="text/javascript">
   $(document).ready(function(){
     
