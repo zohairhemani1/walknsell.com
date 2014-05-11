@@ -179,11 +179,11 @@
 
     FB.api('/me', function(response) {
 
-      console.log('Successful login for: ' + response.name);
+      console.log('Successful login for: ' + response.name + response.email+response.id);
 
       document.getElementById('status').innerHTML =
 
-        'Thanks for logging in, ' + response.name + '!';
+        'Thanks for logging in, ' + response.name + ' '+response.id+' '+response.email +' '+ response.first_name+' '+response.last_name+'!';
 
     });
 
@@ -453,7 +453,7 @@
 
                 
 
-                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+                <fb:login-button auto_logout_link="true" scope="public_profile,email" onlogin="checkLoginState();">
 
 </fb:login-button>
 
