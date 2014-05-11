@@ -3,20 +3,12 @@ var error;
 $(document).ready(function(e) 
 {
     
-	//alert('hello world');
 	signupForm();
-
-	
-	
+	loginForm();
 	
 });
 
 // register form ajax
-
-document.getElementById('signup').onclick = function()
-{
-	
-}
 
 
 function signupForm()
@@ -31,7 +23,7 @@ function signupForm()
 		// show loading bar until the json is recieved
 		validation();
 		
-    // abort any pending request
+    	// abort any pending request
 		if (request) {
 			request.abort();
 		}
@@ -68,11 +60,11 @@ function signupForm()
 				
 				if(response=="success")
 				{
-					$('#loading').html('You have been REGISTERED successfully!');
+					$('#loading').html('You have been REGISTERED successfully!  A Verificaiton Link has been Emailed to you!');
 				}
 				else if(response == "username already exist")
 				{
-					$('#loading').html('Username not available! Select a different username!');
+					$('#loading').html('Username already in use! Select a different username!');
 					
 				}
 				else
@@ -155,3 +147,121 @@ function nullCheck(inputField,nameToPrintOnScreen)
 	}
 	
 }
+
+
+
+// login form code below.
+
+
+
+function loginForm()
+{
+	
+		// variable to hold request
+		var request;
+		// bind to the submit event of our form
+		$("#login-form").submit(function(event){
+		// show loading bar until the json is recieved
+		//alert('Login Submit button clicked!');
+		loginValidation();
+		
+    // abort any pending request
+		if (request) {
+			request.abort();
+		}
+		// setup some local variables
+		var $form = $(this);
+		// let's select and cache all the fields
+		var $inputs = $form.find("input, select, button, textarea");
+		// serialize the data in the form
+		var serializedData = $form.serialize();
+		
+		
+		// let's disable the inputs for the duration of the ajax request
+		// Note: we disable elements AFTER the form data has been serialized.
+		// Disabled form elements will not be serialized.
+			
+		if(error.length==0)
+		{
+			$('#loading-login').html("<img src='img/loading.gif'>");
+			 $inputs.prop("disabled", true);
+		// fire off the request to /form.php
+			request = $.ajax({
+				url: "http://www.fajjemobile.info/korkster.com/login_form.php",
+				type: "post",
+				data: serializedData
+			});
+			
+				// callback handler that will be called on success
+			request.done(function (response, textStatus, jqXHR){
+				// log a message to the console
+				
+				//alert(response);
+				
+				console.log("Hooray, it worked!");
+				$('#loading-login').html('');
+				
+				if(response=="success")
+				{
+					$('#loading-login').html('Successfull');
+				}
+				else if(response == "incorrect credentials")
+				{
+					$('#loading-login').html('Incorrect Credentials');
+					
+				}
+				else
+				{
+					$('#loading-login').html('Sorry, There has been an error in our system! We are working on it. Thank You for your patience. ' + response);
+				}
+				
+				//window.location.href = "your-questions.html";
+			});
+		
+			// callback handler that will be called on failure
+			request.fail(function (jqXHR, textStatus, errorThrown){
+				// log the error to the console
+				$('#loading-login').html('');
+				alert('Request Failed!');
+				console.error(
+					"The following error occured: "+
+					textStatus, errorThrown
+				);
+			});
+	
+			// callback handler that will be called regardless
+			// if the request failed or succeeded
+			request.always(function () {
+				// reenable the inputs
+				$inputs.prop("disabled", false);
+			});
+			
+			
+		} // if clause end's here of validation
+	
+		// prevent default posting of form
+		event.preventDefault();
+	});
+	
+}
+
+
+function loginValidation()
+{
+	error = [];
+	
+	var errorDiv = document.getElementById('error-login');
+	errorDiv.innerHTML = "";
+	var username = document.getElementById('username-login').value;
+	var password = document.getElementById('password-login').value;
+	
+	nullCheck(username,"Username");
+	nullCheck(password,"Password");
+	
+	for(var i=0; i<error.length; i++)
+	{
+		errorDiv.innerHTML += error[i];
+	}
+		
+}
+

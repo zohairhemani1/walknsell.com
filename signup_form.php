@@ -48,6 +48,8 @@
 				$subject = "SchoolBook: Verify Account";
 				$headers = "From: info@schoolbook.com" . "\r\n" .
 							"CC: zohairhemani1@gmail.com";
+				$msg = "http://www.fajjemobile.info/korkster.com/account-activation.php?activate=$activationKey";
+				mail($to, $subject, $msg, $headers);
 			  }
 			  
 			 else 
@@ -71,11 +73,4 @@
 		$dbh = null;   // setting the database connection to null
 		
 		
-		
-		
-		
-		$msg = "http://www.lol-ism.com/korkster/account-activation.php?activate=$activationKey";
-		//$msg = "http://www.lol-ism.com/korkster/activate/$activationKey";
-		mail($to, $subject, $msg, $headers);
-	
 ?>

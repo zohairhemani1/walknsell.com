@@ -58,11 +58,12 @@
                     <p>Please Enter valid Id and password for Signin!</p>
                   </div>
                   <div class="modal-body">
-              		<form action="#">
-                    	<input type="text" class="form-control txt_boxes" placeholder="Login Username">
-                        <input type="password" class="form-control txt_boxes" placeholder="Password">
-
-                        <button type="submit" class="btn_signup">login</button>
+              		<form id="login-form" method="post">
+                    <div id="error-login"></div>
+                    	<input type="text" class="form-control txt_boxes" placeholder="Login Username" name="username-login" id="username-login">
+                        <input type="password" class="form-control txt_boxes" placeholder="Password" name="password-login" id="password-login">
+						<div id="loading-login"></div>
+                        <input type="submit" class="btn_signup" value="login"/>
                         <div class="forg_pass">
                         	<input type="checkbox" name="remember" class="">
                             <p><a href="#">REMEMBER ME</a> / <a href="#">FORGET PASSWORD</a> ?</p>
@@ -227,6 +228,7 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.sidr.min.js"></script>
 <script src ="js/register.js"></script>
+<script src ="js/functions.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
   $('#simple-menu').sidr();
