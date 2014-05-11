@@ -187,7 +187,7 @@ function loginForm()
 			 $inputs.prop("disabled", true);
 		// fire off the request to /form.php
 			request = $.ajax({
-				url: "http://www.fajjemobile.info/korkster.com/login_form.php",
+				url: "login_form.php",
 				type: "post",
 				data: serializedData
 			});
