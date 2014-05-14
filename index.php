@@ -17,9 +17,13 @@
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/media.css" type="text/css">
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
-<link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+<link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
 
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.sidr.min.js"></script>
+<script src="js/custom.js"></script>
 <script>
 
 
@@ -374,7 +378,7 @@
     <div class="clear"></div>
   </div>
   <!--/.header_bg-->
-  
+  <div id="backgroundPopup"></div>
   <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -532,20 +536,15 @@
     </div>
   </footer>
 </div>
-<script src="js/jquery.min.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/jquery.sidr.min.js"></script> 
+<script src="js/jquery.min.js"></script>
 <script src ="js/register.js"></script> 
-<script src ="js/functions.js"></script> 
+<!-- <script src ="js/functions.js"></script>  -->
 <script src="js/nav-admin-dropdown.js"></script>
-
-<script type="text/javascript">
-	
-	$(document).ready(function() {
-	  $('#simple-menu').sidr();
-	});
-
-</script> 
+<script>
+$(document).ready(function() {
+  $('#simple-menu').sidr();
+});
+</script>
 
 <script src="js/school-list.js"></script>
 </body>
