@@ -280,22 +280,9 @@ $(document).ready(function() {
     </footer>
 
 </div>
-<script>
-$(function() {      
-          $("nav.main_nav li#admin > ul").css("display","none");
-        
-			       
-           			$("nav.main_nav li#admin").hover(function () {   
-         							  $( "nav.main_nav li#admin > ul" ).css( "display", "block" );
-	            },          
-            	function () {      
-							           $( "nav.main_nav li#admin > ul" ).css( "display", "none" );
-				        });   
-				     });
-					 
-</script>
 
 
+<script src="js/nav-admin-dropdown.js"></script>
 <script src="js/school-list.js"></script>
 
 </body>
