@@ -6,6 +6,7 @@ header, .content_inner, .lower_content_inner{width:95%;}
 .footer_nav{margin-left:10%;}
 .copyright{float:right; margin-left:0;}
 .wrap-search{margin-right:5px;}
+.create_gig .content_inbox .left_gig{float:none; margin:0 auto;}
 
 /*************STYLES FOR INBOX*******************/
 .main_table > table thead table td:first-child{width:14%;}
@@ -42,7 +43,10 @@ article.prod_detail{width:100%; position:static;}
 .kork_option ul li{float:none; margin:5px auto;}
 
 
-
+/*************STYLES FOR CREATE GIG*******************/
+.form_row .input_wrap .fake-dropdown{width:auto;}
+.create_gig .content_inbox .left_gig{width:95%;}
+.form_row .fake-dropdown a.category:after{display:none;}
 }
 @media only screen and (max-width:900px){
 	.detail{width:90%; margin:20px auto 50px auto; float:none; text-align:center;}
@@ -54,6 +58,9 @@ article.prod_detail{width:100%; position:static;}
 	.tftextinput{width:64%;}
 	#results{width:67.5%;}
 	.tfbutton{width:29%;}
+	.form_row #gig_gallery_wrap{background-image:none;}
+	.form_row .file_input_inner{margin:0 auto; float:none;}
+	.bottom_save_block{float:none; width:100%; margin: 0 auto;}
 }
 
 @media only screen and (max-width:768px){
@@ -136,6 +143,8 @@ article.prod_detail{width:100%; position:static;}
 	.gig_related_to{width:100%;}
 	.msg_body p{font-size:13px;}
 	
+	.create_gig .content_inbox .left_gig{padding-left:5px;}
+	
 }
 @media only screen and (max-width:400px){
 	#tfheader{width:100%;}
@@ -150,3 +159,6 @@ article.prod_detail{width:100%; position:static;}
 	.content_inner{min-height:252px;}
 	.tftextinput, .tfbutton{height:40px; line-height:40px;}
 	#results{top:40px; left:5px; width:95%;}
+	.form_row .label_wrap{width:80%; text-align:left;}
+	.form_row .input_wrap{width:95%;}
+	.form_row label{font-size:11px; text-align:left;}

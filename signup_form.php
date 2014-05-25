@@ -23,6 +23,17 @@
 		$sth->execute();
 		$rows = $sth->fetch(PDO::FETCH_NUM);
 		
+		//fetching college ID
+		
+		
+		$query = "SELECT ID from colleges WHERE name = :cname";
+		$sth = $dbh->prepare($query);
+		$sth->bindValue(':cname','IBA INSTITUTE OF BUSINESS ADMINISTRATION');
+		$sth->execute();
+		$result = $sth->fetch(PDO::FETCH_ASSOC);
+		
+		
+		$collegeID=$result['ID'];
 		
 		// this condition checks if count(*) is 0 that means if username doesnot exist
 		
@@ -31,15 +42,17 @@
 			
 			// inserting user details if username doesnot exist
 			
-			$query = "INSERT INTO users(username,password,fname,lname,email,college,activationKey) VALUES (:username,:password,:fname,:lname,:email,:college,:activationKey)";
+			$query = "INSERT INTO users(username,password,fname,lname,email,collegeID,activationKey,joinDate,profilePic) VALUES (:username,:password,:fname,:lname,:email,:collegeID,:activationKey,:joinDate,:profilePic)";
 			$sth = $dbh->prepare($query);
 			$sth->bindValue(':username',$username);
 			$sth->bindValue(':password',$password_md5);
 			$sth->bindValue(':fname',$fname);
 			$sth->bindValue(':lname',$lname);
 			$sth->bindValue(':email',$email);
-			$sth->bindValue(':college',$college);
+			$sth->bindValue(':collegeID',$collegeID);
 			$sth->bindValue(':activationKey',$activationKey);
+			$sth->bindValue(':joinDate',date('Y/m/d H:i:s'));
+			$sth->bindValue(':profilePic','img/profile_pic.jpg');
 			//$sth ->execute();
 			 if($sth ->execute())
 			 { 
@@ -55,7 +68,7 @@
 			 else 
 			 {	
 				$errorCode = $sth->errorCode();
-				echo "ErrorCode: " . $errorCode;  
+				echo "ErrorCode: " . $errorCode ." ".$sth->getMessage();  
 			  }
 			
 			

@@ -1,12 +1,12 @@
 <?php
 	session_start();
-	
-	if(isset($username)) 
+	include 'headers/_user-details.php';
+	if(isset($_SESSION['username'])) 
 	{
     	echo "<nav class='main_nav'>
                 <ul class='inbox_menu'>
-                    <li class='home'><a href='#'>HOME</a></li>
-                    <li class='to_do'><a href='#'>START SELLING</a></li>
+                    <li class='home'><a href='index.php'>HOME</a></li>
+                    <li class='to_do'><a href='create_gig.php'>START SELLING</a></li>
                     <li class='bubble'><a href='#' class='topopup'><img src='img/bubble.png' width='24' alt=''></a>
                  <div id='toPopup'>     	
              		<div id='popup_content'>
@@ -36,14 +36,14 @@
     </div> <!--toPopup end-->
                     </li>
                     <li id='admin'><a href='#'>
-                    				<span class='user_pic_thumb'><img src='img/img.png' width='24' alt='user pic'></span>
-                    				ZOHAIR HEMANI</a>
+                    				<span class='user_pic_thumb'><img src='{$_profilePic}' width='24' alt='user pic'></span>
+                    				{$_fname_uppercase} {$_lname_uppercase}</a>
                     	<ul>
                         	<li><a href='#' class='whats_new'><span class='info_circle fa fa-info-circle'>&nbsp;</span>What's New in V2?</a></li>
-                            <li><a href='#' class='inbox'><span class='fa fa-inbox'>&nbsp;</span>Inbox</a></li>
+                            <li><a href='inbox.php' class='inbox'><span class='fa fa-inbox'>&nbsp;</span>Inbox</a></li>
                             <li><a href='#' class='collection'><span class='fa-heart-o'>&nbsp;</span>Collections</a></li>
                             <li><a href='#' class='settings'><span class='fa fa-gear'>&nbsp;</span>Settings</a></li>
-                            <li><a href='#' class='logout'><span class='fa fa-arrow-circle-o-left'>&nbsp;</span>Logout</a></li>
+                            <li><a href='index.php?status=logout' class='logout'><span class='fa fa-arrow-circle-o-left'>&nbsp;</span>Logout</a></li>
                             <div class='clear'></div>
                         </ul>
                     </li>

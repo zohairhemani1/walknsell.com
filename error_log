@@ -1,0 +1,46 @@
+[09-May-2014 17:58:53 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1044] Access denied for user 'korkster'@'localhost' to database 'lolism_korkster'' in /home/zohairhemani1/public_html/korkster.com/headers/connect_to_mysql.php:18
+Stack trace:
+#0 /home/zohairhemani1/public_html/korkster.com/headers/connect_to_mysql.php(18): PDO->__construct('mysql:host=loca...', 'korkster', 'Korkster786!')
+#1 /home/zohairhemani1/public_html/korkster.com/signup_form.php(4): include('/home/zohairhem...')
+#2 {main}
+  thrown in /home/zohairhemani1/public_html/korkster.com/headers/connect_to_mysql.php on line 18
+[09-May-2014 18:00:10 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo failed: Name or service not known' in /home/zohairhemani1/public_html/korkster.com/headers/connect_to_mysql.php:18
+Stack trace:
+#0 /home/zohairhemani1/public_html/korkster.com/headers/connect_to_mysql.php(18): PDO->__construct('mysql:host='loc...', 'korkster', 'Korkster786!')
+#1 /home/zohairhemani1/public_html/korkster.com/signup_form.php(4): include('/home/zohairhem...')
+#2 {main}
+  thrown in /home/zohairhemani1/public_html/korkster.com/headers/connect_to_mysql.php on line 18
+[09-May-2014 19:35:03 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/signup_form.php on line 18
+[09-May-2014 19:37:19 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/signup_form.php on line 18
+[09-May-2014 19:37:20 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/signup_form.php on line 18
+[11-May-2014 14:31:09 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:31:15 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:31:16 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:31:19 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:31:25 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:31:29 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:31:31 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:32:08 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:32:45 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:32:59 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:33:12 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:34:07 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:34:36 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:34:38 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:34:41 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:35:02 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:36:16 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:36:19 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:50:45 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:50:45 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 14:50:47 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[11-May-2014 15:48:58 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[25-May-2014 09:49:11 UTC] PHP Fatal error:  Call to a member function format() on a non-object in /home/zohairhemani1/public_html/korkster.com/cate_desc.php on line 294
+[25-May-2014 09:49:58 UTC] PHP Fatal error:  Call to a member function format() on a non-object in /home/zohairhemani1/public_html/korkster.com/cate_desc.php on line 294
+[25-May-2014 12:20:43 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[25-May-2014 12:21:27 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[25-May-2014 12:21:30 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[25-May-2014 12:29:37 UTC] PHP Fatal error:  Call to undefined function now() in /home/zohairhemani1/public_html/korkster.com/signup_form_fb.php on line 39
+[25-May-2014 12:31:06 UTC] PHP Fatal error:  Call to undefined method PDOStatement::getMessage() in /home/zohairhemani1/public_html/korkster.com/signup_form_fb.php on line 49
+[25-May-2014 12:33:06 UTC] PHP Fatal error:  Call to undefined method PDOStatement::getMessage() in /home/zohairhemani1/public_html/korkster.com/signup_form_fb.php on line 49
+[25-May-2014 12:37:17 UTC] PHP Fatal error:  Call to undefined function now() in /home/zohairhemani1/public_html/korkster.com/signup_form.php on line 54

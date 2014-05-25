@@ -3,15 +3,11 @@
 	header('Access-Control-Allow-Origin: *');
 	include 'headers/connect_to_mysql.php';      // Connection to Mysql Database.
 	
-	$username = $_POST['username-login'];
-	$u = $username;
-	$password = $_POST['password-login'];
-	$password_md5 = md5($password);
+	$username = $_POST['userID'];
 	
-	$query = "SELECT count(*) from users WHERE username=:username AND password =:password";
+	$query = "SELECT count(*) from users WHERE username=:username";
 	$sth = $dbh->prepare($query);
 	$sth->bindValue(':username',$username);
-	$sth->bindValue(':password',$password_md5);
 	$sth->execute();
 	$rows = $sth->fetch(PDO::FETCH_NUM);
 	

@@ -115,6 +115,10 @@ footer{clear:both; background:#3a3839; min-height:118px;}
 #results li:hover{background:#d7d3d3;}
 
 
+#regresults{margin-top:-9px; padding:0px 15px; background:#e0e0e0; margin-left:5%; width:80%; position:absolute; z-index:10; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box; box-shadow:0px 5px 0px 0px #c6c6c6; border-radius:0px 0px 8px 8px;}
+#regresults li{padding:11px 0; border-bottom:1px solid #c1c1c1; border-top:1px solid #fbfbfb;}
+#regresults a{color:#878787; font-family:'Open Sans'; font-weight:600; text-shadow:0px 2px rgba(255,255,255,0.9); font-size:18px;}
+#regresults li:hover{background:#d7d3d3;}
 
 /****************STYLES FOR INBOX****************************/
 
@@ -398,5 +402,37 @@ span.orange{color:#f5a532;}
 .kork_option li .fa{color:#1abc9c;}
 .kork_option li:last-of-type{border:0;}
 .bx-wrapper .bx-viewport{box-shadow:none; border:0 none;}
-#loading, #loading-login{text-align:center;}
-#error{text-align:center;}
+
+
+/******************STYLES FOR CREATE GIG PAGE ***************************/
+
+.create_gig .content_inbox h2{ font:30px 'Open Sans'; color:#848484; padding:10px 0;}
+.create_gig .content_inbox .left_gig{float:left; width:775px; border:1px solid #ddd; border-radius:5px; background:#fff; padding:20px;}
+.create_gig .form_row{padding:0 0 20px 0; position:relative;}
+.form_row .label_wrap{width:17%; padding-right:5%; vertical-align:top; text-align:right; display:inline-block;}
+.form_row label{text-transform:uppercase; font-weight:700; font:400 12px/16px 'Open Sans', sans-serif; color:#777; cursor:default;}
+.form_row .input_wrap{width:75%; display:inline-block; position:relative;}
+.form_row textarea{display:block; overflow:auto; border:1px solid #ccc; color:#777; padding:6px 7px 7px 7px; margin:0; resize:none; border-radius:3px; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box; width:100%; font:400 12px/16px 'Open Sans', sans-serif;}
+.form_row .gig_title{overflow:hidden;}
+.form_row .input_wrap .gig_title_text{font-size:40px; letter-spacing:1px; width:100%; display:block; overflow:auto;
+resize:none;}
+.form_row .input_wrap .fake-dropdown{width:250px; border:1px solid #ccc; border-radius:5px; padding:5px;}
+.form_row .dropdown-toggle{display:block; width:280px; float:left; color:#777;}
+.form_row .fake-dropdown a.category:after{left:41%; top:15px;}
+.form_row .dropdown-menu{width:250px;}
+.form_row #gig_gallery_wrap{ text-align:center; background:#f4f4f4 url(../img/gig_gallery_ico.png) no-repeat 10% center; border:1px solid #e8e8e8;  min-height:200px;}
+.form_row .file_input_inner{float:right; text-align:center;  width:70%; padding-top:30px;}
+.form_row .file_input_inner button{line-height:40px; height:40px;}
+.form_row .file_input_inner p{color:#414141; font-size:15px;}
+.form_row .file_input_inner p span{color:#aaa; font-size:-1px;}
+.bottom_save_block{float:left; width:775px; text-align:center; padding-top:25px;}
+.bottom_save_block button{white-space:nowrap; width:200px; line-height:37px; font:22px 'Open Sans';  height:42px; text-transform:capitalize; display:inline-block;} 
+.bottom_save_block button.btn_cancel{text-align:center; background:#fff; color:#b0b0b0; width:140px; margin-left:15px; border-bottom:2px solid #d8d8d8;}
+.gig-tooltip{position:absolute; left:100%; width:303px; height:100%; top:0; background:transparent;opacity:0;}
+.form_row:hover > .gig-tooltip, .form_row.active > .gig-tooltip{opacity:1;}
+.gig-tooltip figure{position:relative; width:235px; min-height:285px; padding:15px; min-height:285px; background:#fff; border-radius:5px; box-shadow:2px 1px 1px #ddd;  -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box;
+ border:1px solid #ddd;}
+.gig-tooltip figure h3{font:18px "Open Sans"; color:#2e2e2e;}
+.gig-tooltip figure p{color:#828282; font-size:13px;}
+.gig-tooltip .gig-tooltip-img{background:url(../img/gig_title_pic.png) no-repeat center; width:231px; height:232px;}
+.gig-tooltip figure:after{background:url(../img/site_sprites.png) no-repeat; content:""; z-index:1; display:block; overflow:hidden;	 background-position:-300px -400px; width:10px; height:23px; position:absolute; top:10px; left:-9px;}

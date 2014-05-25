@@ -1,10 +1,66 @@
+<?php
+
+
+session_start();
+
+
+include '_user-details.php';
+include 'connect_to_mysql.php';
+	
+
+	  $stmt = $dbh->prepare("SELECT * FROM users WHERE username  = :user");
+    $stmt->bindParam(':user', $username, PDO::PARAM_STR,15);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    $result=$result[0];
+	$row = $result;
+	$username = $row['username'];
+	
+	if($_GET)
+	{	
+	$type = $_GET['type'];
+	if($type=='archive'){
+		  $stmt = $dbh->prepare("SELECT * FROM inbox WHERE receiver  = :user and isArchive=:isarchive");
+   $readS=1;
+    $stmt->bindParam(':user', $username, PDO::PARAM_STR,15);
+	 $stmt->bindParam(':isarchive', $readS, PDO::PARAM_INT,1);
+    $stmt->execute();
+     $result = $stmt->fetchAll();
+		}
+		else if($type=='unread'){
+			  $stmt = $dbh->prepare("SELECT * FROM inbox WHERE receiver  = :user and isRead=:isread");
+			  $readS=0;
+    $stmt->bindParam(':user', $username, PDO::PARAM_STR,15);
+	 $stmt->bindParam(':isread', $readS, PDO::PARAM_INT,1);
+    $stmt->execute();
+     $result = $stmt->fetchAll();
+			}
+			else if($type=='read'){
+				  $stmt = $dbh->prepare("SELECT * FROM inbox WHERE receiver  = :user and isRead=:isread");
+     $readS=1;
+    $stmt->bindParam(':user', $username, PDO::PARAM_STR,15);
+	 $stmt->bindParam(':isread', $readS, PDO::PARAM_INT,1);
+    $stmt->execute();
+     $result = $stmt->fetchAll();
+				}
+	
+	}else{
+	
+			  $stmt = $dbh->prepare("SELECT * FROM inbox WHERE receiver  = :user");
+    $stmt->bindParam(':user', $username, PDO::PARAM_STR,15);
+    $stmt->execute();
+     $result = $stmt->fetchAll();
+
+	}
+?>
+
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<title>::Inbox::</title>
+<title>::Inbox:</title>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/media.css" type="text/css">
@@ -21,15 +77,24 @@ $(document).ready(function() {
   $('#simple-menu').sidr();
 });
 </script>
-<!--[if lt IE 9]>
-	<script src="js/lib/html5shiv.js"></script>
-<![endif]-->
-<!--[if lte IE 10]>
-    <style type="text/css">
-    .content_inbox_inner .fixed_top{width:100%; margin:0 auto;}
-    .content_inbox_inner .fixed_top:before, .content_inbox_inner .fixed_top:after{display:none;}
-    </style>
-<![endif]-->
+<script>
+$(function() {      
+          $("nav.main_nav li#admin > ul").css("display","none");
+        
+			       
+           			$("nav.main_nav li#admin").hover(function () {   
+         							  $( "nav.main_nav li#admin > ul" ).css( "display", "block" );
+	            },          
+            	function () {      
+							           $( "nav.main_nav li#admin > ul" ).css( "display", "none" );
+				        });   
+				     });
+					 
+</script>
+
+
+<script src="js/school-list.js"></script>
+
 </head>
 
 <body>
@@ -54,7 +119,7 @@ $(document).ready(function() {
           </ul>
 		</div>
             <div class="logo"><a href="#"><img src="img/logo.png" width="153" alt=""></a></div>
-            <?php include "headers/menu-top-navigation.php"; ?>
+           <?php include "headers/menu-top-navigation.php"; ?>
         </header>
         <div class="clear"></div>
     </div><!--/.header_bg-->
@@ -64,7 +129,6 @@ $(document).ready(function() {
         <a href="#" class="search_icon"><img src="img/magnifying.png" width="30" alt="search"></a>
         <div class="content_inbox_inner">
         	<div class="fixed_top">
-            
             	<div class="mail_selector">
                 	<div class="dropdown">
                 		<a data-toggle="dropdown" href="#"><input type="checkbox" id="mail_select">
@@ -83,9 +147,9 @@ $(document).ready(function() {
                 </div>
                   <p class="mark">mark as</p>
                   <div class="btn-group">
-                  	<a href="#" class="btn_top archive">ARCHIVE</a>
-                  	<a href="#" class="btn_top unread">UNREAD</a>
-                  	<a href="#" class="btn_top read">READ</a>
+                  	<a href="http://207.45.190.206/~lolism/korkster/inbox.php?type=archive" class="btn_top archive">ARCHIVE</a>
+                  	<a href="http://207.45.190.206/~lolism/korkster/inbox.php?type=unread" class="btn_top unread">UNREAD</a>
+                  	<a href="http://207.45.190.206/~lolism/korkster/inbox.php?type=read" class="btn_top read">READ</a>
                     	<div class="clear"></div>
                   </div>
                     
@@ -111,122 +175,34 @@ $(document).ready(function() {
                     	</tr>
                     </thead>
                     <tbody>
-                    	<tr>
-                        	<td class="inbox_mail_row">
-                            	<table class="ellip">
+                    
+                    <?php
+             
+                    
+					
+					
+						foreach ($result as $row) {
+ 					
+					$date=$row['dateM'];
+					$lastmessage=$row['lastMessage'];
+					$sender=$row['sender'];
+                    	echo "<tr>
+                        	<td class='inbox_mail_row'>
+                            	<table class='ellip'>
                                 	<tr>
-                                    	<td class="checkbox"><input type="checkbox"></td>
-                                        <td class="star"><img src="img/star.png" width="23" alt="star"></td>
-                                        <td class="sender_dt"><img src="img/sender_img.png" width="26" alt="sender">mark, thomas</td>
-                                        <td class="messege_subject">Lorem Ipsum is simply dummy text of the printing Lorem Ipsum is simply dummy text of the printing</td>
-                                        <td class="update">Dec 01, 13</td>
-                                    </tr>
+                                    	<td class='checkbox'><input type='checkbox'></td>
+                                        <td class='star'><img src='img/star.png' width='23' alt='star'></td>
+                                        <td class='sender_dt'><img src='img/sender_img.png' width='26' alt='sender'>${sender}</td>
+                                        <td class='messege_subject'>${lastmessage}</td>
+                                        <td class='update'>${date}</td>
+                                   </tr>
                                 </table>
                             </td>
-                        </tr>
-                        
-                        <tr>
-                        	<td class="inbox_mail_row">
-                            	<table class="ellip">
-                                	<tr>
-                                    	<td class="checkbox"><input type="checkbox"></td>
-                                        <td class="star"><img src="img/star.png" width="23" alt="star"></td>
-                                        <td class="sender_dt"><img src="img/sender_img.png" width="26" alt="sender">mark, thomas</td>
-                                        <td class="messege_subject">Lorem Ipsum is simply dummy text of the printing</td>
-                                        <td class="update">Dec 01, 13</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        
-                        
-                        <tr>
-                        	<td class="inbox_mail_row">
-                            	<table class="ellip">
-                                	<tr>
-                                    	<td class="checkbox"><input type="checkbox"></td>
-                                        <td class="star"><img src="img/star.png" width="23" alt="star"></td>
-                                        <td class="sender_dt"><img src="img/sender_img.png" width="26" alt="sender">mark, thomas</td>
-                                        <td class="messege_subject">Lorem Ipsum is simply dummy text of the printing</td>
-                                        <td class="update">Dec 01, 13</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        
-                        
-                        <tr>
-                        	<td class="inbox_mail_row">
-                            	<table class="ellip">
-                                	<tr>
-                                    	<td class="checkbox"><input type="checkbox"></td>
-                                        <td class="star"><img src="img/star.png" width="23" alt="star"></td>
-                                        <td class="sender_dt"><img src="img/sender_img.png" width="26" alt="sender">mark, thomas</td>
-                                        <td class="messege_subject">Lorem Ipsum is simply dummy text of the printing</td>
-                                        <td class="update">Dec 01, 13</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                        	<td class="inbox_mail_row">
-                            	<table class="ellip">
-                                	<tr>
-                                    	<td class="checkbox"><input type="checkbox"></td>
-                                        <td class="star"><img src="img/star.png" width="23" alt="star"></td>
-                                        <td class="sender_dt"><img src="img/sender_img.png" width="26" alt="sender">mark, thomas</td>
-                                        <td class="messege_subject">Lorem Ipsum is simply dummy text of the printing</td>
-                                        <td class="update">Dec 01, 13</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                        	<td class="inbox_mail_row">
-                            	<table class="ellip">
-                                	<tr>
-                                    	<td class="checkbox"><input type="checkbox"></td>
-                                        <td class="star"><img src="img/star.png" width="23" alt="star"></td>
-                                        <td class="sender_dt"><img src="img/sender_img.png" width="26" alt="sender">mark, thomas</td>
-                                        <td class="messege_subject">Lorem Ipsum is simply dummy text of the printing</td>
-                                        <td class="update">Dec 01, 13</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                        	<td class="inbox_mail_row">
-                            	<table class="ellip">
-                                	<tr>
-                                    	<td class="checkbox"><input type="checkbox"></td>
-                                        <td class="star"><img src="img/star.png" width="23" alt="star"></td>
-                                        <td class="sender_dt"><img src="img/sender_img.png" width="26" alt="sender">mark, thomas</td>
-                                        <td class="messege_subject">Lorem Ipsum is simply dummy text of the printing</td>
-                                        <td class="update">Dec 01, 13</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        
-                        
-                        <tr>
-                        	<td class="inbox_mail_row">
-                            	<table class="ellip">
-                                	<tr>
-                                    	<td class="checkbox"><input type="checkbox"></td>
-                                        <td class="star"><img src="img/star.png" width="23" alt="star"></td>
-                                        <td class="sender_dt"><img src="img/sender_img.png" width="26" alt="sender">mark, thomas</td>
-                                        <td class="messege_subject">Lorem Ipsum is simply dummy text of the printing</td>
-                                        <td class="update">Dec 01, 13</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        
-                        
+                        </tr>" ;
+						}
+	                ?>   
+       					
+            
                     </tbody>
                 </table>
                 <p class="summary_para">Showing 8 of 200 messeges</p>
@@ -280,10 +256,6 @@ $(document).ready(function() {
     </footer>
 
 </div>
-
-
-<script src="js/nav-admin-dropdown.js"></script>
-<script src="js/school-list.js"></script>
 
 </body>
 </html>
