@@ -1,3 +1,16 @@
+<?php
+	
+	$school_hypens = $_GET['schoolName'];
+	$school = str_replace('-', ' ', $school_hypens);
+	$school_id = $_GET['schoolID'];
+	
+	
+	echo $school_id;
+	echo $school_hypens;
+	
+
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -177,8 +190,8 @@ function parallax(){
     <article class="header_bg_para">
     	<div class="banner_static">
         	<div class="left_alpha">
-            <h2>Over 2 Millions Services</h2>
-        	<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+            <h2>Over 2 Thousand Services</h2>
+        	<p>Korkster is a social website that helps students and teachers like you post classifieds related to your school or university.</p>
             </div>
             <div class="right_link"><a href="#"></a></div>
             <div class="clear"></div>
@@ -188,7 +201,69 @@ function parallax(){
     
     <div class="full_article_bg">
     <article  class="prod_detail">
-    	<div class="prod_desc">
+    
+    
+    
+    <?php
+		
+							include 'headers/connect_to_mysql.php';
+							
+							
+						try {
+							$dbh = new PDO("mysql:host=$db_host;dbname=$db_name", $db_username, $db_pass);
+
+							/*** The SQL SELECT statement ***/
+							$sql = "SELECT k.id, k.title, k.userID, k.detail, k.image, k.expirydate, u.ID,u.collegeID FROM `korks` k, `users` u WHERE u.ID = k.userID AND u.collegeID = $school_id";
+							
+							$find = $dbh->prepare('SELECT count(*) from korks');
+							$find->execute();	
+			
+							if($find->fetchColumn() <= 0){
+								echo "No Listings Found <br/ >";	
+				
+							}
+							
+							$counter = 0;	 
+						
+							foreach ($dbh->query($sql) as $row)
+							{		
+									$counter++;
+									$id = $row['id'];
+								    $title = $row['title'];
+									$title_withDashes = str_replace(' ', '-', $title);
+									$image = $row['image'];
+									$expiryDate = $row['expirydate'];
+									$detail = $row['detail'];
+									echo "<div class='prod_desc'>";
+        							echo "<span class='featured_bedge'>featured</span>";
+        							echo "<img class='main-prod-pic' src='korkImages/$image' width='247' alt=''>";
+            						echo "<div class='details'>";
+            						echo "<a href='cate_desc.php?korkID={$id}'><h3 style='font-weight:bold;'>$title</h3></a><br/>";
+									echo "<a href='cate_desc.php?korkID={$id}'><h3> $detail </h3></a>";
+									
+									
+                    				echo"<p><span> $expiryDate <span> | <span>12:03 PM<span></p>
+                    	 <div class='price'><span class='price_first'>$200</span><span class='prod_scheme'>10% <span class='off'>OFF																	</span></span></div>
+                    
+            			</div>
+            			<div class='clear'></div>
+        				</div>";
+								
+							}
+
+							/*** close the database connection ***/
+								$dbh = null;
+							
+							}
+							catch(PDOException $e)
+							{
+								echo $e->getMessage();
+							}
+
+	
+	?>
+    
+    	<!-- <div class="prod_desc">
         	<span class="featured_bedge">featured</span>
         	<img class="main-prod-pic" src="img/prod_img.jpg" width="247" alt="">
             <div class="details">
@@ -202,7 +277,7 @@ function parallax(){
             <div class="clear"></div>
         </div>
         
-        <div class="prod_desc">
+         <div class="prod_desc">
         	<span class="featured_bedge">featured</span>
         	<img class="main-prod-pic" src="img/prod_img.jpg" width="247" alt="">
             <div class="details">
@@ -243,7 +318,7 @@ function parallax(){
             </div>
              <div class="clear"></div>
         </div>
-        <div class="clear"></div>
+        <div class="clear"></div> -->
         
     </article>
     <div class="clear"></div>

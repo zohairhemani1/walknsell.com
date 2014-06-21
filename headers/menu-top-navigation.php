@@ -1,8 +1,25 @@
 <?php
-	session_start();
+
+session_start();
+	
+	if($_GET['status'] == 'logout')
+	{	
+		session_start();
+		session_destroy();
+	}
+
 	include 'headers/_user-details.php';
 	if(isset($_SESSION['username'])) 
 	{
+		
+		$query = "SELECT * from inbox i, users u WHERE i.senderID = u.ID && i.receiverID = :receiverID LIMIT 5";
+		$sth = $dbh->prepare($query);
+		$sth->bindValue(':receiverID',$_userID);
+		$sth->execute();
+		
+		
+		
+	
     	echo "<nav class='main_nav'>
                 <ul class='inbox_menu'>
                     <li class='home'><a href='index.php'>HOME</a></li>
@@ -10,26 +27,20 @@
                     <li class='bubble'><a href='#' class='topopup'><img src='img/bubble.png' width='24' alt=''></a>
                  <div id='toPopup'>     	
              		<div id='popup_content'>
-                      <ul class='antiscroll-inner'>
-                      	<li>
-                        	<a href='#'>
+					
+                      <ul class='antiscroll-inner'>";
+                    
+						while($result = $sth->fetch(PDO::FETCH_ASSOC))
+ {
+	 	echo "<li>
+                        	<a href=inbox_des.php?id=$result[ID]&mode=0>
                             	<em class='envelope envelope'></em>
-                                    	threeiqs just sent you a message. Click to reply.
+                                    	You got a new message from $result[fname]
                             </a>
-                        </li>
-                        <li>
-                        	<a href='#'>
-                            	<em class='envelope envelope'></em>   	
-                                    designhub just sent you a message. Click to reply.
-                            </a>
-                        </li>
-                        <li>
-                        	<a href='#'>
-                            	<em class='envelope envelope'></em>
-                                    designhub just sent you a message. Click to reply.
-                            </a>
-                        </li>
-                        <div class='clear'></div>
+                        </li>";
+  
+ }
+	echo"                      <div class='clear'></div>
                      </ul>
                      <a href='#' class='load_more'>LOAD MORE</a>
                    </div> <!--your content end-->

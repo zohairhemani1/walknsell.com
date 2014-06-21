@@ -47,52 +47,7 @@
 	
 	
 
-	
 
-/*
-	if($_POST){
-		
-		
-			
-		$name = $_POST['name'];
-		$phoneEmail = $_POST['phoneEmail'];
-		$message = $_POST['message'];
-		$headers = "From: info@korkster.com" . "\r\n" . "CC: zohairhemani1gmail.com";
-		$msg_email = "Name: {$name} <br /> Phone/Email: {$phoneEmail} <br /> Message: {$message} ";
-		
-		
-	    $stmt = $dbh->prepare(" SELECT email FROM users WHERE username = :username");
-        $stmt->bindParam(':username', $username, PDO::PARAM_STR,15);
-
-    	$stmt->execute();
-
-    	$result = $stmt->fetchAll();
-		$row=$result[0];
-
-		$email = $row['email'];
-		
-		
-		$privatekey = "6LcEDukSAAAAADGKIJhTfbItJBsTTw9vk7TvslPR";    // Captcha's Private Key
-		$resp = recaptcha_check_answer ($privatekey,
-									$_SERVER["REMOTE_ADDR"],
-									$_POST["recaptcha_challenge_field"],
-									$_POST["recaptcha_response_field"]);
-		if (!$resp->is_valid) {
-			// What happens when the CAPTCHA was entered incorrectly
-			echo "The reCAPTCHA wasn't entered correctly. Go back and try it again." .
-				 "(reCAPTCHA said: " . $resp->error . ")";
-		  }
-		else{
-			
-			mail($email,"Kork Contact Email",$message,$headers);
-			echo "Email Sent Successfully to the Seller.";
-		
-		}
-				
-			
-	}
-	
-	*/
 	
 ?>
 <!doctype html>
@@ -100,7 +55,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<title>::korkster::</title>
+<title><?php echo $title ?> - SchoolBook</title>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
 <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -130,9 +85,9 @@ vertical-align: top;
 	
 echo "<script>
 
-var sender = '$_userID';
-var korkid = '$id';
-var receiver = '$userID';
+var sender = $_userID;
+var korkid = $id;
+var receiver = $userID;
 
 </script>";
 
@@ -197,7 +152,7 @@ function sendMessage()
 		
 		
     
-		alert('dfd');
+		//alert(sender+receiver);
 		
 			request = $.ajax({
 				url: "http://www.fajjemobile.info/korkster.com/catlog_sendmsg.php",
@@ -210,8 +165,9 @@ function sendMessage()
 				// log a message to the console
 				
 				
-					console.log(response);
-				
+					if(response=="Message Sent!"){
+						alert('Bid noted');
+						}
 				
 				//window.location.href = "your-questions.html";
 			});

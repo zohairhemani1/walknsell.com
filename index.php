@@ -1,12 +1,4 @@
-<?php
-session_start();
-	
-	if($_GET['status'] == 'logout')
-	{	
-		session_start();
-		session_destroy();
-	}
-?>
+
 
 <!doctype html>
 
@@ -31,7 +23,9 @@ session_start();
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
 
 <link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
 <style>
+
 
 *, *:before, *:after {
 	-webkit-box-sizing: initial;

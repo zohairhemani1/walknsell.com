@@ -1,55 +1,50 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+include 'headers/connect_to_mysql.php'; 
+include 'headers/_user-details.php';
 
 
-session_start();
-
-
-include '_user-details.php';
-include 'connect_to_mysql.php';
 	
 
-	  $stmt = $dbh->prepare("SELECT * FROM users WHERE username  = :user");
-    $stmt->bindParam(':user', $username, PDO::PARAM_STR,15);
-    $stmt->execute();
-    $result = $stmt->fetchAll();
-    $result=$result[0];
-	$row = $result;
-	$username = $row['username'];
 	
 	if($_GET)
 	{	
 	$type = $_GET['type'];
 	if($type=='archive'){
-		  $stmt = $dbh->prepare("SELECT * FROM inbox WHERE receiver  = :user and isArchive=:isarchive");
+		  $stmt = $dbh->prepare("SELECT max(i.ID),i.*,u.profilePic,u.fname,u.lname FROM inbox i,users u WHERE i.senderID = u.ID and i.receiverID  = :user and i.isArchive=:isarchive GROUP BY i.senderID");
    $readS=1;
-    $stmt->bindParam(':user', $username, PDO::PARAM_STR,15);
-	 $stmt->bindParam(':isarchive', $readS, PDO::PARAM_INT,1);
+    $stmt->bindParam(':user', $_userID);
+	 $stmt->bindParam(':isarchive', $readS);
     $stmt->execute();
-     $result = $stmt->fetchAll();
+     
 		}
 		else if($type=='unread'){
-			  $stmt = $dbh->prepare("SELECT * FROM inbox WHERE receiver  = :user and isRead=:isread");
+			  $stmt = $dbh->prepare("SELECT max(i.ID),i.*,u.profilePic,u.fname,u.lname FROM inbox i,users u WHERE i.senderID = u.ID and i.receiverID  = :user and i.isRead =:isread GROUP BY i.senderID");
 			  $readS=0;
-    $stmt->bindParam(':user', $username, PDO::PARAM_STR,15);
-	 $stmt->bindParam(':isread', $readS, PDO::PARAM_INT,1);
+    $stmt->bindParam(':user', $_userID);
+	 $stmt->bindParam(':isread', $readS);
     $stmt->execute();
-     $result = $stmt->fetchAll();
+    
 			}
 			else if($type=='read'){
-				  $stmt = $dbh->prepare("SELECT * FROM inbox WHERE receiver  = :user and isRead=:isread");
+				  $stmt = $dbh->prepare("SELECT max(i.ID),i.*,u.profilePic,u.fname,u.lname FROM inbox i,users u WHERE i.senderID = u.ID and i.receiverID  = :user and i.isRead =:isread GROUP BY i.senderID");
      $readS=1;
-    $stmt->bindParam(':user', $username, PDO::PARAM_STR,15);
-	 $stmt->bindParam(':isread', $readS, PDO::PARAM_INT,1);
+    $stmt->bindParam(':user', $_userID);
+	 $stmt->bindParam(':isread', $readS);
     $stmt->execute();
-     $result = $stmt->fetchAll();
+   
 				}
 	
 	}else{
 	
-			  $stmt = $dbh->prepare("SELECT * FROM inbox WHERE receiver  = :user");
-    $stmt->bindParam(':user', $username, PDO::PARAM_STR,15);
+
+	$stmt = $dbh->prepare("SELECT max(i.ID),i.*,u.profilePic,u.fname,u.lname FROM inbox i,users u WHERE i.senderID = u.ID and i.receiverID  = :user GROUP BY i.senderID");
+    $stmt->bindParam(':user', $_userID);
     $stmt->execute();
-     $result = $stmt->fetchAll();
+   
+	
+	
+	
 
 	}
 ?>
@@ -147,9 +142,9 @@ $(function() {
                 </div>
                   <p class="mark">mark as</p>
                   <div class="btn-group">
-                  	<a href="http://207.45.190.206/~lolism/korkster/inbox.php?type=archive" class="btn_top archive">ARCHIVE</a>
-                  	<a href="http://207.45.190.206/~lolism/korkster/inbox.php?type=unread" class="btn_top unread">UNREAD</a>
-                  	<a href="http://207.45.190.206/~lolism/korkster/inbox.php?type=read" class="btn_top read">READ</a>
+                  	<a href="inbox.php?type=archive" class="btn_top archive">ARCHIVE</a>
+                  	<a href="inbox.php?type=unread" class="btn_top unread">UNREAD</a>
+                  	<a href="inbox.php?type=read" class="btn_top read">READ</a>
                     	<div class="clear"></div>
                   </div>
                     
@@ -181,19 +176,23 @@ $(function() {
                     
 					
 					
-						foreach ($result as $row) {
+						while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
  					
 					$date=$row['dateM'];
-					$lastmessage=$row['lastMessage'];
-					$sender=$row['sender'];
+					$lastmessage=$row['message'];
+					$sender=$row['fname'].' '.$row['lname'];
+					$profileImg=$row['profilePic'];
+					if($profileImg==""){
+						$profileImg="img/sender_img.png";
+						}
                     	echo "<tr>
                         	<td class='inbox_mail_row'>
                             	<table class='ellip'>
                                 	<tr>
                                     	<td class='checkbox'><input type='checkbox'></td>
                                         <td class='star'><img src='img/star.png' width='23' alt='star'></td>
-                                        <td class='sender_dt'><img src='img/sender_img.png' width='26' alt='sender'>${sender}</td>
-                                        <td class='messege_subject'>${lastmessage}</td>
+                                        <td class='sender_dt'><img src='$profileImg' width='26' alt='sender'>${sender}</td>
+                                        <td class='messege_subject'><a href='inbox_des.php?id=$row[senderID]&mode=0'>${lastmessage}</a></td>
                                         <td class='update'>${date}</td>
                                    </tr>
                                 </table>

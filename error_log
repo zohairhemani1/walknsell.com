@@ -44,3 +44,9 @@ Stack trace:
 [25-May-2014 12:31:06 UTC] PHP Fatal error:  Call to undefined method PDOStatement::getMessage() in /home/zohairhemani1/public_html/korkster.com/signup_form_fb.php on line 49
 [25-May-2014 12:33:06 UTC] PHP Fatal error:  Call to undefined method PDOStatement::getMessage() in /home/zohairhemani1/public_html/korkster.com/signup_form_fb.php on line 49
 [25-May-2014 12:37:17 UTC] PHP Fatal error:  Call to undefined function now() in /home/zohairhemani1/public_html/korkster.com/signup_form.php on line 54
+[26-May-2014 17:52:37 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[26-May-2014 17:53:39 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[26-May-2014 19:41:24 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 11
+[27-May-2014 20:03:23 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 42
+[27-May-2014 20:04:47 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 42
+[27-May-2014 20:08:30 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/zohairhemani1/public_html/korkster.com/inbox.php on line 42

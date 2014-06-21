@@ -24,6 +24,11 @@
 			echo "Enter Description";
 		}
 		else{
+			
+			if(!isset($profilePic))
+			{
+				$profilePic = "kork.png";
+			}
 
 		$dbh->exec("INSERT INTO korks(userID,title,detail,image,status,expirydate) VALUES('$_userID','$korkname','$description','$profilePic','$category',now())");
 		
@@ -181,7 +186,7 @@ $(document).ready(function() {
           <label for="gig_title">Description</label>
         </div>
         <div class="input_wrap gig_title">
-          <textarea class="gig_desc_text" rows="10" maxlength="80" name="korkDesc"></textarea>
+          <textarea class="gig_desc_text" rows="10" maxlength="200" name="korkDesc"></textarea>
         </div>
       </div>
      <!-- <div class="form_row">

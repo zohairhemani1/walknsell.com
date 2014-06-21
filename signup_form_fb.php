@@ -55,7 +55,7 @@
 		
 		else
 		{
-			echo "username already exist";
+			echo "You are already registered, Logging you in!";
 		}
 		
 		

@@ -144,10 +144,11 @@ function signupFormFB(userID, fname,lname,email,profilePic)
 					$('#loading').html('You have been REGISTERED successfully!  A Verificaiton Link has been Emailed to you!');
 					console.log('You have been REGISTERED successfully!  A Verificaiton Link has been Emailed to you!');
 				}
-				else if(response == "username already exist")
+				else if(response == "You are already registered, Logging you in!")
 				{
-					$('#loading').html('Username already in use! Select a different username!');
-					console.log('Username already in use! Select a different username!');
+					$('#loading').html('You are already registered, Logging you in!');
+					console.log('You are already registered, Logging you in!');
+					LoginFormFB(userID);
 				}
 				else
 				{

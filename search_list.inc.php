@@ -26,18 +26,18 @@ if(!empty($search_text)){
 			
 		  }
 		  }else{
-			   $query = "SELECT name,city FROM colleges WHERE name LIKE '$search_text%' || city LIKE '$search_text%' LIMIT 5 ";
+			   $query = "SELECT ID,name,city FROM colleges WHERE name LIKE '$search_text%' || city LIKE '$search_text%' LIMIT 5 ";
 		  
 		  $query_run = mysql_query($query);
 			  while($query_row = mysql_fetch_assoc($query_run)){
 			$name = $query_row['name'];
 			$city = $query_row['city'];
-			
+			$id = $query_row['ID'];
 			$name_hypens = str_replace(' ', '-', $name);
 			
 			//echo "<a href='/korkster/school/$name_hypens'><li id='list'> {$name} - {$city} </li></a>";
 			//echo "<li id='unilist'> <a href='#'>$name</a></li>";
-			echo "<a href='school-category.php?schoolID={10}&schoolName={$name_hypens}'><li id='list'> {$name} - {$city} </li></a>";
+			echo "<a href='school-category.php?schoolID={$id}&schoolName={$name_hypens}'><li id='list'> {$name} - {$city} </li></a>";
 			
 		  }  
 			  
