@@ -98,13 +98,13 @@ session_start();
 
           <ul>
 
-            <li class='home'><a href='#'>HOME</a></li>
+            <li class='home'><a href='index.php'>HOME</a></li>
 
              <li class='to_do'><a href='#'>START SELLING</a></li>
 
-             <li class='shopping'><a href='#' data-toggle='modal' data-target='#login'>SIGN IN</a></li>
+             <li class='shopping'><a  href='#' onclick='return closeMenu();' data-toggle='modal' data-target='#login'>SIGN IN</a></li>
 
-              <li id='sales'><a href='#' data-toggle='modal' data-target='#register'>JOIN</a></li>
+              <li id='sales'><a href='#' onclick='return closeMenu();' data-toggle='modal' data-target='#register'>JOIN</a></li>
 
 
           </ul>

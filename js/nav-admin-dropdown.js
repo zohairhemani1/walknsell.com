@@ -11,3 +11,9 @@ $(function() {
 				        });   
 		});
 					 
+					 
+					 function closeMenu() {
+       
+	   $.sidr('close', 'sidr');
+	    return true;
+	}
