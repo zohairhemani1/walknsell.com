@@ -80,9 +80,9 @@ var _profilePic;
 
       // The person is logged into Facebook, but not your app.
 
-      document.getElementById('status').innerHTML = 'Please log ' +
+     // document.getElementById('status').innerHTML = 'Please log ' +
 
-        'into this app.';
+       // 'into this app.';
 
     } else {
 
@@ -90,9 +90,9 @@ var _profilePic;
 
       // they are logged into this app or not.
 
-      document.getElementById('status').innerHTML = 'Please log ' +
+      //document.getElementById('status').innerHTML = 'Please log ' +
 
-        'into Facebook.';
+        //'into Facebook.';
 
     }
 
@@ -202,9 +202,9 @@ var _profilePic;
 
       console.log('Successful login for: ' + response.name+response.email+response.id);
 
-      document.getElementById('status').innerHTML =
+      //document.getElementById('status').innerHTML =
 
-        'Thanks for logging in, ' + response.name + '!';
+        //'Thanks for logging in, ' + response.name + '!';
 		
 		
 	_userID=response.id;
@@ -213,10 +213,6 @@ var _profilePic;
 	_email=response.email;
 	_profilePic="http://graph.facebook.com/" + response.id + "/picture";
 	
-		
-		
-		
-		
 
     });
 
@@ -497,11 +493,7 @@ var _profilePic;
 
 
 
-<div id="status">
-
-</div>
-
-                
+             
 
                 
 
