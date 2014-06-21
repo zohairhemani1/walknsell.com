@@ -10,7 +10,7 @@ session_start();
 
 	include 'headers/_user-details.php';
 	
-	echo"   <div class='logo'><a href='#'><img src='img/logo.png' width='153' alt=''></a></div>";
+	echo"   <div class='logo'><a href='index.php'><img src='img/logo.png' width='153' alt=''></a></div>";
 	
 	if(isset($_SESSION['username'])) 
 	{

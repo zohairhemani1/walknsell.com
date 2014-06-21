@@ -382,7 +382,17 @@ function sendMessage()
   </div>
 </li>
 <div class="clear"></div>
+
+
 </div>
+<div class="kork_message">
+ <div class="first_dt"> <span> <img src="img/user_thumb_2.png" width="50" height="50" alt=""> </span>
+    <h2>By <a href="#"><?php echo $username; ?></a></h2>
+    <p>FROM: Pakistan JOINED <?php echo $joinedAgo; ?> Days AGO</p>
+  </div>
+</div>
+
+
 <footer>
   <div class="footer_inner">
     <div class="social">

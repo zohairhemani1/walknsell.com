@@ -41,6 +41,8 @@ article.prod_detail{width:100%; position:static;}
 .cate_desc .right_kork{width:36%; padding-right:15px;}
 .kork_option{width:100%;}
 .kork_option ul li{float:none; margin:5px auto;}
+.kork_message{width:100%;}
+.kork_message ul li{float:none; margin:5px auto;}
 
 
 /*************STYLES FOR CREATE GIG*******************/
