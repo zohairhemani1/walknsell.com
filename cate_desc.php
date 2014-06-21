@@ -210,17 +210,7 @@ function sendMessage()
 <div class="cate_desc">
 <div class="header_bg static_top">
   <header> <a id="simple-menu" class="icon-menu" href="#sidr"></a>
-    <div id="sidr">
-      <ul>
-        <li class="home"><a href="#">HOME</a></li>
-        <li class="to_do"><a href="#">START SELLING</a></li>
-        <!-- <li class="bubble"><a href="#"><img src="img/bubble.png" width="24" alt=""></a></li> -->
-        <li class="shopping"><a href="#">SIGN IN</a></li>
-        <li id="sales"><a href="#">JOIN</a></li>
-        <!-- <li class="admin"><a href="#">ZOHAIR HEMANI</a></li> -->
-      </ul>
-    </div>
-    <div class="logo"><a href="#"><img src="img/logo.png" width="153" alt=""></a></div>
+   
     
     
     <?php include 'headers/menu-top-navigation.php';?>

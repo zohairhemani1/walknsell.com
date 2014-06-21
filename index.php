@@ -246,27 +246,7 @@ var _profilePic;
 
 
 
-        <div id="sidr">
-
-          <ul>
-
-            <li class="home"><a href="#">HOME</a></li>
-
-             <li class="to_do"><a href="#">START SELLING</a></li>
-
-              <!-- <li class="bubble"><a href="#"><img src="img/bubble.png" width="24" alt=""></a></li> -->
-
-              <li class="shopping"><a href="#"  data-toggle="modal" data-target="#myModal_2">SIGN IN</a></li>
-
-              <li id="sales"><a href="#" data-toggle="modal" data-target="#myModal_1">JOIN</a></li>
-
-              <!-- <li class="admin"><a href="#">ZOHAIR HEMANI</a></li> -->
-
-          </ul>
-
-		</div>
-
-            <div class="logo"><a href="#"><img src="img/logo.png" width="153" alt=""></a></div>
+       
 
            <?php include 'headers/menu-top-navigation.php';?>
 

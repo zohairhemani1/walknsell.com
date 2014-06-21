@@ -134,23 +134,7 @@ function sendMessage()
 <div class="container inbox_des">
   <div class="header_bg">
     <header> <a id="simple-menu" class="icon-menu" href="#sidr"></a>
-      <div id="sidr">
-        <ul class="sidr_menu">
-          <li class="home"><a href="#">HOME</a></li>
-          <li class="to_do"><a href="#">START SELLING</a></li>
-          <li class="bubble"><a href="#"><img src="img/bubble.png" width="24" alt=""></a></li>
-          <li id="admin"><a href="#">ZOHAIR HEMANI</a>
-            <ul>
-              <li><a href="#">First item</a></li>
-              <li><a href="#">Second item</a></li>
-              <li><a href="#">Third item</a></li>
-              <div class="clear"></div>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="logo"><a href="#"><img src="img/logo.png" width="153" alt=""></a></div>
-      <?php include 'headers/menu-top-navigation.php';?>
+           <?php include 'headers/menu-top-navigation.php';?>
     </header>
     <div class="clear"></div>
   </div>
