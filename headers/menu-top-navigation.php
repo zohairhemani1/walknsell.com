@@ -1,14 +1,6 @@
 <?php
 
-session_start();
 	
-	if($_GET['status'] == 'logout')
-	{	
-		session_start();
-		session_destroy();
-	}
-
-	include 'headers/_user-details.php';
 	
 	echo"   <div class='logo'><a href='index.php'><img src='img/logo.png' width='153' alt=''></a></div>";
 	
@@ -38,9 +30,9 @@ session_start();
               <li class='admin'><a href='#'> <span class='user_pic_thumb' style='padding:0px'><img src='{$_profilePic}' width='24' alt='user pic'></span> {$_fname_uppercase}</a></li>
             <li><a href='#' class='whats_new'><span class='info_circle fa fa-info-circle' style='display:inline'>&nbsp;</span>What's New in V2?</a></li>
                             <li><a href='inbox.php' class='inbox'><span class='fa fa-inbox' style='display:inline'>&nbsp;</span>Inbox</a></li>
-                            <li><a href='#' class='collection'><span class='fa-heart-o'  style='display:inline'>&nbsp;</span>Collections</a></li>
-                            <li><a href='#' class='settings'><span class='fa fa-gear'  style='display:inline'>&nbsp;</span>Settings</a></li>
-                            <li><a href='index.php?status=logout' class='logout'><span class='fa fa-arrow-circle-o-left'  style='display:inline'>&nbsp;</span>Logout</a></li>
+                            <li><a href='#' class='collection'><span class='fa-heart-o'  style='display:inline'>&nbsp;</span>My Deals</a></li>";
+                            //<li><a href='#' class='settings'><span class='fa fa-gear'  style='display:inline'>&nbsp;</span>Settings</a></li>
+                            echo"<li><a href='index.php?status=logout' class='logout'><span class='fa fa-arrow-circle-o-left'  style='display:inline'>&nbsp;</span>Logout</a></li>
                             <div class='clear'></div>
  </ul>
 			  </li>
@@ -80,9 +72,9 @@ session_start();
                     	<ul>
                         	<li><a href='#' class='whats_new'><span class='info_circle fa fa-info-circle'>&nbsp;</span>What's New in V2?</a></li>
                             <li><a href='inbox.php' class='inbox'><span class='fa fa-inbox'>&nbsp;</span>Inbox</a></li>
-                            <li><a href='#' class='collection'><span class='fa-heart-o'>&nbsp;</span>Collections</a></li>
-                            <li><a href='#' class='settings'><span class='fa fa-gear'>&nbsp;</span>Settings</a></li>
-                            <li><a href='index.php?status=logout' class='logout'><span class='fa fa-arrow-circle-o-left'>&nbsp;</span>Logout</a></li>
+                            <li><a href='#' class='collection'><span class='fa-heart-o'>&nbsp;</span>My Deals</a></li>";
+                            //<li><a href='#' class='settings'><span class='fa fa-gear'>&nbsp;</span>Settings</a></li>
+                            echo"<li><a href='index.php?status=logout' class='logout'><span class='fa fa-arrow-circle-o-left'>&nbsp;</span>Logout</a></li>
                             <div class='clear'></div>
                         </ul>
                     </li>
@@ -123,4 +115,3 @@ session_start();
 	}
 	
 ?>
-

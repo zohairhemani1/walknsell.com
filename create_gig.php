@@ -1,6 +1,6 @@
 <?php
-
-	include 'headers/_user-details.php';
+session_start();
+include 'headers/_user-details.php';
 	
 	if($_SERVER['REQUEST_METHOD'] == "POST")
 	{
@@ -69,7 +69,7 @@
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/media.css" type="text/css">
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
-<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
 <!--<script src="js/jquery.min.js"></script>-->
 <script src="js/jquery-1.10.2.min.js"></script>
@@ -106,9 +106,9 @@ $(document).ready(function() {
       <div class="form_row">
         <div class="label_wrap">
           <label for="gig_title">Gig Title</label>
-        </div>
+        </div> 
         <div class="input_wrap gig_title">
-          <textarea class="gig_title_text" rows="2" maxlength="80" name="korkName"></textarea>
+          <input class="gig_title_text" style="width:90%" maxlength="80"  name="korkName"/>
         </div>
         <aside class="gig-tooltip">
           <figure>
@@ -125,12 +125,12 @@ $(document).ready(function() {
           <label for="gig_category">Category</label>
         </div>
         <div class="input_wrap">
-          <div class="fake-dropdown fake-dropdown-double"> <a href="#" class="dropdown-toggle category" data-toggle="dropdown" data-autowidth="true" rel="nofollow">CATEGORIES</a>
-            <div class="dropdown-menu mega_menu" role="menu">
+          <!--<div class="fake-dropdown fake-dropdown-double"> <a  class="dropdown-toggle category" data-toggle="dropdown" data-autowidth="true" >CATEGORIES</a>
+            <div class="dropdown-menu mega_menu" >
               <div class="dropdown-inner">
                 <ul>
-                  <li><a href="#">Gifts</a></li>
-                  <li><a href="#">Graphics & Design</a></li>
+                  <li>Gifts</li>
+                  <li>Graphics & Design</li>
                   <li><a href="#">Video & Animation</a></li>
                   <li><a href="#">Online Marketing</a></li>
                   <li><a href="#">Writing & Translation</a></li>
@@ -140,13 +140,19 @@ $(document).ready(function() {
               </div>
             </div>
             <div class="clear"></div>
-          </div>
+          </div>-->
+		<select class="fake-dropdown fake-dropdown-double dropdown-inner " style="width:90%">
+        <option value="asdf">asdfasdf</option>
+        <option value="asdf">qwerq</option>
+        <option value="asdf">zxcvcv</option>
+        
+        </select>
         </div>
         <aside class="gig-tooltip">
           <figure>
             <figcaption>
-              <h3>Describe your Gig.</h3>
-              <p>This is your Gig title. Choose wisely, you can only use 80 characters.</p>
+              <h3>Seledt a Category.</h3>
+              <p>This is your Gig category. Choose wisely for better promotion.</p>
             </figcaption>
             <div class="gig-tooltip-img"></div>
           </figure>

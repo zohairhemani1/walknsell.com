@@ -20,7 +20,7 @@ a img{border:none; outline:none;}
 .wrapper{width:100%; padding:0; margin:0 auto; background:#f4f4f4;}
 .header_bg{width:100%; background:#0084a6; height:43px; clear:both; border-bottom:5px solid #007492;}
 header{width:1000px; margin:0 auto; height:43px; line-height:43px;}
-.logo{float:left; margin-left:22px; margin-top:0px; height:30px;}
+.logo{float:left; margin-left:22px; margin-top:5px; height:30px;}
 nav.main_nav{float:right; }
 nav.main_nav ul{position:relative;}
 nav.main_nav li{float:left; border-left:1px solid #5fd4f3; border-right:1px solid #006883; text-align:center;  font-size:14px;}
@@ -438,7 +438,7 @@ resize:none;}
 .form_row .file_input_inner p{color:#414141; font-size:15px;}
 .form_row .file_input_inner p span{color:#aaa; font-size:-1px;}
 .bottom_save_block{float:left; width:775px; text-align:center; padding-top:25px;}
-.bottom_save_block button{white-space:nowrap; width:200px; line-height:37px; font:22px 'Open Sans';  height:42px; text-transform:capitalize; display:inline-block;} 
+.bottom_save_block button{white-space:nowrap; width:230px; line-height:37px; font:22px 'Open Sans';  height:42px; text-transform:capitalize; display:inline-block;} 
 .bottom_save_block button.btn_cancel{text-align:center; background:#fff; color:#b0b0b0; width:140px; margin-left:15px; border-bottom:2px solid #d8d8d8;}
 .gig-tooltip{position:absolute; left:100%; width:303px; height:100%; top:0; background:transparent;opacity:0;}
 .form_row:hover > .gig-tooltip, .form_row.active > .gig-tooltip{opacity:1;}

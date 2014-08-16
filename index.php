@@ -1,7 +1,13 @@
+<?php
+session_start();
+if($_GET && $_GET['status'] == 'logout')
+	{	
+		
+		session_destroy();
+	}
 
-
-<!doctype html>
-
+	include 'headers/_user-details.php';
+?>
 <html>
 
 <head>
@@ -23,7 +29,7 @@
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
 
 <link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
-<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <style>
 
 
@@ -244,7 +250,8 @@ var _profilePic;
 
        
 
-           <?php include 'headers/menu-top-navigation.php';?>
+           <?php
+           include 'headers/menu-top-navigation.php';?>
 
         </header>
 
@@ -375,7 +382,7 @@ var _profilePic;
 
                         <input type="email" class="form-control txt_boxes" placeholder="Email Address" name="email" id="email">
 
-                        	<input type="text" class="form-control txt_boxes" name="regcollege" size="" id="regsearch" placeholder="" onKeyUp="regfindmatch();" autocomplete="off" >
+                        	<input type="text" class="form-control txt_boxes" name="regcollege" placeholder="School" size="" id="regsearch" onKeyUp="regfindmatch();" autocomplete="off" >
 
                      <ul id ="regresults" name="school" >
 

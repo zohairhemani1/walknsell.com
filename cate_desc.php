@@ -1,6 +1,5 @@
 ﻿<?php
-	
-	include 'headers/connect_to_mysql.php';
+session_start();
 	include 'headers/_user-details.php';
 	$korkID = $_GET['korkID'];
 	//$korkName_Hypens = $_GET['kork'];
@@ -155,7 +154,7 @@ function sendMessage()
 		//alert(sender+receiver);
 		
 			request = $.ajax({
-				url: "http://www.fajjemobile.info/korkster.com/catlog_sendmsg.php",
+				url: "catlog_sendmsg.php",
 				type: "post",
 				data: {msg:$('#msg').val(),bid:$('#bid').val(),sender:sender,receiver:receiver,korkid:korkid}
 			});

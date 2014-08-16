@@ -1,6 +1,6 @@
 <?php
+session_start();	
 	
-	include 'headers/connect_to_mysql.php';
 	include 'headers/_user-details.php';
 	$korkID = $_GET['korkID'];
 	//$korkName_Hypens = $_GET['kork'];
@@ -100,7 +100,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title><?php echo $title; ?></title>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/jquery.bxslider.css" type="text/css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/media.css" type="text/css">

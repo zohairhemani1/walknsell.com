@@ -1,6 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-include 'headers/connect_to_mysql.php'; 
+session_start();
 include 'headers/_user-details.php';
 
 
@@ -48,8 +47,6 @@ include 'headers/_user-details.php';
 
 	}
 ?>
-
-<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -60,7 +57,7 @@ include 'headers/_user-details.php';
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/media.css" type="text/css">
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
-<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
 <!--<script src="js/jquery.min.js"></script>-->
 <script src="js/jquery-1.10.2.min.js"></script>

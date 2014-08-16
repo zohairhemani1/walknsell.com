@@ -1,5 +1,6 @@
 <?php
-	
+session_start();
+include 'headers/_user-details.php';
 	$school_hypens = $_GET['schoolName'];
 	$school = str_replace('-', ' ', $school_hypens);
 	$school_id = $_GET['schoolID'];

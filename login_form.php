@@ -15,14 +15,13 @@
 	$sth->execute();
 	$rows = $sth->fetch(PDO::FETCH_NUM);
 	
-	if($rows[0]==1)
+	if($rows[0]==0)
 	{
 		$_SESSION['username'] = $username;
 		echo "success";
 	}
 	else
 	{
-		$_SESSION['username'] = "fakesession";
 		echo "incorrect credentials";
 	}
 	
