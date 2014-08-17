@@ -18,10 +18,7 @@
 	}
 	else
 	{
-		$_SESSION['username'] = "fakesession";
 		echo "incorrect credentials";
 	}
-	
-	
 	
 ?>
