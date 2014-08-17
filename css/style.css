@@ -109,7 +109,7 @@ footer{clear:both; background:#3a3839; min-height:118px;}
 .footer_inner .social ul li a.insta:hover{background-position:-151px -49px;}
 
 /****************STYLES FOR SCHOOL LIST****************************/
-#results{margin-top:1px; padding:0px 15px; background:#e0e0e0; margin-left:1.5%; width:69%; position:absolute; top:100%; z-index:10; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box; box-shadow:0px 5px 0px 0px #c6c6c6; border-radius:0px 0px 8px 8px;}
+#results{margin-top:1px; padding:0px 15px; background:#e0e0e0; margin-left:1.5%; width:69%; position:absolute; top:100%; z-index:101; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box; box-shadow:0px 5px 0px 0px #c6c6c6; border-radius:0px 0px 8px 8px;}
 #results li{padding:11px 0; border-bottom:1px solid #c1c1c1; border-top:1px solid #fbfbfb;}
 #results a{color:#878787; font-family:'Open Sans'; font-weight:600; text-shadow:0px 2px rgba(255,255,255,0.9); font-size:18px;}
 #results li:hover{background:#d7d3d3;}

@@ -226,12 +226,6 @@ var _profilePic;
 
 </script>
 
-<!--[if lt IE 9]>
-
-			<script src="js/lib/html5shiv.js"></script>
-
-		<![endif]-->
-
 </head>
 
 
@@ -402,9 +396,9 @@ var _profilePic;
                         <div id="loading"></div>
 
                         <input type="submit" class="btn_signup" value="submit" />
-</center>
-                        <p class="terms">By signing up, I agree to WalknSell <a href="#" class="terms_link">terms of service.</a></p>
 
+                        <p class="terms">By signing up, I agree to WalknSell <a href="#" class="terms_link">terms of service.</a></p>
+</center>
                     </form>
 
                      <div class="clearfix"></div>
