@@ -308,7 +308,7 @@ function LoginFormFB()
 			
 	
 		// prevent default posting of form
-		event.preventDefault();
+		//event.preventDefault();
 	
 	
 }
