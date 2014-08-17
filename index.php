@@ -1,12 +1,16 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 session_start();
-if($_GET && $_GET['status'] == 'logout')
+if(isset($_GET['status']) && $_GET['status'] == 'logout')
 	{	
-		
-		session_destroy();
+	
+	unset($_SESSION);
+    session_unset();
+    session_destroy();
 	}
 
 	include 'headers/_user-details.php';
+	
 ?>
 <html>
 
@@ -132,7 +136,8 @@ var _profilePic;
 
     cookie     : true,  // enable cookies to allow the server to access 
 
-                        // the session
+     status     : true,                   // the session
+	channelUrl : '//WWW.walknsell.COM/channel.html',
 
     xfbml      : true,  // parse social plugins on this page
 
@@ -180,19 +185,13 @@ var _profilePic;
 
   // Load the SDK asynchronously
 
-  (function(d, s, id) {
-
-    var js, fjs = d.getElementsByTagName(s)[0];
-
-    if (d.getElementById(id)) return;
-
-    js = d.createElement(s); js.id = id;
-
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-
-    fjs.parentNode.insertBefore(js, fjs);
-
-  }(document, 'script', 'facebook-jssdk'));
+(function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 
 
 
@@ -653,7 +652,7 @@ var _profilePic;
 
 <script src ="js/register.js"></script>
 
-<script src ="js/functions.js"></script>
+
 
 
 <script type="text/javascript">
