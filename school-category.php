@@ -203,13 +203,17 @@ function parallax(){
 
 							/*** The SQL SELECT statement ***/
 							$sql = "SELECT k.id, k.title, k.userID, k.detail, k.image, k.expirydate, u.ID,u.collegeID FROM `korks` k, `users` u WHERE u.ID = k.userID AND u.collegeID = $school_id";
+							$result = mysqli_query($con,$sql);
+							$count = mysqli_num_rows($result);
 							
-							$find = $dbh->prepare('SELECT count(*) from korks');
-							$find->execute();	
-			
-							if($find->fetchColumn() <= 0){
-								echo "No Listings Found <br/ >";	
-				
+							if($count==0){
+								echo "<div id='contentSub' class='clearfix'>
+										  <div class='contentBox'>
+											  <p class='fontelico-emo-unhappy noKorks'> No Korks found.</p>
+											  <p class='noKorksCreate'>Are you looking to buy or sell something at Southern Polytechnic State University?</p>
+											  <p class='noKorksCreate'><a href='/create-kork' class='entypo-pencil'> Create Your Kork!</a></p>
+										  </div>
+									  </div>";
 							}
 							
 							$counter = 0;	 
@@ -249,10 +253,7 @@ function parallax(){
 								echo $e->getMessage();
 							}
 
-	
 	?>
-    
-           
     </article>
     <div class="clear"></div>
     </div>
