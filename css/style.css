@@ -448,4 +448,26 @@ resize:none;}
 .gig-tooltip figure p{color:#828282; font-size:13px;}
 .gig-tooltip .gig-tooltip-img{background:url(../img/gig_title_pic.png) no-repeat center; width:231px; height:232px;}
 .gig-tooltip figure:after{background:url(../img/site_sprites.png) no-repeat; content:""; z-index:1; display:block; overflow:hidden;	 background-position:-300px -400px; width:10px; height:23px; position:absolute; top:10px; left:-9px;}
-.kork_text_wrap{height:4.8em;overflow:hidden;}
+
+.alert
+{
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.alert-success
+{
+	color:#3c763d;
+	background-color:#dff0d8;
+	border-color:#d6e9c6;
+}
+
+#loading
+{
+	font-size:11px;
+	text-align:center;
+	padding-top:20px;
+	padding-bottom:10px;
+}

@@ -64,7 +64,7 @@ function signupForm()
 				
 				if(response=="success")
 				{
-					$('#loading').html('You have been REGISTERED successfully!  A Verificaiton Link has been Emailed to you!');
+					$('#loading').html('<span class =\'alert alert-success\'><strong>Registered Successfully! </strong>. A Verificaiton Link has been Emailed to you!</span>');
 				}
 				else if(response == "username already exist")
 				{

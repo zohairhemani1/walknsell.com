@@ -399,7 +399,9 @@ var _profilePic;
 
                         
 
-                        <div id="loading"></div>
+                        <div id="loading">
+                        	
+                        </div>
 
                         <input type="submit" class="btn_signup" value="submit" />
 
