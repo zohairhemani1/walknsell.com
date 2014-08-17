@@ -247,63 +247,7 @@ function parallax(){
 	
 	?>
     
-    	<!-- <div class="prod_desc">
-        	<span class="featured_bedge">featured</span>
-        	<img class="main-prod-pic" src="img/prod_img.jpg" width="247" alt="">
-            <div class="details">
-            	<h3>Apple iMac 21.5” inch
-					Core i3 Computer/3.2Ghz 
-					1TB, Applecare Warrany</h3>
-                    <p><span>January 5, 2014<span> | <span>12:03 PM<span></p>
-                    <div class="price"><span class="price_first">$200</span><span class="prod_scheme">10% <span class="off">OFF</span></span></div>
-                    
-            </div>
-            <div class="clear"></div>
-        </div>
-        
-         <div class="prod_desc">
-        	<span class="featured_bedge">featured</span>
-        	<img class="main-prod-pic" src="img/prod_img.jpg" width="247" alt="">
-            <div class="details">
-            	<h3>Apple iMac 21.5” inch
-					Core i3 Computer/3.2Ghz 
-					1TB, Applecare Warrany</h3>
-                    <p><span>January 5, 2014<span> | <span>12:03 PM<span></p>
-                    <div class="price"><span class="price_first">$200</span><span class="prod_scheme">10% <span class="off">OFF</span></span></div>
-                    
-            </div>
-             <div class="clear"></div>
-        </div>
-        
-        <div class="prod_desc">
-        	<span class="featured_bedge">featured</span>
-        	<img class="main-prod-pic" src="img/prod_img.jpg" width="247" alt="">
-            <div class="details">
-            	<h3>Apple iMac 21.5” inch
-					Core i3 Computer/3.2Ghz 
-					1TB, Applecare Warrany</h3>
-                    <p><span>January 5, 2014<span> | <span>12:03 PM<span></p>
-                    <div class="price"><span class="price_first">$200</span><span class="prod_scheme">10% <span class="off">OFF</span></span></div>
-                    
-            </div>
-             <div class="clear"></div>
-        </div>
-        
-        <div class="prod_desc">
-        	<span class="featured_bedge">featured</span>
-        	<img class="main-prod-pic" src="img/prod_img.jpg" width="247" alt="">
-            <div class="details">
-            	<h3>Apple iMac 21.5” inch
-					Core i3 Computer/3.2Ghz 
-					1TB, Applecare Warrany</h3>
-                    <p><span>January 5, 2014<span> | <span>12:03 PM<span></p>
-                    <div class="price"><span class="price_first">$200</span><span class="prod_scheme">10% <span class="off">OFF</span></span></div>
-                    
-            </div>
-             <div class="clear"></div>
-        </div>
-        <div class="clear"></div> -->
-        
+           
     </article>
     <div class="clear"></div>
     </div>

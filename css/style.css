@@ -360,7 +360,7 @@ div.price span.prod_scheme{background:orange; margin-left:20px; display:block; f
 .modal-content{border-radius:15px;}
 .modal-dialog input.txt_boxes, .modal-dialog select{margin-bottom:10px; padding-top:10px; width:85%; display:block; margin-left:auto; margin-right:auto; border-radius:8px; height:45px; line-height:45px;}
 .modal-dialog .form-control{box-shadow:0px 2px rgba(0,0,0,.2); background:#fff9f8; font-size:18px; font-weight:normal; color:#9b9b9b;}
-.modal-dialog p.terms{font-size:12px; color:#424b49; padding:10px 0 0 50px;}
+.modal-dialog p.terms{font-size:12px; color:#424b49;}
 .modal-dialog p.terms a.terms_link{color:#0084a6;}
 .btn_signup{height:32px; border-radius:5px; width:126px;  color:#fff; font-weight:bold; font-size:16px; text-transform:uppercase; border:0; border-bottom:2px solid #ca8d35; background:#e6a03c; margin:10px auto; cursor:pointer; display:block;}
 button.btn_signup:hover{border-bottom:2px solid rgba(0,0,0,.5);}
