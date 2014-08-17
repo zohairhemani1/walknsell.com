@@ -81,6 +81,12 @@ $(document).ready(function() {
   $('#simple-menu').sidr();
 });
 </script>
+
+
+
+<script src="js/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="js/jquery.fileupload.js"></script>
 <!--[if lt IE 9]>
 	<script src="js/lib/html5shiv.js"></script>
 <![endif]-->
@@ -108,7 +114,7 @@ $(document).ready(function() {
           <label for="gig_title">Gig Title</label>
         </div> 
         <div class="input_wrap gig_title">
-          <input class="gig_title_text" style="width:90%" maxlength="80"  name="korkName"/>
+          <input class="gig_title_text" style="width:90%" maxlength="80"  name="korkName"/ required>
         </div>
         <aside class="gig-tooltip">
           <figure>
@@ -141,10 +147,10 @@ $(document).ready(function() {
             </div>
             <div class="clear"></div>
           </div>-->
-		<select class="fake-dropdown fake-dropdown-double dropdown-inner " style="width:90%">
-        <option value="asdf">asdfasdf</option>
-        <option value="asdf">qwerq</option>
-        <option value="asdf">zxcvcv</option>
+		<select class="fake-dropdown fake-dropdown-double dropdown-inner " style="width:90%" required>
+        <option value="0">Select Category</option>
+        <option value="1">Books</option>
+        <option value="2">CD/DVD</option>
         
         </select>
         </div>
@@ -166,7 +172,7 @@ $(document).ready(function() {
           <div class="file_input_inner">
             <!--  <button type="file" class="btn_signup" name="file" id="name">Browse</button>  -->
             
-            <input type="file" value="File" name="file" id="file" />
+            <input id="fileupload" type="file" name="files[]" multiple required>
             
             <p>JPEG file, 2MB Max, <span class="grey_c">you own the copyrights</span></p>
           </div>
@@ -177,7 +183,7 @@ $(document).ready(function() {
           <label for="gig_title">Description</label>
         </div>
         <div class="input_wrap gig_title">
-          <textarea class="gig_desc_text" rows="10" maxlength="200" name="korkDesc"></textarea>
+          <textarea class="gig_desc_text" rows="10" maxlength="200" name="korkDesc" required></textarea>
         </div>
       </div>
      <!-- <div class="form_row">

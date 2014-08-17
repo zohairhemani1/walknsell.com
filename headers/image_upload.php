@@ -1,6 +1,6 @@
 <?php
 
-include "connect_to_mysql.php";
+include "connect_database.php";
 
 if (mysql_error()) {  
     //echo "<h2>Failure:</h2><em>" . mysql_error() . "</em>";  

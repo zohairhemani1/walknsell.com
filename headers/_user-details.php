@@ -6,7 +6,7 @@
 		if(isset($_SESSION['username']))
 		{
 		$username = $_SESSION['username'];
-		include 'connect_to_mysql.php';
+		include 'connect_database.php';
 		$query = "SELECT * FROM users WHERE username like '$username'";
 		$result = mysqli_query($con,$query);
 		

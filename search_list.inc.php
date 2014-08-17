@@ -1,4 +1,5 @@
 <?php
+include "headers/connect_database.php";
 
 if(isset($_GET['search_text'])){
 	$search_text = $_GET['search_text'];

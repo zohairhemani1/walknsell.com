@@ -4,7 +4,7 @@
 	
 	if(isset($cookie))
 	{
-		include 'connect_to_mysql.php';
+		include 'connect_database.php';
 		$query_cookie = "SELECT * FROM users WHERE cookie like '$cookie' ";
 		$result_cookie = mysqli_query($con,$query_cookie);
 		$row_cookie = mysqli_fetch_array($result_cookie);

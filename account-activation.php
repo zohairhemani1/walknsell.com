@@ -1,6 +1,6 @@
 <?php
 	
-	include 'headers/connect_to_mysql.php';
+	include 'headers/connect_database.php';
 	$activationKey = $_GET['activate'];
 	
 	if($dbh->exec("UPDATE users SET active = '1' WHERE activationKey = '$activationKey'"))

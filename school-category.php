@@ -4,12 +4,6 @@ include 'headers/_user-details.php';
 	$school_hypens = $_GET['schoolName'];
 	$school = str_replace('-', ' ', $school_hypens);
 	$school_id = $_GET['schoolID'];
-	
-	
-	echo $school_id;
-	echo $school_hypens;
-	
-
 ?>
 
 <!doctype html>
@@ -196,11 +190,11 @@ function parallax(){
     
     <?php
 		
-							include 'headers/connect_to_mysql.php';
+							include 'headers/connect_database.php';
 							
 							
 						try {
-							$dbh = new PDO("mysql:host=$db_host;dbname=$db_name", $db_username, $db_pass);
+					
 
 							/*** The SQL SELECT statement ***/
 							$sql = "SELECT k.id, k.title, k.userID, k.detail, k.image, k.expirydate, u.ID,u.collegeID FROM `korks` k, `users` u WHERE u.ID = k.userID AND u.collegeID = $school_id";
@@ -228,8 +222,8 @@ function parallax(){
         							echo "<span class='featured_bedge'>featured</span>";
         							echo "<img class='main-prod-pic' src='korkImages/$image' width='247' alt=''>";
             						echo "<div class='details'>";
-            						echo "<a href='cate_desc.php?korkID={$id}'><h3 style='font-weight:bold;'>$title</h3></a><br/>";
-									echo "<a href='cate_desc.php?korkID={$id}'><h3> $detail </h3></a>";
+            						echo "<a href='cate_desc.php?korkID={$id}'><h3 style='font-weight:bold;height:2.5em;overflow:hidden;'>$title</h3></a><br/>";
+									echo "<a href='cate_desc.php?korkID={$id}'><div class='kork_text_wrap'><h3> $detail </h3></div></a>";
 									
 									
                     				echo"<p><span> $expiryDate <span> | <span>12:03 PM<span></p>

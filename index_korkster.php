@@ -1,24 +1,3 @@
-<?php
- 	include( dirname(__FILE__) . "/phpjobscheduler/firepjs.php");
-	
-		if(isset($_GET['changeschool']))
-		{
-			
-			setcookie('school_cookie','',time()-60*60*24*7);
-			
-		}
-		
-		elseif(isset($_COOKIE['school_cookie']))
-		{
-			
-			$school = $_COOKIE['school_cookie'];
-			header("Location: /korkster/school/{$school}");
-		}
-		
-		
- 
- ?>
-
 <!doctype html>
 <html lang="en">
 <head>
