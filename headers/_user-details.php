@@ -8,9 +8,9 @@
 		$username = $_SESSION['username'];
 		include 'connect_to_mysql.php';
 		$query = "SELECT * FROM users WHERE username like '$username'";
-		$result = mysql_query($query);
+		$result = mysqli_query($con,$query);
 		
-		while ($row = mysql_fetch_array($result)){
+		while ($row = mysqli_fetch_array($result)){
 			$_userID = $row['ID'];
 			$_username = $row['username'];
 			$_fname = $row['fname'];
@@ -26,11 +26,7 @@
 
 		}
 		}
-		else
-		{
-			//include 'cookie_user.php';
-			
-		}
+		
 	
 
 ?>

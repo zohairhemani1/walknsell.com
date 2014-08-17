@@ -16,7 +16,7 @@ if($_GET && $_GET['status'] == 'logout')
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-<title>::korkster::</title>
+<title>::WalknSell::</title>
 
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -271,7 +271,7 @@ var _profilePic;
 
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
 
-                    <h1 class="modal-title" id="myModalLabel">Korkster Login</h1>
+                    <h1 class="modal-title" id="myModalLabel">WalknSell Login</h1>
 
                     <p>Please Enter valid Id and password for Signin!</p>
 
@@ -404,7 +404,7 @@ var _profilePic;
 
                         <input type="submit" class="btn_signup" value="submit" />
 
-                        <p class="terms">By signing up, I agree to Korkster <a href="#" class="terms_link">terms of service.</a></p>
+                        <p class="terms">By signing up, I agree to WalknSell <a href="#" class="terms_link">terms of service.</a></p>
 
                     </form>
 
@@ -504,9 +504,9 @@ var _profilePic;
 
                 
 
-                	<h2>What is Korkster?</h2>
+                	<h2>What is WalknSell?</h2>
 
-                    <p>Korkster is a social website that helps students and teachers
+                    <p>WalknSell is a social website that helps students and teachers
 
                      like you post classifieds related to your school or university.
 
@@ -518,7 +518,7 @@ var _profilePic;
 
                       </p>
 
-                      <p>Korkster is safe and simple.</p>
+                      <p>WalknSell is safe and simple.</p>
 
                 </div>
 
@@ -632,9 +632,9 @@ var _profilePic;
 
             <div class="copyright">
 
-            	<h4 class="f_logo">Korkster</h4>
+            	<h4 class="f_logo">WalknSell</h4>
 
-                	<p>Copyright 2013 Korkster.</p>
+                	<p>Copyright 2013 WalknSell.</p>
 
 					<p>All Rights Reserved</p> 
 

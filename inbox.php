@@ -227,8 +227,8 @@ $(function() {
                 <div class="clear"></div>
             </div>
             <div class="copyright">
-            	<h4 class="f_logo">Korkster</h4>
-                	<p>Copyright 2013 Korkster.</p>
+            	<h4 class="f_logo">WalknSell</h4>
+                	<p>Copyright 2013 WalknSell.</p>
 					<p>All Rights Reserved</p> 
             </div>
             <div class="clear"></div>

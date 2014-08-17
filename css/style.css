@@ -344,7 +344,7 @@ div.price span.prod_scheme{background:orange; margin-left:20px; display:block; f
 .maxsize{font-size:12px; width:140px; position:absolute; left:136px; top:-1px;}
 .reply_box_22 .bottom_div .btn_file:hover{border-bottom:2px solid rgba(0,0,0,.5);}
 .reply_box_22 .bottom_div .btn_file:active{border-bottom:none; top:2px;}
-.button_send{float:right; margin-right:10px; margin-top:10px; height:32px; border-radius:3px; width:86px;  color:#fff; font-weight:600; font-size:15px; text-transform:uppercase; border:0; border-bottom:2px solid #ca8d35; background:#e6a03c url(../img/site_sprites.png) no-repeat -590px -91px; padding-left:34px; cursor:pointer; position:relative;}
+.button_send{float:right; margin-right:10px; margin-top:10px; height:32px; border-radius:3px; width:90px;  color:#fff; font-weight:600; font-size:15px; text-transform:uppercase; border:0; border-bottom:2px solid #ca8d35; background:#e6a03c url(../img/site_sprites.png) no-repeat -590px -91px; padding-left:34px; cursor:pointer; position:relative;}
 .button_send:hover{border-bottom:2px solid rgba(0,0,0,.5);}
 .button_send:active{border-bottom:none; top:2px;}
 .bottom_div .upload_prob{color:#e6a03c;}

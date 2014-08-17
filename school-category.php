@@ -17,7 +17,7 @@ include 'headers/_user-details.php';
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<title>::korkster::</title>
+<title>::WalknSell::</title>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/media.css" type="text/css">
@@ -181,7 +181,7 @@ function parallax(){
     	<div class="banner_static">
         	<div class="left_alpha">
             <h2>Over 2 Thousand Services</h2>
-        	<p>Korkster is a social website that helps students and teachers like you post classifieds related to your school or university.</p>
+        	<p>WalknSell is a social website that helps students and teachers like you post classifieds related to your school or university.</p>
             </div>
             <div class="right_link"><a href="#"></a></div>
             <div class="clear"></div>
@@ -343,8 +343,8 @@ function parallax(){
                 <div class="clear"></div>
             </div>
             <div class="copyright">
-            	<h4 class="f_logo">Korkster</h4>
-                	<p>Copyright 2013 Korkster.</p>
+            	<h4 class="f_logo">WalknSell</h4>
+                	<p>Copyright 2013 WalknSell.</p>
 					<p>All Rights Reserved</p> 
             </div>
             <div class="clear"></div>

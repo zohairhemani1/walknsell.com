@@ -1,4 +1,7 @@
-<!doctype html>
+<?php
+	session_start();
+	include 'headers/_user-details.php';
+?>
 <html>
 <head>
 <meta charset="utf-8">
@@ -9,7 +12,7 @@
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/media.css" type="text/css">
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
-<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
 <!--<script src="js/jquery.min.js"></script>-->
 <script src="js/jquery-1.10.2.min.js"></script>
@@ -33,8 +36,7 @@ $(document).ready(function() {
 
 <?php
 	
-	include 'headers/connect_to_mysql.php';
-	include 'headers/_user-details.php';
+
 	echo "<script>
 
 var sender = $_userID;
@@ -326,8 +328,8 @@ join users u on u.ID = i.senderID left outer join korks k on k.ID = i.korkID WHE
       <div class="clear"></div>
     </div>
     <div class="copyright">
-      <h4 class="f_logo">Korkster</h4>
-      <p>Copyright 2013 Korkster.</p>
+      <h4 class="f_logo">WalknSell</h4>
+      <p>Copyright 2013 WalknSell.</p>
       <p>All Rights Reserved</p>
     </div>
     <div class="clear"></div>

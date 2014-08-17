@@ -69,7 +69,7 @@ header("Location: /korkster/kork/{$korkname_hyphens}");
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Post a Kork | Korkster</title>
+	<title>Post a Kork | WalknSell</title>
 	<meta name="description" content="School Name Here">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="assets/css/reset.css">
@@ -87,7 +87,7 @@ header("Location: /korkster/kork/{$korkname_hyphens}");
 	<div id="wrapper">
 		<header>
 			<div id="header" class="clearfix">
-				<a href="/korkster/" id="logo">Korkster</a>
+				<a href="/korkster/" id="logo">WalknSell</a>
 				<nav>
 					<ul class="clearfix">
 						<li><a href="register.php">Register</a></li>
@@ -150,7 +150,7 @@ header("Location: /korkster/kork/{$korkname_hyphens}");
 		<div class="push"></div>
 	</div> <!-- End Wrapper -->
 	<footer>
-		<p>&copy; <?php echo date("Y"); ?> Korkster, LLC. All Rights Reserved. | <a href="#">Privacy Policy</a></p>
+		<p>&copy; <?php echo date("Y"); ?> WalknSell, LLC. All Rights Reserved. | <a href="#">Privacy Policy</a></p>
 	</footer>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->

@@ -22,7 +22,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Korkster</title>
+	<title>WalknSell</title>
 	<meta name="description" content="">
 	
 	<!--[if lt IE 9]>
@@ -43,7 +43,7 @@
 	<div id="wrapper">
 		<header>
 			<div id="header" class="clearfix">
-				<a href="#" id="logo">Korkster</a>
+				<a href="#" id="logo">WalknSell</a>
 				<nav>
 					<ul class="clearfix">
 						<li><a href="register.php">Register</a></li>
@@ -80,10 +80,10 @@
 		<div id="content" class="clearfix">
 			<div class="container_18">
 				<div class="grid_9 alpha">
-					<h2>What is Korkster?</h2>				
-					<p>Korkster is a social website that helps students and teachers like you post classifieds related to your school or university.</p>
+					<h2>What is WalknSell?</h2>				
+					<p>WalknSell is a social website that helps students and teachers like you post classifieds related to your school or university.</p>
 					<p>We take multiple security measures to ensure that only legitimate classifieds are shown and spam is minimized.</p>
-					<p>Korkster is safe and simple.</p>
+					<p>WalknSell is safe and simple.</p>
 				</div>
 				<div class="grid_9 omega">
 					<h2>How It Works</h2>
@@ -111,7 +111,7 @@
 		<div class="push"></div>
 	</div> <!-- End Wrapper -->
 	<footer>
-		<p>&copy; <?php echo date("Y"); ?> Korkster, LLC. All Rights Reserved. | <a href="#">Privacy Policy</a></p>
+		<p>&copy; <?php echo date("Y"); ?> WalknSell, LLC. All Rights Reserved. | <a href="#">Privacy Policy</a></p>
 	</footer>
 	
 	
