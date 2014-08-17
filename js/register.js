@@ -120,7 +120,7 @@ function signupFormFB(userID, fname,lname,email,profilePic)
 			$('#loading').html("<img src='img/loading.gif'>");
 			
 			request = $.ajax({
-				url: "http://www.fajjemobile.info/walknsell.com/signup_form_fb.php",
+				url: "signup_form_fb.php",
 				type: "post",
 				data: {username:userID,firstname:fname,lastname:lname,email:email,profilePic:profilePic}
 			});
@@ -132,10 +132,13 @@ function signupFormFB(userID, fname,lname,email,profilePic)
 				console.log("Hooray, it worked!");
 				$('#loading').html('');
 				
+				alert(JSON.stringify(response));
+				
 				if(response=="success")
 				{
 					$('#loading').html('<span class =\'alert alert-success\'><strong>Registered Successfully! </strong>. A Verificaiton Link has been Emailed to you!</span>');
 					console.log('You have been REGISTERED successfully!  A Verificaiton Link has been Emailed to you!');
+					LoginFormFB(userID);
 				}
 				else if(response == "You are already registered, Logging you in!")
 				{
@@ -171,12 +174,6 @@ function signupFormFB(userID, fname,lname,email,profilePic)
 			//	$inputs.prop("disabled", false);
 			});
 			
-			
-
-	
-		// prevent default posting of form
-		//event.preventDefault();
-	
 }
 
 

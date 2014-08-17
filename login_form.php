@@ -16,7 +16,7 @@
 	$sth->execute();
 	$rows = $sth->fetch(PDO::FETCH_NUM);
 	
-	if($rows[0]==0)
+	if($rows[0]==1)
 	{
 		$_SESSION['username'] = $username;
 		echo "success";

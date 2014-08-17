@@ -40,15 +40,16 @@
 			$sth->bindValue(':joinDate',date('Y/m/d H:i:s'));
 			
 			//$sth ->execute();
-			 if($sth ->execute())
-			 { 
-				}
+			 if($sth ->execute() > 0)
+			 {
+				  echo "success";
+			 }
 			  
 			 else 
 			 {	
 				$errorCode = $sth->errorCode();
 				echo "ErrorCode: " . $errorCode; 
-			  }
+			 }
 			
 			
 		} // Ending bracket of IF($rows[0]==0)

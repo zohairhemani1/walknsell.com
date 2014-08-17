@@ -277,7 +277,7 @@ var _profilePic;
 
                     <div id="error-login"></div>
 
-                    	<input type="text" class="form-control txt_boxes" placeholder="Username" name="username-login" id="username-login" required>
+                    	<input type="text" class="form-control txt_boxes" placeholder="Username" name="username-login" id="username-login" required= "true">
                         <input type="password" class="form-control txt_boxes" placeholder="Password" name="password-login" id="password-login" required>
 
 						<div id="loading-login"></div>
