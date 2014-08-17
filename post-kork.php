@@ -160,46 +160,7 @@ header("Location: /korkster/kork/{$korkname_hyphens}");
 <!-- The basic File Upload plugin -->
 <script src="assets/js/file-upload/jquery.fileupload.js"></script>
 
-<script>
 
-/*jslint unparam: true */
-/*global window, $ */
-$(function () {
-    'use strict';
-    // Change this to the location of your server-side upload handler:
-    var url = window.location.hostname === 'blueimp.github.io' ?
-                '//jquery-file-upload.appspot.com/' : 'server/php/';
-    $('#fileupload').fileupload({
-        url: url,
-        dataType: 'json',
-        done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-				$('<p/>').text(file.name).appendTo('#files');
-				$('input[name=name3]').val($('input[name=name3]').val()+','+file.name); 
-				
-                                
-				         <!-- Sending Attachment name to hidden input field -->      
-				
-            });
-        },
-        progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .progress-bar').css(
-                'width',
-                progress + '%'
-            );
-        }
-    }).prop('disabled', !$.support.fileInput)
-        .parent().addClass($.support.fileInput ? undefined : 'disabled');
-});
-
-
-
-
-
-
-
-</script>
 
 </body>
 </html>
