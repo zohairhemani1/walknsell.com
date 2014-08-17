@@ -270,7 +270,7 @@ var _profilePic;
 
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
 
-                    <h1 class="modal-title" id="myModalLabel">WalknSell Login</h1>
+                    <h1 class="modal-title" id="myModalLabel">Login to WalkNSell</h1>
 
                     <p>Please Enter valid Id and password for Signin!</p>
 
@@ -282,7 +282,7 @@ var _profilePic;
 
                     <div id="error-login"></div>
 
-                    	<input type="text" class="form-control txt_boxes" placeholder="Login Username" name="username-login" id="username-login">
+                    	<input type="text" class="form-control txt_boxes" placeholder="Username" name="username-login" id="username-login">
 
                         <input type="password" class="form-control txt_boxes" placeholder="Password" name="password-login" id="password-login">
 

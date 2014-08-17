@@ -2,7 +2,6 @@ var error;
 
 $(document).ready(function(e) 
 {
-    
 	signupForm();
 	loginForm();
 	
@@ -13,15 +12,10 @@ $(document).ready(function(e)
 
 function signupForm()
 {
-	
-		
-	
 		// variable to hold request
 		var request;
 		// bind to the submit event of our form
 		$("#signup").submit(function(event){
-	
-	
 	
 		// show loading bar until the json is recieved
 	
@@ -50,7 +44,7 @@ function signupForm()
 			 $inputs.prop("disabled", true);
 		// fire off the request to /form.php
 			request = $.ajax({
-				url: "http://www.fajjemobile.info/korkster.com/signup_form.php",
+				url: "http://www.fajjemobile.info/walknsell.com/signup_form.php",
 				type: "post",
 				data: serializedData
 			});
@@ -72,7 +66,7 @@ function signupForm()
 				}
 				else
 				{
-					$('#loading').html('Sorry, There has been an error in our system! We are working on it. Thank You for your patience. ' + response);
+					$('#loading').html('<span class=\'alert alert-danger\'>Sorry, There has been an error in our system!' + response+'</span>');
 				}
 				
 				//window.location.href = "your-questions.html";
@@ -126,7 +120,7 @@ function signupFormFB(userID, fname,lname,email,profilePic)
 			$('#loading').html("<img src='img/loading.gif'>");
 			
 			request = $.ajax({
-				url: "http://www.fajjemobile.info/korkster.com/signup_form_fb.php",
+				url: "http://www.fajjemobile.info/walknsell.com/signup_form_fb.php",
 				type: "post",
 				data: {username:userID,firstname:fname,lastname:lname,email:email,profilePic:profilePic}
 			});
@@ -140,18 +134,18 @@ function signupFormFB(userID, fname,lname,email,profilePic)
 				
 				if(response=="success")
 				{
-					$('#loading').html('You have been REGISTERED successfully!  A Verificaiton Link has been Emailed to you!');
+					$('#loading').html('<span class =\'alert alert-success\'><strong>Registered Successfully! </strong>. A Verificaiton Link has been Emailed to you!</span>');
 					console.log('You have been REGISTERED successfully!  A Verificaiton Link has been Emailed to you!');
 				}
 				else if(response == "You are already registered, Logging you in!")
 				{
-					$('#loading').html('You are already registered, Logging you in!');
+					$('#loading').html('<span class=\'alert alert-warning\'><strong>You are already registered!</strong> Logging you in.</span>');
 					console.log('You are already registered, Logging you in!');
 					LoginFormFB(userID);
 				}
 				else
 				{
-					$('#loading').html('Sorry, There has been an error in our system! We are working on it. Thank You for your patience. ' + response);
+					$('#loading').html('<span class=\'alert alert-danger\'>Sorry, There has been an error in our system!' + response+'</span>');
 
 					console.log('Sorry, There has been an error in our system! We are working on it. Thank You for your patience. ' + response);
 				}
@@ -281,17 +275,17 @@ function LoginFormFB()
 				
 				if(response=="success")
 				{
-					$('#loading-login').html('Successfull');
+					$('#loading-login').html('<span class=\'alert alert-success\'><strong>Login Successfull</strong></span>');
 					window.location.href = "index.php";
 				}
 				else if(response == "incorrect credentials")
 				{
-					$('#loading-login').html('Incorrect Credentials');
+					$('#loading-login').html('<span class=\'alert alert-danger\'><strong>Incorrect Credentials.</strong></span>');
 					
 				}
 				else
 				{
-					$('#loading-login').html('Sorry, There has been an error in our system! We are working on it. Thank You for your patience. ' + response);
+					$('#loading-login').html('<span class=\'alert alert-danger\'><strong>Sorry, There has been an error in our system!</strong>' + response+'</span>');
 				}
 				
 				//window.location.href = "your-questions.html";
@@ -375,20 +369,18 @@ function loginForm()
 				
 				if(response=="success")
 				{
-					$('#loading-login').html('Successfull');
+					$('#loading-login').html('<span class=\'alert alert-success\'><strong>Login Successfull</strong></span>');
 					window.location.href = "index.php";
 				}
 				else if(response == "incorrect credentials")
 				{
-					$('#loading-login').html('Incorrect Credentials');
+					$('#loading-login').html('<span class=\'alert alert-danger\'><strong>Incorrect Credentials.</strong></span>');
 					
 				}
 				else
 				{
-					$('#loading-login').html('Sorry, There has been an error in our system! We are working on it. Thank You for your patience. ' + response);
+					$('#loading-login').html('<span class=\'alert alert-danger\'><strong>Sorry, There has been an error in our system!</strong>' + response+'</span>');
 				}
-				
-				//window.location.href = "your-questions.html";
 			});
 		
 			// callback handler that will be called on failure
