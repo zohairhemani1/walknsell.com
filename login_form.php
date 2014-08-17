@@ -1,4 +1,5 @@
 <?php
+
 	session_start();
 	header('Access-Control-Allow-Origin: *');
 	include 'headers/connect_database.php';      // Connection to Mysql Database.
@@ -24,6 +25,8 @@
 	{
 		echo "incorrect credentials";
 	}
+	
+	// Validation 
 	
 	
 	
