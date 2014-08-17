@@ -275,7 +275,7 @@ a.search_icon{display:none;}
 .submenu_wrap{width:100%; margin:0 auto; background:#fff;}
 article.header_bg_para{width:100%; background:url(../img/header_bg.jpg) no-repeat center 0; min-height:353px; margin-top:137px; background-size:100%; position:relative; z-index:1;}
 .full_article_bg{width:100%; position:relative; z-index:100; background:#fff; margin:0 auto;}
-article.prod_detail{width:1000px; margin:15px auto; z-index:20; background:#fff;}
+article.prod_detail{width:1000px; margin:15px auto; z-index:20; background:#fff; padding-top:10px;}
 .prod_desc{width:48%; float:left; border:1px solid #e9e9e9; padding:10px; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; position:relative; margin-right:10px; margin-bottom:10px;}
 .prod_desc img{float:left; width:50%;}
 .prod_desc .details{float:left; font-family:'Open Sans';  width:45%; margin-left:16px;}
