@@ -1,5 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 session_start();
 if(isset($_GET['status']) && $_GET['status'] == 'logout')
 	{	
@@ -282,9 +283,9 @@ var _profilePic;
 
                     <div id="error-login"></div>
 
-                    	<input type="text" class="form-control txt_boxes" placeholder="Login Username" name="username-login" id="username-login">
+                    	<input type="text" class="form-control txt_boxes" placeholder="Login Username" name="username-login" id="username-login" required>
 
-                        <input type="password" class="form-control txt_boxes" placeholder="Password" name="password-login" id="password-login">
+                        <input type="password" class="form-control txt_boxes" placeholder="Password" name="password-login" id="password-login" required>
 
 						<div id="loading-login"></div>
 
@@ -375,13 +376,13 @@ var _profilePic;
 
                     
 
-                    	<input type="text" class="form-control txt_boxes" placeholder="First Name" name="firstName" id="firstName">
+                    	<input type="text" class="form-control txt_boxes" placeholder="First Name" name="firstName" id="firstName" required>
 
-                        <input type="text" class="form-control txt_boxes" placeholder="Last Name" name="lastName" id="lastName">
+                        <input type="text" class="form-control txt_boxes" placeholder="Last Name" name="lastName" id="lastName" required>
 
-                        <input type="email" class="form-control txt_boxes" placeholder="Email Address" name="email" id="email">
+                        <input type="email" class="form-control txt_boxes" placeholder="Email Address" name="email" id="email" required>
 
-                        	<input type="text" class="form-control txt_boxes" name="regcollege" placeholder="School" size="" id="regsearch" onKeyUp="regfindmatch();" autocomplete="off" >
+                        	<input type="text" class="form-control txt_boxes" name="regcollege" placeholder="School" size="" id="regsearch" onKeyUp="regfindmatch();" autocomplete="off" required>
 
                      <ul id ="regresults" name="school" >
 
@@ -389,15 +390,15 @@ var _profilePic;
 
                 <div class="regclear"></div>
 
-                        <input type="text" class="form-control txt_boxes" placeholder="Create your Username" name="username" id="username">
+                        <input type="text" class="form-control txt_boxes" placeholder="Create your Username" name="username" id="username" required>
 
-                        <input type="password" class="form-control txt_boxes" placeholder="Create a Password" name="password" id="password">
+                        <input type="password" class="form-control txt_boxes" placeholder="Create a Password" name="password" id="password" required>
 
-                        <input type="password" class="form-control txt_boxes" placeholder="Confirm Password" name="verifyPassword" id="verifyPassword">
+                        <input type="password" class="form-control txt_boxes" placeholder="Confirm Password" name="verifyPassword" id="verifyPassword" required>
 
                       
 
-                        
+                        <center>
 
                         <div id="loading">
                         	
@@ -406,7 +407,7 @@ var _profilePic;
                         <input type="submit" class="btn_signup" value="submit" />
 
                         <p class="terms">By signing up, I agree to WalknSell <a href="#" class="terms_link">terms of service.</a></p>
-
+</center>
                     </form>
 
                      <div class="clearfix"></div>
@@ -484,6 +485,76 @@ var _profilePic;
         <div class="clear"></div>
 
     </article>
+
+
+
+<div class="full_article_bg">
+    <article  class="prod_detail">
+    
+    
+    
+    <?php
+		
+						try {
+					include 'headers/connect_database.php';
+
+							/*** The SQL SELECT statement ***/
+							$sql = "SELECT k.id, k.title, k.userID, k.detail, k.image, k.expirydate, u.ID,u.collegeID FROM `korks` k, `users` u LIMIT 4";
+							
+							$find = $dbh->prepare('SELECT count(*) from korks');
+							$find->execute();	
+			
+							if($find->fetchColumn() <= 0){
+								echo "No Listings Found <br/ >";	
+				
+							}
+							
+							$counter = 0;	 
+						
+							foreach ($dbh->query($sql) as $row)
+							{		
+									$counter++;
+									$id = $row['id'];
+								    $title = $row['title'];
+									$title_withDashes = str_replace(' ', '-', $title);
+									$image = $row['image'];
+									$expiryDate = $row['expirydate'];
+									$detail = $row['detail'];
+									echo "<div class='prod_desc'>";
+        							echo "<span class='featured_bedge'>featured</span>";
+        							echo "<img class='main-prod-pic' src='korkImages/$image' width='247' alt=''>";
+            						echo "<div class='details'>";
+            						echo "<a href='cate_desc.php?korkID={$id}'><h3 style='font-weight:bold;height:2.5em;overflow:hidden;'>$title</h3></a><br/>";
+									echo "<a href='cate_desc.php?korkID={$id}'><div class='kork_text_wrap'><h3> $detail </h3></div></a>";
+									
+									
+                    				echo"<p><span> $expiryDate <span> | <span>12:03 PM<span></p>
+                    	 <div class='price'><span class='price_first'>$200</span><span class='prod_scheme'>10% <span class='off'>OFF																	</span></span></div>
+                    
+            			</div>
+            			<div class='clear'></div>
+        				</div>";
+								
+							}
+
+							/*** close the database connection ***/
+								$dbh = null;
+							
+							}
+							catch(PDOException $e)
+							{
+								echo $e->getMessage();
+							}
+
+	
+	?>
+    
+           
+    </article>
+    <div class="clear"></div>
+    </div>
+
+
 
     <article class="lower_content">
 
