@@ -68,8 +68,7 @@ function signupForm()
 				}
 				else if(response == "username already exist")
 				{
-					$('#loading').html('Username already in use! Select a different username!');
-					
+					$('#loading').html('<span class=\'alert alert-danger\'><strong>Username not available!</strong> Select a different username.</span>');
 				}
 				else
 				{
