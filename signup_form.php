@@ -1,8 +1,9 @@
 <?php
 	
 		header('Access-Control-Allow-Origin: *');
-		include 'headers/connect_database.php';      // Connection to Mysql Database.
+		include 'headers/connect_database.php';   // Connection to Mysql Database.
 		//require_once('PHP/recaptchalib.php');   // Captcha Library.
+		
 		
 		$username = $_POST['username'];
 		$password = $_POST['password'];
@@ -58,11 +59,9 @@
 			 { 
 				echo "success";
 				$to = $email;
-				$subject = "SchoolBook: Verify Account";
-				$headers = "From: info@schoolbook.com" . "\r\n" .
-							"CC: zohairhemani1@gmail.com";
-				$msg = "http://www.fajjemobile.info/korkster.com/account-activation.php?activate=$activationKey";
-				mail($to, $subject, $msg, $headers);
+				include 'newsletters/activation.php';
+				//$msg = "http://www.fajjemobile.info/korkster.com/account-activation.php?activate=$activationKey";
+				mail($to, $subject, $message, $headers);
 			  }
 			  
 			 else 
