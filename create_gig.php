@@ -6,15 +6,12 @@ include 'headers/_user-details.php';
 	{
 		include 'headers/image_upload.php';
 		$korkname = $_POST['korkName'];
-		//$korkname_hyphens = str_replace(' ', '-', $korkname);
-		//$category = $_POST['korkLabel'];
 		$description = $_POST['korkDesc'];
-		//$attachment = $_POST['name3'];
+		$price = $_POST['priceinput'];
+		$category = $_POST['category'];
+		$tags = $_POST['taginput'];
+		$tagArr = explode(",", $tags);
 		
-	   // $attachment=substr($attachment,1);
-		//$pieces = explode(",", $attachment);
-		//echo $attachment;
-	
 		if($korkname==null)
 		{
 			echo "Enter Korkname.";
@@ -30,7 +27,7 @@ include 'headers/_user-details.php';
 				$profilePic = "kork.png";
 			}
 
-		$dbh->exec("INSERT INTO korks(userID,title,detail,image,status,expirydate) VALUES('$_userID','$korkname','$description','$profilePic','$category',now())");
+		$dbh->exec("INSERT INTO korks(userID,title,detail,image,category,expirydate,price) VALUES('$_userID','$korkname','$description','$profilePic','$category',now(), $price)");
 		
 		$stmt = $dbh->prepare("SELECT max(id) FROM korks WHERE userID = :username");
 		$stmt->bindParam(':username', $_userID);
@@ -38,9 +35,13 @@ include 'headers/_user-details.php';
 		
 		$result = $stmt->fetchAll();
 		$id=$result[0];
-	
 
 
+		for($i = 0; $i < count($tagArr); $i++)
+		{
+			
+		  $dbh->exec("INSERT INTO kork_tags(korkId, tag) VALUES($id[0] ,'$tagArr[$i]')");
+		}
 	
 		foreach($pieces as &$arr)
 		{
@@ -165,7 +166,7 @@ $(document).ready(function() {
             </div>
             <div class="clear"></div>
           </div>-->
-		<select class="fake-dropdown fake-dropdown-double dropdown-inner " style="width:90%" required>
+		<select class="fake-dropdown fake-dropdown-double dropdown-inner " style="width:90%" name="category" required>
         <option value="0">Select Category</option>
         <option value="1">Books</option>
         <option value="2">CD/DVD</option>
@@ -201,10 +202,19 @@ $(document).ready(function() {
       
       <div class="form_row">
         <div class="label_wrap">
-          <label for="gig_tags">Tags</label>
+          <label for="taginput">Tags</label>
         </div>
         <div class="input_wrap gig_tags">
-          <input class="gig_tags_text" type="text" data-role="tagsinput" id="taginput"  />
+          <input class="gig_tags_text" type="text" data-role="tagsinput" id="taginput" name="taginput" />
+        
+        </div>
+      </div>
+      <div class="form_row">
+        <div class="label_wrap">
+          <label for="priceinput">Price</label>
+        </div>
+        <div class="input_wrap gig_price">
+          <input class="gig_price_text" type="text" id="priceinput" name="priceinput" style="width:90%"/>
         
         </div>
       </div>
