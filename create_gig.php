@@ -66,21 +66,38 @@ include 'headers/_user-details.php';
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>Create Gig</title>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-tagsinput.css" type="text/css">
+
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/media.css" type="text/css">
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
 <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
-<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="css/bootstrap-tagsinput.css" type="text/css">
+
+<style>
+*, *:before, *:after {
+	-webkit-box-sizing: initial;
+	-moz-box-sizing: initial;
+	box-sizing: initial;
+}
+img {
+	vertical-align: top;
+}
+input[type="file"] {
+display: initial;
+}
+p {
+margin: initial;
+}
+</style>
 <!--<script src="js/jquery.min.js"></script>-->
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.sidr.min.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/bootstrap-tagsinput.js"></script>
-<script src="js/bootstrap-tagsinput-angular.js"></script>
-<script src="js/bootstrap-tagsinput-angular.min.js"></script>
+
 <script>
 $(document).ready(function() {
   $('#simple-menu').sidr();
@@ -88,17 +105,13 @@ $(document).ready(function() {
 </script>
 
 
-
-<script src="js/jquery.iframe-transport.js"></script>
-<!-- The basic File Upload plugin -->
-<script src="js/jquery.fileupload.js"></script>
 <!--[if lt IE 9]>
 	<script src="js/lib/html5shiv.js"></script>
 <![endif]-->
 </head>
 
 <body>
-<div class="container inbox_des create_gig">
+<div class="inbox_des create_gig">
   <div class="header_bg">
     <header> <a id="simple-menu" class="icon-menu" href="#sidr"></a>
      
@@ -156,6 +169,8 @@ $(document).ready(function() {
         <option value="0">Select Category</option>
         <option value="1">Books</option>
         <option value="2">CD/DVD</option>
+        <option value="3">Gadgets</option>
+        <option value="4">Services</option>
         
         </select>
         </div>
@@ -190,25 +205,7 @@ $(document).ready(function() {
         </div>
         <div class="input_wrap gig_tags">
           <input class="gig_tags_text" type="text" data-role="tagsinput" id="taginput"  />
-          <script>
-		var cities = new Bloodhound({
-		  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
-		  queryTokenizer: Bloodhound.tokenizers.whitespace,
-		  prefetch: 'cities.json'
-		});
-		cities.initialize();
-		
-		var elt = $('#taginput');
-		elt.tagsinput({
-		  itemValue: 'value',
-		  itemText: 'text',
-		  typeaheadjs: {
-		    name: 'cities',
-		    displayKey: 'text',
-		    source: cities.ttAdapter()
-		  }
-		});
-	</script>
+        
         </div>
       </div>
       
