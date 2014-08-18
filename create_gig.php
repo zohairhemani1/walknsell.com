@@ -71,11 +71,16 @@ include 'headers/_user-details.php';
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
 <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="css/bootstrap-tagsinput.css" type="text/css">
 <!--<script src="js/jquery.min.js"></script>-->
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.sidr.min.js"></script>
 <script src="js/custom.js"></script>
+<script src="js/bootstrap-tagsinput.js"></script>
+<script src="js/bootstrap-tagsinput-angular.js"></script>
+<script src="js/bootstrap-tagsinput-angular.min.js"></script>
 <script>
 $(document).ready(function() {
   $('#simple-menu').sidr();
@@ -178,6 +183,35 @@ $(document).ready(function() {
           </div>
         </div>
       </div>
+      
+      <div class="form_row">
+        <div class="label_wrap">
+          <label for="gig_tags">Tags</label>
+        </div>
+        <div class="input_wrap gig_tags">
+          <input class="gig_tags_text" type="text" data-role="tagsinput" id="taginput"  />
+          <script>
+		var cities = new Bloodhound({
+		  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
+		  queryTokenizer: Bloodhound.tokenizers.whitespace,
+		  prefetch: 'cities.json'
+		});
+		cities.initialize();
+		
+		var elt = $('#taginput');
+		elt.tagsinput({
+		  itemValue: 'value',
+		  itemText: 'text',
+		  typeaheadjs: {
+		    name: 'cities',
+		    displayKey: 'text',
+		    source: cities.ttAdapter()
+		  }
+		});
+	</script>
+        </div>
+      </div>
+      
       <div class="form_row">
         <div class="label_wrap">
           <label for="gig_title">Description</label>
