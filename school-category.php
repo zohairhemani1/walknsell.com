@@ -19,9 +19,8 @@ include 'headers/_user-details.php';
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
 <link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
 <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-<script src="js/modern.js"></script>
 <script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/modern.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.sidr.min.js"></script>
 <script src="js/custom.js"></script>
@@ -202,7 +201,7 @@ function parallax(){
 					
 
 							/*** The SQL SELECT statement ***/
-							$sql = "SELECT k.id, k.title, k.userID, k.detail, k.image, k.expirydate, u.ID,u.collegeID FROM `korks` k, `users` u WHERE u.ID = k.userID AND u.collegeID = $school_id";
+							$sql = "SELECT k.id, k.title, k.userID, k.detail, k.price, k.image, k.expirydate, u.ID,u.collegeID , count(i.ID) as `bids` FROM `korks` k join `users` u on u.ID = k.userID left outer join `inbox` i on k.id = i.korkID where u.collegeID = $school_id group by k.id";
 							$result = mysqli_query($con,$sql);
 							$count = mysqli_num_rows($result);
 							
@@ -227,6 +226,9 @@ function parallax(){
 									$image = $row['image'];
 									$expiryDate = $row['expirydate'];
 									$detail = $row['detail'];
+									$price=$row['price'];
+									$price=$row['price'];
+									$bids=$row['bids'];
 									echo "<div class='prod_desc'>";
         							echo "<span class='featured_bedge'>featured</span>";
         							echo "<img class='main-prod-pic' src='korkImages/$image' width='247' alt=''>";
@@ -236,7 +238,7 @@ function parallax(){
 									
 									
                     				echo"<p><span> $expiryDate <span> | <span>12:03 PM<span></p>
-                    	 <div class='price'><span class='price_first'>$200</span><span class='prod_scheme'>10% <span class='off'>OFF																	</span></span></div>
+                    	 <div class='price'><span class='price_first'>$ {$price}</span><span class='prod_scheme'>&nbsp; {$bids} <span class='off'>BIDS																	</span></span></div>
                     
             			</div>
             			<div class='clear'></div>
