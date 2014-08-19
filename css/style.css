@@ -561,8 +561,6 @@ border-radius: 12px;
 
 .contentBox
 {
-	
-	background-color: #494446;
 	border-radius: 8px;
 	padding: 1px;
 	
@@ -608,4 +606,29 @@ border-radius: 12px;
 }
 .main-flashes .flash-message.flash-notice p:before, .main-flashes .flash-message.flash-warning p:before {
 	background-position: -150px -650px;
+}
+#contentSub {
+	background-color: #fff;
+	width: 1000px;
+	padding: 0;
+	color: #333;
+	margin: 0 auto 40px auto;
+	padding: 20px 0 40px 0;
+	border-radius: 0 0 6px 6px;
+	box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+}
+.clearfix:before, .clearfix:after {
+	content: '\0020';
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+.clearfix:after {
+	clear: both;
+}
+.contentBox {
+	width: 940px;
+	margin: 0 auto;
 }
