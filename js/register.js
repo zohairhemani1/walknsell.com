@@ -64,6 +64,11 @@ function signupForm()
 				{
 					$('#loading').html('<span class=\'alert alert-danger\'><strong>Username not available!</strong> Select a different username.</span>');
 				}
+				else if(response == "You are already registered, Logging you in!")
+				{
+					$('#loading').html('<span class=\'alert alert-danger\'><strong>You are already registered, Logging you in!</strong> Select a different username.</span>');
+					
+				}
 				else
 				{
 					$('#loading').html('<span class=\'alert alert-danger\'>Sorry, There has been an error in our system!' + response+'</span>');

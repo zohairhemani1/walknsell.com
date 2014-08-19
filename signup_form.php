@@ -3,8 +3,7 @@
 		header('Access-Control-Allow-Origin: *');
 		include 'headers/connect_database.php';   // Connection to Mysql Database.
 		//require_once('PHP/recaptchalib.php');   // Captcha Library.
-		
-		
+		$typeAcc = $_POST['typeAcc'];
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 		$password_md5 = md5($password);
@@ -13,6 +12,8 @@
 		$email = $_POST['email'];
 		$college = $_POST['college'];
 		$activationKey = md5(microtime().rand());
+		
+		
 		
 		
 		//checking if username exists.
@@ -37,6 +38,50 @@
 		$collegeID=$result['ID'];
 		
 		// this condition checks if count(*) is 0 that means if username doesnot exist
+		
+		
+		
+		
+		if($typeAcc=="fb"){
+		
+		
+			if($rows[0] == 0)  
+		{
+			
+			// inserting user details if username doesnot exist
+			
+			$query = "INSERT INTO users(username,fname,lname,email,collegeID,joinDate,active) VALUES (:username,:fname,:lname,:email,:collegeID,:joinDate,:active)";
+			$sth = $dbh->prepare($query);
+			$sth->bindValue(':username',$username);
+			$sth->bindValue(':fname',$fname);
+			$sth->bindValue(':lname',$lname);
+			$sth->bindValue(':email',$email);
+			$sth->bindValue(':collegeID',$collegeID);
+			$sth->bindValue(':active',1);
+			$sth->bindValue(':joinDate',date('Y/m/d H:i:s'));
+			
+			//$sth ->execute();
+			 if($sth ->execute() > 0)
+			 {
+				  echo "success";
+			 }
+			  
+			 else 
+			 {	
+				$errorCode = $sth->errorCode();
+				echo " Error Code: " . $errorCode; 
+			 }
+			
+			
+		} // Ending bracket of IF($rows[0]==0)
+		
+		else
+		{
+			echo "You are already registered, Logging you in!";
+		}
+		
+		}else{
+		
 		
 		if($rows[0] == 0)  
 		{
@@ -78,7 +123,7 @@
 			echo "username already exist";
 		}
 		
-		
+		}
 		
 			
 		
