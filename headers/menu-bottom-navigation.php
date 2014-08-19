@@ -34,7 +34,7 @@
 
                     <li class="f_sign"><a href='#'  data-toggle='modal' data-target='#login'>Sign in</a></li>
 
-                    <li class="f_support"><a href="terms-and-conditions.html">Policy</a></li>
+                    <li class="f_support"><a href="privacy_policy.php">Policy</a></li>
 
                 </ul>    
 
@@ -44,7 +44,7 @@
 
                     <li class="f_join"><a href='#' data-toggle='modal' data-target='#register'>Join</a></li>
 
-                    <li class="f_contact"><a href="#">Contact us</a></li>
+                    <li class="f_contact"><a href='#' data-toggle='modal' data-target='#contactus'>Contact us</a></li>
 
                     
 

@@ -1,4 +1,7 @@
-<!doctype html>
+<?php
+session_start();
+include 'headers/_user-details.php';
+?>
 <html>
 <head>
 <meta charset="utf-8">
@@ -35,11 +38,6 @@ function parallax(){
 	}
 </script>
 
-
-
-<!--[if lt IE 9]>
-			<script src="js/lib/html5shiv.js"></script>
-		<![endif]-->
 </head>
 
 <body id="policy">
