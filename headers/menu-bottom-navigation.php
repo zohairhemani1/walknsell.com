@@ -30,19 +30,19 @@
 
                 <ul>
 
-                	<li class="f_home"><a href="#">Home</a></li>
+                	<li class="f_home"><a href="index.php">Home</a></li>
 
-                    <li class="f_sign"><a href="#">Sign in</a></li>
+                    <li class="f_sign"><a href='#'  data-toggle='modal' data-target='#login'>Sign in</a></li>
 
-                    <li class="f_support"><a href="#">Support</a></li>
+                    <li class="f_support"><a href="terms-and-conditions.html">Policy</a></li>
 
                 </ul>    
 
                 <ul class="second">    
 
-                 	<li class="f_start"><a href="#">Start selling</a></li>
+                 	<li class="f_start"><a href="create_gig.php">Start selling</a></li>
 
-                    <li class="f_join"><a href="#">Join</a></li>
+                    <li class="f_join"><a href='#' data-toggle='modal' data-target='#register'>Join</a></li>
 
                     <li class="f_contact"><a href="#">Contact us</a></li>
 

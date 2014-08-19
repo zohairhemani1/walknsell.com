@@ -66,8 +66,8 @@ function signupForm()
 				}
 				else if(response == "You are already registered, Logging you in!")
 				{
-					$('#loading').html('<span class=\'alert alert-danger\'><strong>You are already registered, Logging you in!</strong> Select a different username.</span>');
-					
+					$('#loading').html('<span class=\'alert alert-danger\'><strong>You are already registered, Logging you in!</strong></span>');
+					LoginFormFB(_userID);
 				}
 				else
 				{

@@ -90,33 +90,58 @@ var _profilePic;
 
         //'into Facebook.';
 		
-		console.log('Welcome!  Fetching your information.... ');
-
-    FB.api('/me', function(response) {
-
-      console.log('Successful login for: ' + response.name+response.email+response.id);
+	
 
       //document.getElementById('status').innerHTML =
 
         //'Thanks for logging in, ' + response.name + '!';
 		
 		
-	_userID=response.id;
-	_fname=response.first_name;
-	_lname=response.last_name;
-	_email=response.email;
-	_profilePic="http://graph.facebook.com/" + response.id + "/picture";
 	
 	
 	FB.login(function(response) {
+		
 			if (response.authResponse) {
+				
+				
+				
+					console.log('Welcome!  Fetching your information.... ');
+
+    FB.api('/me', function(response) {
+
+      console.log('Successful login for: ' + response.name+response.email+response.id);
+				
+				_userID=response.id;
+				_fname=response.first_name;
+				_lname=response.last_name;
+				_email=response.email;
+				_profilePic="http://graph.facebook.com/" + response.id + "/picture";
+	
 				if(source == 'login'){
+			
 					LoginFormFB(_userID);
+				
 				} else if(source == 'register'){
-					signupFormFB(_userID,_fname,_lname,_email,_profilePic);
+					$("#typeAcc").val("fb");
+					$("#firstName").val(_fname);
+					$("#lastName").val(_lname);
+					$("#email").val(_email);
+					$("#username").val(_userID);
+					$("#firstName").prop('readonly',true);
+					$("#lastName").prop('readonly',true);
+					$("#email").prop('readonly',true);
+					$("#username").prop('readonly',true);
+					$("#password").prop('readonly',true);
+					$("#verifyPassword").prop('readonly',true);	
+					
+					var randnum=Math.floor((Math.random() * 500000) + 1);
+				
+					$("#password").val(randnum);
+					$("#verifyPassword").val(randnum);
 				}
+				});
 			}
-		});
+		
 		
 			
 			
