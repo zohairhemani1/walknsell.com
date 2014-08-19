@@ -42,13 +42,13 @@ $message = "<table cellspacing='0' cellpadding='0' style='padding:30px 10px;back
 									<table align='center' style='margin:auto'>
 									  <tbody>
 										<tr>
-										  <td style='background-color:#00b22d;border:1px solid #028a25;border-radius:3px;text-align:center'><a href='http://www.walknsell.com/account-activation.php?activate={$activationKey}' style='padding:16px 20px;display:block;text-decoration:none;color:#fff;font-size:16px;text-align:center;font-family:arial;font-weight:bold' target='_blank'>ACTIVATE YOUR ACCOUNT</a></td>
+										  <td style='background-color:#00b22d;border:1px solid #028a25;border-radius:3px;text-align:center'><a href='http://www.walknsell.com/index.php?activate={$activationKey}' style='padding:16px 20px;display:block;text-decoration:none;color:#fff;font-size:16px;text-align:center;font-family:arial;font-weight:bold' target='_blank'>ACTIVATE YOUR ACCOUNT</a></td>
 										</tr>
 									  </tbody>
 									</table></td>
 								</tr>
 								<tr>
-								  <td style='color:#aaa;padding:15px;font-size:11px;line-height:15px;text-align:left'><div style='color:#aaa;padding-bottom:15px;font-family:arial'> If clicking the link above does not work, copy and paste the following URL in a new browser window: <a href='http://www.walknsell.com/account-activation.php?activate={$activationKey}' style='color:#00b22c' target='_blank'>http://www.walknsell.com/account-activation.php?activate={$activationKey}</a> </div>
+								  <td style='color:#aaa;padding:15px;font-size:11px;line-height:15px;text-align:left'><div style='color:#aaa;padding-bottom:15px;font-family:arial'> If clicking the link above does not work, copy and paste the following URL in a new browser window: <a href='http://www.walknsell.com/index.php?activate={$activationKey}' style='color:#00b22c' target='_blank'>http://www.walknsell.com/index.php?activate={$activationKey}</a> </div>
 									<div style='color:#aaa;font-family:arial'> It is also a good idea to add <a style='color:#aaa'>noreply@walknsell.com</a> to your address book to ensure that you receive our messages (no spam, we promise!). </div></td>
 								</tr>
 							  </tbody>

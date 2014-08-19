@@ -255,6 +255,30 @@ function initfb(source){
 </head>
 
 <body>
+<?php
+	if(isset($_GET['activate']))
+	{
+		include 'headers/connect_database.php';
+		$activationKey = $_GET['activate'];
+		
+		if($dbh->exec("UPDATE users SET active = '1' WHERE activationKey = '$activationKey'"))
+		{
+			echo "<div class='main-flashes'>
+                            <div class='flash-message flash-success'>
+                                <p>Your account is activated.</p>
+                            </div>
+                </div>";
+		}
+		else
+		{
+			echo "<div class='main-flashes'>
+                            <div class='flash-message flash-warning'>
+                                <p>Uh-oh! We are sorry but something did not go well with your activation.<br>To fix, please contact our <a href='#'>support.</a></p>
+                            </div>
+                </div>";
+		}	
+	}
+?>
 <div class="wrapper">
   <div class="header_bg">
     <header> <a id="simple-menu" class="icon-menu" href="#sidr"></a>
