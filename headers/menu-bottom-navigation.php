@@ -32,18 +32,27 @@
 
                 	<li class="f_home"><a href="index.php">Home</a></li>
 
-                    <li class="f_sign"><a href='#'  data-toggle='modal' data-target='#login'>Sign in</a></li>
-
-                    <li class="f_support"><a href="privacy_policy.php">Policy</a></li>
+    
+    <?php
+	              	if(!isset($_SESSION['username'])) 
+	{
+                  
+                   echo"<li class='f_sign'><a href='#'  data-toggle='modal' data-target='#login'>Sign in</a></li>";
+	}
+	?>                <li class="f_support"><a href="privacy_policy.php">Policy</a></li>
 
                 </ul>    
 
                 <ul class="second">    
 
                  	<li class="f_start"><a href="create_gig.php">Start selling</a></li>
-
-                    <li class="f_join"><a href='#' data-toggle='modal' data-target='#register'>Join</a></li>
-
+<?php
+	              	if(!isset($_SESSION['username'])) 
+	{
+    
+                    echo "<li class='f_join'><a href='#' data-toggle='modal' data-target='#register'>Join</a></li>";
+	}
+	?>
                     <li class="f_contact"><a href='#' data-toggle='modal' data-target='#contactus'>Contact us</a></li>
 
                     

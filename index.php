@@ -197,7 +197,7 @@ img {
     </div>
   </article>
   <?php include 'headers/menu-bottom-navigation.php' ?>
-  ; </div>
+  </div>
 <script src ="js/register.js"></script> 
 <script type="text/javascript">
 

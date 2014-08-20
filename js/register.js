@@ -418,7 +418,7 @@ function loginValidation()
 	error = [];
 	
 	var errorDiv = document.getElementById('error-login');
-	errorDiv.innerHTML = "";
+	errorDiv.innerHTML = "<span class=\'alert alert-danger\'>";
 	var username = document.getElementById('username-login').value;
 	var password = document.getElementById('password-login').value;
 	
@@ -429,6 +429,6 @@ function loginValidation()
 	{
 		errorDiv.innerHTML += error[i];
 	}
-		
+		errorDiv.innerHTML +="</strong></span>";
 }
 

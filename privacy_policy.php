@@ -8,7 +8,7 @@ include 'headers/_user-details.php';
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>::WalknSell::</title>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/media.css" type="text/css">
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
@@ -20,6 +20,7 @@ include 'headers/_user-details.php';
 <script src="js/jquery.sidr.min.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/nav-admin-dropdown.js"></script>
+<script src="js/fb.js"></script>
 <script>
 $(document).ready(function() {
   $('#simple-menu').sidr();
@@ -41,7 +42,7 @@ function parallax(){
 </head>
 
 <body id="policy">
-<div class="container">
+<div>
 	<div class="header_bg ">
         <header>
         <a id="simple-menu" class="icon-menu" href="#sidr"></a>
@@ -61,7 +62,8 @@ function parallax(){
         <div class="clear"></div>
        
     </div><!--/.header_bg-->
-	
+	<?php
+           include 'headers/popup.php';?>
     <article class="privacy">
     	
         <div id="contentSub" class="clearfix">

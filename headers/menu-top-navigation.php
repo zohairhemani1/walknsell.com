@@ -28,7 +28,7 @@
                          
       
               <li class='admin'><a href='#'> <span class='user_pic_thumb' style='padding:0px'><img src='{$_profilePic}' width='24' alt='user pic'></span> {$_fname_uppercase}</a></li>
-            <li><a href='#' class='whats_new'><span class='info_circle fa fa-info-circle' style='display:inline'>&nbsp;</span>What's New in V2?</a></li>
+            <li><a href='{$collegeURL}' class='whats_new'><span class='info_circle fa fa-institution' style='display:inline'>&nbsp;</span>My School</a></li>
                             <li><a href='inbox.php' class='inbox'><span class='fa fa-inbox' style='display:inline'>&nbsp;</span>Inbox</a></li>
                             <li><a href='#' class='collection'><span class='fa-heart-o'  style='display:inline'>&nbsp;</span>My Deals</a></li>";
                             //<li><a href='#' class='settings'><span class='fa fa-gear'  style='display:inline'>&nbsp;</span>Settings</a></li>
@@ -70,7 +70,7 @@
                     				<span class='user_pic_thumb'><img src='{$_profilePic}' width='24' alt='user pic'></span>
                     				{$_fname_uppercase} {$_lname_uppercase}</a>
                     	<ul>
-                        	<li><a href='#' class='whats_new'><span class='info_circle fa fa-info-circle'>&nbsp;</span>What's New in V2?</a></li>
+                        	<li><a href='{$collegeURL}' class='whats_new'><span class='info_circle fa fa-institution'>&nbsp;</span>My School</a></li>
                             <li><a href='inbox.php' class='inbox'><span class='fa fa-inbox'>&nbsp;</span>Inbox</a></li>
                             <li><a href='#' class='collection'><span class='fa-heart-o'>&nbsp;</span>My Deals</a></li>";
                             //<li><a href='#' class='settings'><span class='fa fa-gear'>&nbsp;</span>Settings</a></li>
