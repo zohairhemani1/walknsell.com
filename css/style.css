@@ -632,8 +632,8 @@ border-radius: 12px;
 	width: 940px;
 	margin: 0 auto;
 }
-#policy{
-	font-size:0.9em;
+#policy .contentBox{
+	font-size:1.1em;
 }
 #policy .header_bg{
 	height:auto;
@@ -656,6 +656,7 @@ border-radius: 12px;
 }
 #policy h3{
 	font-weight:bold;
+	margin-top:2em;
 	
 }
 #policy .listNormal{
