@@ -671,3 +671,8 @@ border-radius: 12px;
 #policy .contentBox{
 	padding-top:20px;
 }
+
+#policy #contentSub
+{
+	background-color:#FFF;
+}
