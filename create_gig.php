@@ -43,11 +43,11 @@ include 'headers/_user-details.php';
 		  $dbh->exec("INSERT INTO kork_tags(korkId, tag) VALUES($id[0] ,'$tagArr[$i]')");
 		}
 	
-		foreach($pieces as &$arr)
-		{
-		  $dbh->exec("INSERT INTO kork_img(refId,attachment) VALUES('$id[0]' ,'$arr')");
-		}
-		  $dbh = null;
+		//foreach($pieces as &$arr)
+		//{
+		//  $dbh->exec("INSERT INTO kork_img(refId,attachment) VALUES('$id[0]' ,'$arr')");
+	//	}
+		//  $dbh = null;
 		}
 		//echo "Result: {$result}";
 		//echo "ID: {$id}";
@@ -214,7 +214,7 @@ $(document).ready(function() {
           <label for="priceinput">Price</label>
         </div>
         <div class="input_wrap gig_price">
-          <input class="gig_price_text" type="text" id="priceinput" name="priceinput" style="width:90%"/>
+          <input class="gig_price_text" type="number" id="priceinput" name="priceinput" style="width:90%"/>
         
         </div>
       </div>
