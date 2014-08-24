@@ -56,9 +56,9 @@
             <ul id ="regresults" name="school" >
             </ul>
             <div class="regclear"></div>
-            <input type="text" pattern=".{5,10}" class="form-control txt_boxes" placeholder="Create your Username" name="username" id="username" required>
-            <input type="password" pattern=".{5,10}" class="form-control txt_boxes" placeholder="Create a Password" name="password" id="password" required>
-            <input type="password" pattern=".{5,10}" class="form-control txt_boxes" placeholder="Confirm Password" name="verifyPassword" id="verifyPassword" required>
+            <input type="text" pattern=".{5,15}" class="form-control txt_boxes" placeholder="Create your Username" name="username" id="username" required>
+            <input type="password" pattern=".{5,15}" class="form-control txt_boxes" placeholder="Create a Password" name="password" id="password" required>
+            <input type="password" pattern=".{5,15}" class="form-control txt_boxes" placeholder="Confirm Password" name="verifyPassword" id="verifyPassword" required>
              <input type="hidden" name="typeAcc" id="typeAcc">
             <center>
               <div id="loading"></div>
