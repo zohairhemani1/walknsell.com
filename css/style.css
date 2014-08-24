@@ -20,7 +20,7 @@ a img{border:none; outline:none;}
 .wrapper{width:100%; padding:0; margin:0 auto; background:#f4f4f4;}
 .header_bg{width:100%; background:#0084a6; height:43px; clear:both; border-bottom:5px solid #007492;}
 header{width:1000px; margin:0 auto; height:43px; line-height:43px;}
-.logo{float:left; margin-left:22px; margin-top:5px; height:30px;}
+.logo{float:left; margin-left:22px; margin-top:9px; height:30px;}
 nav.main_nav{float:right; }
 nav.main_nav ul{position:relative;}
 nav.main_nav li{float:left; border-left:1px solid #5fd4f3; border-right:1px solid #006883; text-align:center;  font-size:14px;}
@@ -608,7 +608,7 @@ border-radius: 12px;
 	background-position: -150px -650px;
 }
 #contentSub {
-	background-color: #3a3839;
+	background-color: #fff;
 	width: 1000px;
 	padding: 0;
 	color: #333;
@@ -672,7 +672,19 @@ border-radius: 12px;
 	padding-top:20px;
 }
 
-#policy #contentSub
-{
-	background-color:#FFF;
-}
+.featured_prod{padding-bottom:40px; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box;}
+.featured_prod .col-lg-3, .featured_prod col-md-3{padding-left:5px; padding-right:5px;}
+.prod_detail{ -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box;}
+.prod_detail li{ -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box;}
+.featured_prod .single_product{border:1px solid #dcdcdc; text-align:center; padding:0px 15px; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box;}
+.featured_prod .single_product .img_wrap{min-height:208px; padding:20px 0 0 0; text-align:center;}
+.single_product .img_wrap img{margin:0 auto;}
+.featured_prod .single_product h3{font:bold 18px Arial, Helvetica, sans-serif; margin:5px 0 10px 0; color:#000;}
+.featured_prod .single_product .prod_desc_22{font:bold 15px/19px Arial, Helvetica, sans-serif; padding:0px 45px;}
+.single_product .attributes{color:#606060; font:normal 12px Arial, Helvetica, sans-serif;}
+
+.single_product .price_tag_22{height:50px; line-height:50px; color:#fff; font-weight:bold; background:#1abc9c; margin:0px -15px; font-size:24px; text-align:left;}
+.single_product .price_tag_22 .price_main{float:left; display:block; padding:0 20px; width:40%; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box; }
+.single_product .price_tag_22 .offer_dt{display:block; float:right; text-align:center; padding:0px 10px; width:60%;  -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box; background:url(../img/orange_skewed.png) no-repeat right center;}
+
+.featured_prod li .featured_tag{position:absolute; top:0; left:4px; width:114px; height:114px; z-index:100; background:url(../img/featured_tag.png) no-repeat center top; display:block;}

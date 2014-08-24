@@ -40,7 +40,7 @@
 			$sth->bindValue(':joinDate',date('Y/m/d H:i:s'));
 			
 			//$sth ->execute();
-			 if($sth ->execute() > 0)
+			 if($sth ->execute())
 			 {
 				  echo "success";
 			 }

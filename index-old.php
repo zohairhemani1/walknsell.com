@@ -96,73 +96,63 @@ img {
     </div>
     <div class="clear"></div>
   </article>
-  <div class="full_article_bg featured_prod">
-    <article  class="prod_detail col-lg-12">
-      	<ul class="row">
-        	<li class="col-lg-3 col-md-6 col-sm-6">
-            	<span class="featured_tag"></span>
-            	<div class="col-lg-12 single_product">
-                	<div class="img_wrap">
-                		<img src="img/mobile_img.png" width="134" alt="" class="img-responsive">
-                	</div>
-                    <h3>Android Cell Phone</h3>
-                    <p class="prod_desc_22">I want to sell my android phone</p>
-                    <p class="attributes">2014-05-24  | 05:26:51  | 12:03 PM</p>
-                    <div class="price_tag_22">
-                    	<span class="price_main">$200</span>
-                        <span class="offer_dt">10% OFF</span>
-                    </div>
-               </div>
-            </li>
-            <li class="col-lg-3 col-md-6 col-sm-6">
-            <span class="featured_tag"></span>
-            	<div class="col-lg-12 single_product">
-                	<div class="img_wrap">
-                		<img src="img/mobile_img.png" width="134" alt="" class="img-responsive">
-                	</div>
-                    <h3>Android Cell Phone</h3>
-                    <p class="prod_desc_22">I want to sell my android phone</p>
-                    <p class="attributes">2014-05-24  | 05:26:51  | 12:03 PM</p>
-                    <div class="price_tag_22">
-                    	<span class="price_main">$200</span>
-                        <span class="offer_dt">10% OFF</span>
-                    </div>
-               </div>
-            </li>
-            <li class="col-lg-3 col-md-6 col-sm-6">
-            <span class="featured_tag"></span>
-            	<div class="col-lg-12 single_product">
-                	<div class="img_wrap">
-                		<img src="img/mobile_img.png" width="134" alt="" class="img-responsive">
-                	</div>
-                    <h3>Android Cell Phone</h3>
-                    <p class="prod_desc_22">I want to sell my android phone</p>
-                    <p class="attributes">2014-05-24  | 05:26:51  | 12:03 PM</p>
-                    <div class="price_tag_22">
-                    	<span class="price_main">$200</span>
-                        <span class="offer_dt">10% OFF</span>
-                    </div>
-               </div>
-            </li>
-            <li class="col-lg-3 col-md-6 col-sm-6">
-            <span class="featured_tag"></span>
-            	<div class="col-lg-12 single_product">
-                	<div class="img_wrap">
-                		<img src="img/mobile_img.png" width="134" alt="" class="img-responsive">
-                	</div>
-                    <h3>Android Cell Phone</h3>
-                    <p class="prod_desc_22">I want to sell my android phone</p>
-                    <p class="attributes">2014-05-24  | 05:26:51  | 12:03 PM</p>
-                    <div class="price_tag_22">
-                    	<span class="price_main">$200</span>
-                        <span class="offer_dt">10% OFF</span>
-                    </div>
-               </div>
-            </li>
+  <div class="full_article_bg">
+    <article  class="prod_detail">
+      <?php
+		
+						try {
+					include 'headers/connect_database.php';
 
-            
-        </ul>
-        <div class="clear"></div>
+							/*** The SQL SELECT statement ***/
+							$sql = "SELECT k.id, k.title, k.userID, k.detail, k.image, k.expirydate, u.ID,u.collegeID FROM `korks` k, `users` u LIMIT 4";
+							
+							$find = $dbh->prepare('SELECT count(*) from korks');
+							$find->execute();	
+			
+							if($find->fetchColumn() <= 0){
+								echo "No Listings Found <br/ >";	
+				
+							}
+							
+							$counter = 0;	 
+						
+							foreach ($dbh->query($sql) as $row)
+							{		
+									$counter++;
+									$id = $row['id'];
+								    $title = $row['title'];
+									$title_withDashes = str_replace(' ', '-', $title);
+									$image = $row['image'];
+									$expiryDate = $row['expirydate'];
+									$detail = $row['detail'];
+									echo "<div class='prod_desc'>";
+        							echo "<span class='featured_bedge'>featured</span>";
+        							echo "<img class='main-prod-pic' src='korkImages/$image' width='247' alt=''>";
+            						echo "<div class='details'>";
+            						echo "<a href='cate_desc.php?korkID={$id}'><h3 style='font-weight:bold;height:2.5em;overflow:hidden;'>$title</h3></a><br/>";
+									echo "<a href='cate_desc.php?korkID={$id}'><div class='kork_text_wrap'><h3> $detail </h3></div></a>";
+									
+									
+                    				echo"<p><span> $expiryDate <span> | <span>12:03 PM<span></p>
+                    	 <div class='price'><span class='price_first'>$200</span><span class='prod_scheme'>10% <span class='off'>OFF																	</span></span></div>
+                    
+            			</div>
+            			<div class='clear'></div>
+        				</div>";
+								
+							}
+
+							/*** close the database connection ***/
+								$dbh = null;
+							
+							}
+							catch(PDOException $e)
+							{
+								echo $e->getMessage();
+							}
+
+	
+	?>
     </article>
     <div class="clear"></div>
   </div>
