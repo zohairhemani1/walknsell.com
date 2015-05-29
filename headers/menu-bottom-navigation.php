@@ -1,4 +1,4 @@
-<footer>
+<footer class="main_footer">
 
     	<div class="footer_inner">
 
@@ -30,51 +30,44 @@
 
                 <ul>
 
-                	<li class="f_home"><a href="index.php">Home</a></li>
-
-    
-    <?php
+                	<li class=""><a href="index.php">Home</a></li>
+                    <li class=""><a href="create_gig.php">Start selling</a></li>
+				</ul>
+                <ul class="second">
+                	 <?php
 	              	if(!isset($_SESSION['username'])) 
 	{
                   
-                   echo"<li class='f_sign'><a href='#'  data-toggle='modal' data-target='#login'>Sign in</a></li>";
+                   echo"<li class=''><a href='#'  data-toggle='modal' data-target='#login'>Sign in</a></li>";
 	}
-	?>                <li class="f_support"><a href="privacy_policy.php">Policy</a></li>
-
-                </ul>    
-
-                <ul class="second">    
-
-                 	<li class="f_start"><a href="create_gig.php">Start selling</a></li>
-<?php
+	?> 
+    <?php
 	              	if(!isset($_SESSION['username'])) 
 	{
     
-                    echo "<li class='f_join'><a href='#' data-toggle='modal' data-target='#register'>Join</a></li>";
+                    echo "<li class=''><a href='#' data-toggle='modal' data-target='#register'>Join</a></li>";
 	}
 	?>
-                    <li class="f_contact"><a href='#' data-toggle='modal' data-target='#contactus'>Contact us</a></li>
-
-                    
-
+                	
                 </ul>
+    
+             <ul class="third">
+             	<li class=""><a href="privacy_policy.php">Policy</a></li>
+                <li class=""><a href='#' data-toggle='modal' data-target='#contactus'>Contact us</a></li>
+
+             </ul>    
+
+               
 
                 <div class="clear"></div>
 
             </div>
 
             <div class="copyright">
-
             	<h4 class="f_logo">WalknSell</h4>
-
-                	<p>Copyright 2013 WalknSell.</p>
-
+                	<p>Copyright 2015 WalknSell.</p>
 					<p>All Rights Reserved</p> 
-
-            </div>
-
+            </div
             <div class="clear"></div>
-
         </div>
-
 </footer>

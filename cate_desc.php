@@ -3,19 +3,26 @@ session_start();
 	include 'headers/_user-details.php';
 	$korkID = $_GET['korkID'];
 	//$korkName_Hypens = $_GET['kork'];
-	//$korkName = str_replace('-', ' ', $korkName_Hypens);
+	//$korkName = str_replace('-', ' ', $korkName_Hypens);	
 	
-  	$stmt = $dbh->prepare("SELECT * FROM korks WHERE id = :korkid");
+  	$stmt = $dbh->prepare("SELECT k.*, kc.category, u.username, u.profilePic, u.joinDate, c.name, c.city FROM korks k INNER JOIN kork_categories kc ON k.catID = kc.cat_id INNER JOIN users u ON k.userID = u.ID INNER JOIN colleges c ON u.collegeID = c.id WHERE k.id = :korkid");
     $stmt->bindParam(':korkid', $korkID);
     $stmt->execute();
     $result = $stmt->fetchAll();
-	$result=$result[0];
-	$row = $result;
+	$row = $result[0];
 	
+	if($row['userID'] != $_userID){
+		$dbh->exec("UPDATE korks SET visitors=visitors+1 WHERE id=$korkID");
+		$visitors = $row['visitors']+1;
+	}else{
+		$visitors = $row['visitors'];
+	}
+
     $id  = $row['id'];
 	$title = $row['title'];
 	$detail = $row['detail'];
 	$status = $row['status'];
+	$kork_category = $row['category'];
 	$dateOfCreation = $row['expirydate'];
 	
 	/* Checking to see how many days have passed since the gig created */
@@ -28,33 +35,72 @@ session_start();
 	
  	$date = DateTime::createFromFormat("Y-m-d", $dateOfCreation);
 	
-    $_joinDate = strtotime($_joinDate);
-    $datediff_user = $now - $_joinDate;
-    $joinedAgo = floor($datediff_user/(60*60*24));
+	$image = $row['image'];
+	$userID = $row['userID'];
+	$userPic = $row['profilePic'];
+	$userDate = $row['joinDate'];
+	$korkUser = $row['username'];
+	$korkCollege = $row['name'].', '. $row['city'];
 	
 	/* 
 		Calculating number of days ago username joined.
 	*/
+	$userDate = strtotime($userDate);
+    $datediff_user = $now - $userDate;
+    $joinedAgo = floor($datediff_user/(60*60*24));
 	
+	/** Bids **/
+	$stmt = $dbh->prepare("SELECT count(ID) FROM inbox WHERE korkID = :korkid");
+	$stmt->bindParam(':korkid', $id);
+	$stmt->execute();
+		
+	$result = $stmt->fetchAll();
+	$bidnum=$result[0][0];
 	
+	$stmt = $dbh->prepare("SELECT message, bid, dateM FROM inbox WHERE korkID = :korkid AND senderID = :userid");
+    $stmt->bindParam(':korkid', $korkID);
+	$stmt->bindParam(':userid', $_userID);
+    $stmt->execute();
+    $userBid = $stmt->fetch(PDO::FETCH_ASSOC);
+	$hasBid = ($userBid == null) ? false : true;
 	
-	
-	
-	$image = $row['image'];
-	$userID = $row['userID'];
-	
-	
-	
-
-
-	
+	$justInserted = false;
+	if($_SERVER['REQUEST_METHOD'] == "POST"){
+		$bid = $_POST['bid'];
+		$message = $_POST['msg'];
+		if($hasBid === false){			
+			// inserting user details if username doesnot exist
+			$query = "INSERT INTO inbox(senderID,receiverID,message,bid,dateM,korkID) VALUES (:senderID, :receiverID, :message, :bid, :dateM, :korkID)";
+			$sth = $dbh->prepare($query);
+			$sth->bindValue(':senderID',$_userID);
+			$sth->bindValue(':receiverID',$userID);
+			$sth->bindValue(':message',$message);
+			$sth->bindValue(':bid',$bid);
+			$sth->bindValue(':dateM',date('Y/m/d H:i:s'));
+			$sth->bindValue(':korkID',$id);
+			$justInserted = true;
+		}else{
+			$query = "UPDATE inbox SET message = :message, bid = :bid WHERE korkID = :korkID AND senderID = :senderID";
+			$sth = $dbh->prepare($query);
+			$sth->bindValue(':korkID',$id);
+			$sth->bindValue(':senderID',$_userID);
+			$sth->bindValue(':message',$message);
+			$sth->bindValue(':bid',$bid);
+		}
+		$sth ->execute();
+		//updating php variables.
+		$hasBid = true;
+		$userBid['message'] = $message;
+		$userBid['bid'] = $bid;
+		$userBid['dateM'] = date('Y/m/d H:i:s');
+	}
 ?>
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<title><?php echo $title ?> - SchoolBook</title>
+<title><?php echo $title ?> | WalknSell</title>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
 <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -124,7 +170,7 @@ function parallax(){
 
 
 
-<script>
+<!--<script>
 
 
 var error;
@@ -196,7 +242,7 @@ function sendMessage()
 
 
 
-</script>
+</script>-->
 
 
 
@@ -208,111 +254,10 @@ function sendMessage()
 <body>
 <div class="cate_desc">
 <div class="header_bg static_top">
-  <header> <a id="simple-menu" class="icon-menu" href="#sidr"></a>
-   
-    
-    
+  <header class="main-header"> <a id="simple-menu" class="icon-menu" href="#sidr"></a>
     <?php include 'headers/menu-top-navigation.php';?>
-    
   </header>
-
-  <nav class="category_nav main-category-search">
-    <div class="category_inner">
-      <div class="fake-dropdown fake-dropdown-double"> <a href="#" class="dropdown-toggle category" data-toggle="dropdown" data-autowidth="true" rel="nofollow">CATEGORIES</a>
-        <div class="dropdown-menu mega_menu" role="menu">
-          <div class="dropdown-inner"> <span class="arr"></span> <span class="rightie"></span>
-            <ul>
-              <li><a href="#" onMouseOver="getlist(1)">Gifts</a></li>
-              <li><a href="#"onmouseover="getlist(2)">Graphics & Design</a></li>
-              <li><a href="#"onmouseover="getlist(3)">Video & Animation</a></li>
-              <li><a href="#"onmouseover="getlist(4)">Online Marketing</a></li>
-              <li><a href="#"onmouseover="getlist(5)">Writing & Translation</a></li>
-              <li><a href="#"onmouseover="getlist(6)">Advertising</a></li>
-              <li><a href="#"onmouseover="getlist(7)">Business</a></li>
-            </ul>
-            <div class="side-menu">
-              <ul class="hidee" id="veiwlist1">
-                <li>
-                  <h5><a href="#">Gifts</a></h5>
-                </li>
-                <li><a href="#">Greeting Cards</a></li>
-                <li><a href="#">Video Greetings</a></li>
-                <li><a href="#">Unusual Gifts</a></li>
-                <li><a href="#">Arts & Crafts</a></li>
-              </ul>
-              <ul class="hidee"id="veiwlist2">
-                <li>
-                  <h5><a href="#">Graphics & Design</a></h5>
-                </li>
-                <li><a href="#">Cartoons & Caricatures</a></li>
-                <li><a href="#">Logo Design</a></li>
-                <li><a href="#">Illustration</a></li>
-                <li><a href="#">Ebook Covers & Packages</a></li>
-                <li><a href="#">Web Design & UI</a></li>
-                <li><a href="#">Photography & Photoshopping</a></li>
-                <li><a href="#">Presentation Design</a></li>
-                <li><a href="#">Flyers & Brochures </a></li>
-                <li><a href="#">Business Cards</a></li>
-                <li><a href="#">Banners & Headers</a></li>
-                <li><a href="#">Architecture</a></li>
-                <li><a href="#">Landing Pages</a></li>
-                <li><a href="#">Other</a></li>
-              </ul>
-              <ul class="hidee" id="veiwlist3">
-                <li>
-                  <h5><a href="#">Video & Animation</a></h5>
-                </li>
-                <li><a href="#">Commercials</a></li>
-                <li><a href="#">Editing & Post Production</a></li>
-                <li><a href="#">Animation & 3D</a></li>
-                <li><a href="#">Testimonials & Reviews by Actors</a></li>
-                <li><a href="#">Puppets</a></li>
-                <li><a href="#">Stop Motion</a></li>
-                <li><a href="#">Intros</a></li>
-                <li><a href="#">Other</a></li>
-              </ul>
-              <ul class="hidee" id="veiwlist4">
-                <li>
-                  <h5><a href="#">Online Marketing</a></h5>
-                </li>
-                <li><a href="#">Web Analytics</a></li>
-                <li><a href="#">Article & PR Submission</a></li>
-                <li><a href="#">Blog Mentions</a></li>
-                <li><a href="#">Domain Research</a></li>
-                <li><a href="#">Fan Pages</a></li>
-                <li><a href="#">Keywords Research</a></li>
-                <li><a href="#">SEO</a></li>
-              </ul>
-              <ul class="hidee" id="veiwlist5">
-                <li>
-                  <h5><a href="#">Advertising</a></h5>
-                </li>
-                <li><a href="#">Hold Your Sign</a></li>
-                <li><a href="#">Flyers & Handouts</a></li>
-                <li><a href="#">Human Billboards</a></li>
-                <li><a href="#">Pet Models</a></li>
-                <li><a href="#">Outdoor Advertising</a></li>
-                <li><a href="#">Radio</a></li>
-              </ul>
-              <ul class="hidee" id="veiwlist6">
-                <li>
-                  <h5><a href="#">Video & Animation</a></h5>
-                </li>
-                <li><a href="#">Commercials</a></li>
-                <li><a href="#">Editing & Post Production</a></li>
-                <li><a href="#">Animation & 3D</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="wrap-search">
-        <input id="query" maxlength="80" name="query" type="text" placeholder="SEARCH">
-        <input type="image" src="img/glass_small.png" alt="Go">
-      </div>
-      <div class="clear"></div>
-    </div>
-  </nav>
+  <?php include 'headers/subhead.php' ?>
   <div class="clear"></div>
     
   <div class="submenu_wrap">
@@ -345,73 +290,152 @@ function sendMessage()
       <!-- <li>
    					 <iframe src="http://player.vimeo.com/video/17914974" width="610" height="425" frameborder="0" 		webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
   				</li> -->
-      <li><img src="korkImages/<?php echo $image; ?>" /></li>
-      <li><img src="korkImages/<?php echo $image; ?>" /></li>
+      <li><img src="img/korkImages/<?php echo $image; ?>" /></li>
+      <li><img src="img/korkImages/<?php echo $image; ?>" /></li>
     </ul>
   </div>
   <div class="right_kork">
     <h3><?php echo $title;	?></h3>
-    <h4> CREATED <span class="orange"><?php echo $daysPassed; ?> DAYS AGO</span><br>
-      IN <span class="orange">CATEGORIES / SUB CATEGORIES</span> </h4>
+    <h4> Created <span class="orange"><?php echo $daysPassed > 1 ? "$daysPassed days ago" : ($daysPassed == 0 ? "today" : "$daysPassed day ago");?></span><br>
+      in <span class="orange"><?php echo $kork_category; ?> category</span> </h4>
     <p><?php echo $detail; ?></p>
-    <a href="#" class="btn_signup" data-toggle="modal" data-target="#message">contact now</a> </div>
+    <?php if($userID != $_userID) { echo "<a href='#' class='btn_signup' data-toggle='modal' data-target='#message'>",($hasBid === true) ? 'Update Bid' : 'Bid Now',"</a>";}?></div>
   <div class="clear"></div>
 </div>
 <div class="kork_option">
 <ul>
 <li>
-  <div class="first_dt"> <span> <img src="img/user_thumb_2.png" width="50" height="50" alt=""> </span>
-    <h2>By <a href="#"><?php echo $username; ?></a></h2>
-    <p>FROM: Pakistan JOINED <?php echo $joinedAgo; ?> Days AGO</p>
+  <div class="first_dt"> <span> <img src="img/users/<?php echo $userPic; ?>" width="50" height="50" alt=""> </span>
+    <h2>By <?php echo "<a href='$korkUser'> $korkUser"; ?></a></h2>
+    <p>From: <?php echo "$korkCollege (joined ",$joinedAgo > 1 ? "$joinedAgo days ago" : ($joinedAgo == 0 ? "today $joinedAgo" : "$joinedAgo day ago");?>)</p>
   </div>
 </li>
 <li>
   <div class="second_dt">
-    <p># OF Bids: <span>40</span></p>
+    <p>Number of bids: <span><?php echo $bidnum;?></span></p>
   </div>
 </li>
 <li>
   <div class="third_dt">
-    <p>Visitors : <span>68</span></p>
+    <p>Visitors : <span><?php echo $visitors; ?></span></p>
   </div>
 </li>
 <li>
   <div class="share_dt">
     <p>Share this</p>
   </div>
+  <ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwalknsell.com%2F&t=WalknSell%20share%20kro%20babes%20%3AP" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.URL)); return false;"><img src="img/Facebook.png"></a></li>
+	<li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fwalknsell.com%2F&text=WalknSell%20share%20kro%20babes%20%3AP:%20http%3A%2F%2Fwalknsell.com%2F" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"><img src="img/Twitter.png"></a></li>
+	<li><a href="https://plus.google.com/share?url=http%3A%2F%2Fwalknsell.com%2F" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"><img src="img/Google+.png"></a></li>
+</ul>
 </li>
+</ul>
 <div class="clear"></div>
-
-
 </div>
-<div class="kork_message">
- <div class="first_dt"> <span> <img src="img/user_thumb_2.png" width="50" height="50" alt=""> </span>
-    <h2>By <a href="#"><?php echo $username; ?></a></h2>
-    <p>FROM: Pakistan JOINED <?php echo $joinedAgo; ?> Days AGO</p>
-  </div>
-</div>
+<?php
+	if($userID == $_userID || $hasBid == true){
+		echo '<div class="kork_bidding">
+				<div class="bidding_header">
+					<ul><li>
+					<div class="first_dt">
+					<h2>Bidders</h2></div></li>
 
+					<li><div class="second_dt">
+					<h2>Message</h2>
+					</div></li>
 
-<?php include 'headers/menu-bottom-navigation.php' ?>
+					<li><div class="third_dt">
+					<h2>Bid</h2>
+					</div></li></ul>
+				</div>
+			</div>';
+		try {
+			if($userID == $_userID){
+				if($bidnum != 0){
+					include 'headers/connect_database.php';
+					/*** The SQL SELECT statement ***/
+					$sql = "SELECT u.username, u.profilePic, i.senderID, i.message, i.bid, i.dateM FROM inbox i INNER JOIN users u ON i.senderID = u.ID WHERE i.korkID = $korkID";
+					$result = mysqli_query($con,$sql);
+						 
+				
+					foreach ($dbh->query($sql) as $row)
+					{
+						$profilePic = $row['profilePic'];
+						$sender = $row['username'];
+						$senderID = $row['senderID'];
+						$message = $row['message'];
+						$bid = $row['bid'];
+						$bidDate = $row['dateM'];
+						
+						$now = time(); // or your date as well
+						$creationDate = strtotime($bidDate);
+						$diff = $now - $creationDate;
+						$daysPassed = floor($diff/(60*60*24));
+						
+						echo "<div class='kork_message'><ul><li><div class='first_dt'> <span> <img src='img/users/$profilePic' width='50' height='50' alt=''> </span>
+							<h2><a href='$sender'>$sender</a> (sent ",$daysPassed > 1 ? "$daysPassed days ago" : ($daysPassed == 0 ? "today" : "$daysPassed day ago"),")</h2>
+							</div></li>";
+						echo "<li><div class='second_dt'>
+							 <p>$message</p>
+							 </div></li>";
+						echo "<li><div class='third_dt'>
+							 <p>$$bid</p>
+							 </div></li></ul></div>";
+					}
+					$dbh = null;
+				}else{				
+				  echo '<div class="first_dt" style="width:100%; text-align:center;">
+				  <p>No bids found.</p>
+				  </div>';
+				}
+			}else{
+				$message = $userBid['message'];
+				$bid = $userBid['bid'];
+				$bidDate = $userBid['dateM'];
+				
+				$now = time(); // or your date as well
+				$creationDate = strtotime($bidDate);
+				$diff = $now - $creationDate;
+				$daysPassed = floor($diff/(60*60*24));
+				if($justInserted === true){
+					echo "<div class='kork_message alert-notice'><p>Your bid has been submitted. You can update the bid whenever you want bro! :p</p></div>";
+				}
+				echo "<div class='kork_message'><ul><li><div class='first_dt'><span><img src='img/users/$_profilePic' width='50' height='50' alt=''> </span>
+					<h2><a href='$_username'>$_username</a> (sent ",$daysPassed > 1 ? "$daysPassed days ago" : ($daysPassed == 0 ? "today" : "$daysPassed day ago"),")</h2>
+					</div></li>";
+				echo "<li><div class='second_dt'>
+					 <p>$message</p>
+					 </div></li>";
+				echo "<li><div class='third_dt'>
+					 <p>$bid$</p>
+					 </div></li></ul></div>";
+			}
+		}catch(PDOException $e){
+				echo $e->getMessage();
+		}
+	}
+
+	include 'headers/menu-bottom-navigation.php' ?>
 </div>
 <div class="modal fade" id="message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-        <h1 class="modal-title" id="myModalLabel">Contact Now</h1>
+        <h1 class="modal-title" id="myModalLabel"><?php echo ($hasBid === true) ? "Update Bid" : "Bid Now"; ?></h1>
         <p>Please enter your message!</p>
       </div>
       <div class="modal-body">
-        <form id="msg-form" method="post">
-          <input type="text"  id="msg" class="form-control txt_boxes" placeholder="Enter Your Message" />
+        <form id="msg-form" method="post" action="cate_desc.php?korkID=<?php echo $korkID; ?>">
+          <input type="text" name="msg" id="msg" <?php echo ($hasBid === true) ? "value='{$userBid['message']}'" : ""; ?> class="form-control txt_boxes" placeholder="Enter Your Message" />
           <div style="width:80%;margin-left:30px">
             <table>
               <tr>
                 <td ><label>Your Bid</label></td>
-                <td><input type="number" id="bid" style="margin-bottom:0px;padding:0px;width:40%;line-height:1px;height:30px" class="form-control txt_boxes" />
+                <td><input type="number" name="bid" id="bid" <?php echo ($hasBid === true) ? "value='{$userBid['bid']}'" : ""; ?> style="margin-bottom:0px;padding:0px;width:40%;line-height:1px;height:30px" class="form-control txt_boxes" />
                   </td>
-                <td><input type="button" id="msgsend" style="margin-right:10px" class="btn_signup" value="send" /></td>
+                <td><input type="submit" id="msgsend" style="margin-right:10px" class="btn_signup" value="send" /></td>
               </tr>
             </table>
           </div>

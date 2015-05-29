@@ -73,34 +73,32 @@ function sendMessage()
 		$("#msgsend").on('click',function(event){
 		// show loading bar until the json is recieved
 		
-		
-    
-				
+		if(msgLength() >= 4){
 			request = $.ajax({
-				url: "http://www.fajjemobile.info/korkster.com/inbox_sendmsg.php",
+				url: "http://www.walknsell.com/inbox_sendmsg.php",
 				type: "post",
 				data: {msg:$('#reply_texts').val(),sender:sender,receiver:receiver}
 			});
-			
 				// callback handler that will be called on success
 			request.done(function (response, textStatus, jqXHR){
 				// log a message to the console
-				
 				
 					if(response=="Message Sent!"){
 						//alert('Message Sent Successfully!');
 						
 						
-					$( "<div class='msg_wrap_2'> <div class='messege_push'><span class='user-pict_50'><a href='#'>"
-					+"<imgsrc='"+img+"' alt='$result[username]' width='50' height='50' class=''></a>"
-               		+"</span><h4><a href='#'>"+fname + " "+lname+"</a></h4> <div class='msg_body'>"
-                     +" <p>"+$('#reply_texts').val()+"</p> </div>   </div>"
-				   +"<div class='clear'></div>" ).insertBefore( ".reply_box_22" );
-						
-						
+						//$( "<div class='msg_wrap_2'> <div class='messege_push'><span class='user-pict_50'><a href='#'>"
+						//+"<imgsrc='"+img+"' alt='$result[username]' width='50' height='50' class=''></a>"
+							
+						$( "<div class='msg_wrap_2'> <div class='messege_push'><span class='user-pict_50'>"
+						+"</span><h4><a href='#'>"+fname + " "+lname+"</a></h4> <div class='msg_body'>"
+						 +" <p>"+$('#reply_texts').val()+"</p></div></div>"
+					   +"<div class='clear'></div>" ).insertBefore( ".reply_box_22" );
+							
+						$('.user-pict_50').html("<a href='#'><img src='img/users/"+img+"' width='50' height='50' /></a>");
 						//location.reload();
-						}
-				
+						$('#reply_texts').val('');
+					}
 				//window.location.href = "your-questions.html";
 			});
 		
@@ -120,22 +118,39 @@ function sendMessage()
 			request.always(function () {
 				// reenable the inputs
 			});
-			
+			}else{
+				$(".error-alert").text("Your message should contain atleast 4 characters.");
+			}
 			
 	
 	});
 	
 }
-
-
-
+</script>
+<script>
+	$(document).ready(function() {
+	var maxchar = 1200;
+	$("#reply_texts").keyup(function(){
+		if($(this).val().length > maxchar){
+			$(this).val($(this).val().substr(0, maxchar));
+		}else if($(this).val().length == maxchar){
+			$(".char-count").css("color", "red");
+		}else if($(this).val().length < maxchar){
+			$(".char-count").css("color", "black");
+		}
+		$(".count-num").text($(this).val().length);
+	});
+	});
+	function msgLength(){
+		return $("#reply_texts").val().length;
+	}
 </script>
 </head>
 
 <body>
 <div class="container inbox_des">
   <div class="header_bg">
-    <header> <a id="simple-menu" class="icon-menu" href="#sidr"></a>
+    <header class="main-header"> <a id="simple-menu" class="icon-menu" href="#sidr"></a>
            <?php include 'headers/menu-top-navigation.php';?>
     </header>
     <div class="clear"></div>
@@ -157,11 +172,9 @@ function sendMessage()
 		$sth->execute();
 		$result = $sth->fetch(PDO::FETCH_ASSOC);
 		$name=$result['fname']." " .$result['lname'];
-		
 	
-	
-    echo"            <span class='user-picture'>
-                	<img src='$result[profilePic]' alt='$result[username]' width='50' height='50' class=''>
+    echo"<span class='user-picture'>
+                	<img src='img/users/$result[profilePic]' alt='$result[username]' width='50' height='50' class=''>
                	</span>
                 Conversation with <a href='user/$result[username]'>$result[fname] $result[lname]</a>
             </h1>
@@ -188,7 +201,7 @@ function sendMessage()
 			
 		$readindex=0;
 		if($_GET['mode']==1){
-		$query = "SELECT i.*, u.fname,u.username,u.lname,u.profilePic,k.image,k.title  from inbox i 
+		$query = "SELECT i.*, u.fname,u.username,u.lname,u.profilePic,k.image,k.title from inbox i 
 join users u on u.ID = i.senderID left outer join korks k on k.ID = i.korkID WHERE ((i.senderID = :sID && i.receiverID = :rID) || (i.senderID = :rID && i.receiverID = :sID)) && i.isRead=1 order by i.ID";
 $readindex=1;
 		}else if($_GET['mode']==2){
@@ -207,19 +220,15 @@ join users u on u.ID = i.senderID left outer join korks k on k.ID = i.korkID WHE
 		
 		
 		
-				
+		$now = time();	
 		while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-          
-		  if($result['korkID']!=0){
 			
-		    echo"<div class='msg_wrap_11'>
+		  if($result['korkID']!=0){
+			echo"<div class='msg_wrap_11'>
             <div class='conv_action'>
             	<div class='messege_push_1'>
-                
-
-	
-         <span class='user-pict_50'>
-                		<a href='#'><img src='$result[profilePic]' alt='$result[username]' width='50' height='50' class=''></a>
+				<span class='user-pict_50'>
+                		<a href='#'><img src='img/users/$result[profilePic]' alt='$result[username]' width='50' height='50' class=''></a>
                		</span>
                     <h4><a href='#'>$result[fname] $result[lname]</a></h4>
                       <div class='msg_body'>
@@ -232,19 +241,21 @@ join users u on u.ID = i.senderID left outer join korks k on k.ID = i.korkID WHE
             <div class='gig_related_to'>
             	<h4>THIS MESSAGE IS RELATED TO:</h4>
                 <div class='msg-gig'>
-                        <span class='gig-pict-74'><img src='korkImages/$result[image]' width='50px' class='related-gig-pict' alt=''></span>
+                        <span class='gig-pict-74'><img src='img/korkImages/$result[image]' width='50px' class='related-gig-pict' alt=''></span>
                         <p class='gig-desc'><a href='#'>$result[title]</a></p>
                         <p class='gig-username'>by <a href='#'>$result[username]</a><span class='flag-in'></span></p>
                     </div>
             </div>
-            <div class='clear'></div>
-            </div>";  
+			<div class='msgtime'>
+			<p>",date('H:i F, d, Y', strtotime($result['dateM'])),"</p></div>
+			<div class='clear'></div>
+            </div>";
 			  }else if(($result['isRead']==0 && $readindex==0) || $readindex==2)  {
 		  echo"
             <div class='msg_wrap_2'>
             <div class='messege_push'>
                 	<span class='user-pict_50'>
-                			<a href='#'><img src='$result[profilePic]' alt='$result[username]' width='50' height='50' class=''></a>
+                			<a href='#'><img src='img/users/$result[profilePic]' alt='$result[username]' width='50' height='50' class=''></a>
                		</span>
                     <h4><a href='#'>$result[fname] $result[lname]</a></h4>
                       <div class='msg_body'>
@@ -258,13 +269,15 @@ join users u on u.ID = i.senderID left outer join korks k on k.ID = i.korkID WHE
             <div class='msg_wrap_11'>
             <div class='messege_push'>
                 	<span class='user-pict_50'>
-                			<a href='#'><img src='$result[profilePic]' alt='$result[username]' width='50' height='50' class=''></a>
+                			<a href='#'><img src='img/users/$result[profilePic]' alt='$result[username]' width='50' height='50' class=''></a>
                		</span>
                     <h4><a href='#'>$result[fname] $result[lname]</a></h4>
                       <div class='msg_body'>
                       <p>$result[message]</p>
                       </div>
                 </div>
+				<div class='msgtime'>
+				<p>",date('H:i F, d, Y', strtotime($result['dateM'])),"</p></div>
 				   <div class='clear'></div>
             </div> ";
 		}
@@ -273,7 +286,7 @@ join users u on u.ID = i.senderID left outer join korks k on k.ID = i.korkID WHE
 	}
                 
               echo"  <div class='reply_box_22' id='reply_box'>
-                	<div class='reply_box_header'><h3>SEND <a href='#'>$name</a> A MESSAGE</h3></div>";
+                	<div class='reply_box_header'><h3>Send <a href='#'>$name</a> a message.</h3></div>";
 					
 					
 						$query = "UPDATE inbox i SET i.isRead=1 WHERE ((i.senderID = :sID && i.receiverID = :rID) || (i.senderID = :rID && i.receiverID = :sID)) order by i.ID";
@@ -289,9 +302,10 @@ join users u on u.ID = i.senderID left outer join korks k on k.ID = i.korkID WHE
         <div class="bottom_div">
           <button class="btn btn_file read_un"><span class="fa fa-file"> &nbsp;</span>ATTACH FILE</button>
           <p class="maxsize"> <span>Maxsize 30MB</span> <br>
-            <span><a class="upload_prob" href="#">Problems with upload?</a></span> </p>
-          <p class="char-count"><span>0</span><span> / 1200</span> CHARS MAX </p>
+          <span><a class="upload_prob" href="#">Problems with upload?</a></span> </p>
+		  <p class="error-alert"></p>
           <input class="button_send" type="button" id="msgsend" value="SEND" />
+		  <p class="char-count"><span class="count-num">0</span><span> / 1200</span> Characters Limit</p>
         </div>
         <div class="clear"></div>
       </div>

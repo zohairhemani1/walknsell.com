@@ -84,6 +84,7 @@ article.prod_detail{width:100%; position:static;}
 	.copyright{text-align:center; float:none; margin:20px auto 0 auto;}
 	.copyright h4.f_logo{text-align:center; width:112px; display:block; margin:5px auto;}
 	.wrap-search{display:none;}
+	.footer_nav ul{width:100%; float:none;}
 	
 	
 	.mail_selector, p.mark{display:none;}

@@ -5,7 +5,6 @@
 	include 'headers/connect_database.php';      // Connection to Mysql Database.
 	
 	$username = $_POST['username-login'];
-	$u = $username;
 	$password = $_POST['password-login'];
 	$password_md5 = md5($password);
 	

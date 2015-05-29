@@ -44,7 +44,7 @@ function signupForm()
 			 $inputs.prop("disabled", true);
 		// fire off the request to /form.php
 			request = $.ajax({
-				url: "http://www.fajjemobile.info/walknsell.com/signup_form.php",
+				url: "http://www.walknsell.com/signup_form.php",
 				type: "post",
 				data: serializedData
 			});
@@ -53,7 +53,7 @@ function signupForm()
 			request.done(function (response, textStatus, jqXHR){
 				// log a message to the console
 				
-				console.log("Hooray, it worked!");
+				//console.log("Hooray, it worked!");
 				$('#loading').html('');
 				
 				if(response=="success")
@@ -361,12 +361,10 @@ function loginForm()
 			});
 			
 				// callback handler that will be called on success
-			request.done(function (response, textStatus, jqXHR){
+				request.done(function (response, textStatus, jqXHR){
 				// log a message to the console
 				
 				//alert(response);
-				
-				console.log("Hooray, it worked!");
 				$('#loading-login').html('');
 				
 				if(response=="success")
@@ -377,7 +375,7 @@ function loginForm()
 				else if(response == "incorrect credentials")
 				{
 					$('#loading-login').html('<span class=\'alert alert-danger\'><strong>Incorrect Credentials.</strong></span>');
-					
+					$('#password-login').val('');
 				}
 				else
 				{

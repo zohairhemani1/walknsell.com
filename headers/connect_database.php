@@ -2,9 +2,9 @@
 
 $db_host = "localhost"; 
 
-$db_username = "korkster";  
+$db_username = "root";  
 
-$db_pass = "Korkster786!";  
+$db_pass = "";  
 
 $db_name = "korkster"; 
 

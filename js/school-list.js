@@ -71,7 +71,6 @@ function regfindmatch()
 			xmlhttp.open('GET','search_list.inc.php?search_text='+$('#regsearch').val()+'&mode=register',true);
 			xmlhttp.send();
 }
-		
 
 
 $(document).on('click','#regresults li' , function() {

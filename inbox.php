@@ -1,50 +1,86 @@
 <?php
 session_start();
 include 'headers/_user-details.php';
-
-
-	
-
-	
-	if($_GET)
-	{	
-	$type = $_GET['type'];
-	if($type=='archive'){
-		  $stmt = $dbh->prepare("SELECT max(i.ID),i.*,u.profilePic,u.fname,u.lname FROM inbox i,users u WHERE i.senderID = u.ID and i.receiverID  = :user and i.isArchive=:isarchive GROUP BY i.senderID");
-   $readS=1;
-    $stmt->bindParam(':user', $_userID);
-	 $stmt->bindParam(':isarchive', $readS);
-    $stmt->execute();
-     
-		}
-		else if($type=='unread'){
-			  $stmt = $dbh->prepare("SELECT max(i.ID),i.*,u.profilePic,u.fname,u.lname FROM inbox i,users u WHERE i.senderID = u.ID and i.receiverID  = :user and i.isRead =:isread GROUP BY i.senderID");
-			  $readS=0;
-    $stmt->bindParam(':user', $_userID);
-	 $stmt->bindParam(':isread', $readS);
-    $stmt->execute();
-    
-			}
-			else if($type=='read'){
-				  $stmt = $dbh->prepare("SELECT max(i.ID),i.*,u.profilePic,u.fname,u.lname FROM inbox i,users u WHERE i.senderID = u.ID and i.receiverID  = :user and i.isRead =:isread GROUP BY i.senderID");
-     $readS=1;
-    $stmt->bindParam(':user', $_userID);
-	 $stmt->bindParam(':isread', $readS);
-    $stmt->execute();
-   
-				}
-	
+	if(isset($_GET['page'])){
+		$page = $_GET['page'];
 	}else{
+		(isset($_GET['type'])) ? header("Location: inbox.php?type={$_GET['type']}&page=1") : header('Location: inbox.php?page=1');
+	}
+	$perpage = 10;
+	$start = (($page - 1)*$perpage);
 	
-
-	$stmt = $dbh->prepare("SELECT max(i.ID),i.*,u.profilePic,u.fname,u.lname FROM inbox i,users u WHERE i.senderID = u.ID and i.receiverID  = :user GROUP BY i.senderID");
-    $stmt->bindParam(':user', $_userID);
-    $stmt->execute();
-   
+	/*marking checked message*/
+	if (isset($_GET['action'])){
+		if (isset($_POST['allChecks'])){
+			$allChecks = implode(',', $_POST['allChecks']);
+			switch($_GET['action']){
+				case 'archive':
+					$sql = "Update inbox set isArchive = 1 where ID IN ($allChecks)";
+					$dbh->exec($sql);
+				break;
+				case 'read':
+					$sql = "Update inbox set isRead = 1 where ID IN ($allChecks)";
+					$dbh->exec($sql);
+				break;
+				case 'unread':
+					$sql = "Update inbox set isRead = 0 where ID IN ($allChecks)";
+					$dbh->exec($sql);
+				break;
+			}
+			//print_r($_POST['allChecks']);
+		}
+	}
 	
-	
-	
-
+	if(isset($_GET['type'])){
+		$type = $_GET['type'];
+		if($type=='archive'){
+			$stmt = $dbh->prepare("SELECT COUNT(ID) FROM inbox WHERE isArchive = 1 and ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`)");
+			$stmt->bindParam(':user', $_userID);
+			$stmt->execute();
+			$records = $stmt->fetch(); $records = $records[0];
+			$pages = ceil($records[0]/$perpage);
+			
+			$stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`, i.ID, i.message, i.dateM, u.profilePic, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE i.isArchive = 1 and i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
+			$stmt->bindParam(':user', $_userID);
+			$stmt->execute();
+		}else if($type=='starred' || $type=='unstarred'){
+			$temp=($type=='unstarred') ? 0 : 1;
+			$stmt = $dbh->prepare("SELECT COUNT(ID) FROM inbox WHERE isStarred = :isStarred and ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`)");
+			$stmt->bindParam(':user', $_userID);
+			$stmt->bindParam(':isStarred', $temp);
+			$stmt->execute();
+			$records = $stmt->fetch(); $records = $records[0];
+			$pages = ceil($records[0]/$perpage);
+			
+			$stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`, i.ID, i.message, i.dateM, u.profilePic, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE i.isStarred = :isStarred and i.isArchive = 0 and i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
+			$stmt->bindParam(':user', $_userID);
+			$stmt->bindParam(':isStarred', $temp);
+			$stmt->execute();
+		}else if($type=='read' || $type=='unread'){
+			$readS=($type=='unread') ? 0 : 1;
+			$stmt = $dbh->prepare("SELECT COUNT(ID) FROM inbox WHERE isRead = :isRead and ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`)");
+			$stmt->bindParam(':user', $_userID);
+			$stmt->bindParam(':isRead', $readS);
+			$stmt->execute();
+			$records = $stmt->fetch();$records = $records[0];
+			$pages = ceil($records[0]/$perpage);
+			
+			/*$stmt = $dbh->prepare("SELECT i.senderID,i.message,i.dateM,u.profilePic,u.fname,u.lname FROM inbox i INNER JOIN users u ON i.senderID = u.ID WHERE i.receiverID = :user and i.isRead =:isread and i.ID IN (select max(ID) FROM inbox GROUP BY senderID) LIMIT $start, $perpage");*/
+			$stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`, i.ID, i.message, i.dateM, u.profilePic, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE i.isRead = :isRead and i.isArchive = 0 and i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
+			$stmt->bindParam(':user', $_userID);
+			$stmt->bindParam(':isRead', $readS);
+			$stmt->execute();
+		}
+	}else{
+		$stmt = $dbh->prepare("SELECT count(ID) FROM (SELECT ID FROM inbox WHERE receiverID = :user GROUP BY senderID) as i");
+		$stmt->bindParam(':user', $_userID);
+		$stmt->execute();
+		$records = $stmt->fetch(); $records = $records[0];
+		$pages = ceil($records[0]/$perpage);
+		
+		$stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`, i.ID, i.message, i.dateM, u.profilePic, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
+		$stmt->bindParam(':user', $_userID);
+		$stmt->execute();
 	}
 ?>
 <html>
@@ -83,7 +119,28 @@ $(function() {
 				     });
 					 
 </script>
-
+<script type="text/javascript">
+window.onload=function() {
+   document.getElementById("btnArchive").onclick=function() {
+     var myForm = document.getElementById("myForm");
+     myForm.action=this.href;
+     myForm.submit();
+     return false; // cancel the actual link
+   }
+   document.getElementById("btnUnread").onclick=function() {
+     var myForm = document.getElementById("myForm");
+     myForm.action=this.href;
+     myForm.submit();
+     return false; // cancel the actual link
+   }
+   document.getElementById("btnRead").onclick=function() {
+     var myForm = document.getElementById("myForm");
+     myForm.action=this.href;
+     myForm.submit();
+     return false; // cancel the actual link
+   }
+ }
+</script>
 
 <script src="js/school-list.js"></script>
 
@@ -92,7 +149,7 @@ $(function() {
 <body>
 <div class="container">
 	<div class="header_bg">
-        <header>
+        <header class="main-header">
         <a id="simple-menu" class="icon-menu" href="#sidr"></a>
 
            <?php include "headers/menu-top-navigation.php"; ?>
@@ -110,12 +167,12 @@ $(function() {
                 		<a data-toggle="dropdown" href="#"><input type="checkbox" id="mail_select">
                     	<label for="mail_select"><img src="img/arrow.png" width="14" alt=""></label></a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-    						<li><a href="#">ALL</a></li>
-            				<li><a href="#">NONE</a></li>
-                            <li><a href="#">READ</a></li>
-                            <li><a href="#">UNREAD</a></li>
-                            <li><a href="#">STARRED</a></li>
-                            <li><a href="#">UNSTARRED</a></li>
+    						<li><a href="inbox.php">ALL</a></li>
+                            <li><a href="inbox.php?type=read">READ</a></li>
+                            <li><a href="inbox.php?type=unread">UNREAD</a></li>
+                            <li><a href="inbox.php?type=starred">STARRED</a></li>
+                            <li><a href="inbox.php?type=unstarred">UNSTARRED</a></li>
+							<li><a href="inbox.php?type=archive">ARCHIVE</a></li>
   						</ul>
                     </div>
   		
@@ -123,10 +180,10 @@ $(function() {
                 </div>
                   <p class="mark">mark as</p>
                   <div class="btn-group">
-                  	<a href="inbox.php?type=archive" class="btn_top archive">ARCHIVE</a>
-                  	<a href="inbox.php?type=unread" class="btn_top unread">UNREAD</a>
-                  	<a href="inbox.php?type=read" class="btn_top read">READ</a>
-                    	<div class="clear"></div>
+                  	<a href="inbox.php?<?php echo (isset($_GET['type']) == true) ? "type=$type&" : "","action=archive&page=$page" ?>"  id="btnArchive" class="btn_top archive">ARCHIVE</a>
+                  	<a href="inbox.php?<?php echo (isset($_GET['type']) == true) ? "type=$type&" : "","action=unread&page=$page" ?>" id="btnUnread" class="btn_top unread">UNREAD</a>
+                  	<a href="inbox.php?<?php echo (isset($_GET['type']) == true) ? "type=$type&" : "","action=read&page=$page" ?>" id="btnRead" class="btn_top read">READ</a>
+                    <div class="clear"></div>
                   </div>
                     
                   <div class="wrap-search">
@@ -144,50 +201,51 @@ $(function() {
                                     	<td>&nbsp;</td>
                             			<td class="sender_td">SENDER</td>
                                         <td class="last_messege_td">LAST MESSEGE</td>
-                                        <td class="update_head">UPDATE</td>
+                                        <td class="update_head">UPDATED</td>
                                     </tr>
                                 </table>
                             </td>
                     	</tr>
                     </thead>
                     <tbody>
-                    
+					<form id="myForm" action="" method="POST">
                     <?php
-             
-                    
-					
-					
-						while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
- 					
-					$date=$row['dateM'];
-					$lastmessage=$row['message'];
-					$sender=$row['fname'].' '.$row['lname'];
-					$profileImg=$row['profilePic'];
-					if($profileImg==""){
-						$profileImg="img/sender_img.png";
-						}
-                    	echo "<tr>
-                        	<td class='inbox_mail_row'>
-                            	<table class='ellip'>
-                                	<tr>
-                                    	<td class='checkbox'><input type='checkbox'></td>
-                                        <td class='star'><img src='img/star.png' width='23' alt='star'></td>
-                                        <td class='sender_dt'><img src='$profileImg' width='26' alt='sender'>${sender}</td>
-                                        <td class='messege_subject'><a href='inbox_des.php?id=$row[senderID]&mode=0'>${lastmessage}</a></td>
-                                        <td class='update'>${date}</td>
-                                   </tr>
-                                </table>
-                            </td>
-                        </tr>" ;
-						}
-	                ?>   
-       					
-            
-                    </tbody>
+					$count = 0;
+					while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+						$count++;
+						$messageID=$row['ID'];
+						$date=$row['dateM'];
+						$lastmessage=$row['message'];
+						$senderID = $row['sender'];
+						$sender = $row['fname'].' '.$row['lname'];
+						$profileImg = $row['profilePic'];
+						
+						echo "<tr>
+							<td class='inbox_mail_row'>
+								<table class='ellip'>
+									<tr>
+										<td class='checkbox'><input class='msgChecks' type='checkbox' name='allChecks[]' value='$messageID'></td>
+										<td class='star'><img src='img/star.png' width='23' alt='star'></td>
+										<td class='sender_dt'><img src='img/users/$profileImg' width='26' alt='sender'>${sender}</td>
+										<td class='messege_subject'><a href='inbox_des.php?id=$senderID&mode=0'>${lastmessage}</a></td>
+										<td class='update'>${date}</td>
+								   </tr>
+								</table>
+							</td>
+						</tr>" ;
+					}
+	                ?>
+                    </tbody></form>
                 </table>
-                <p class="summary_para">Showing 8 of 200 messeges</p>
+                <p class="summary_para">Showing <?php echo $count.' of '.$records; ?> messages</p>
             </div><!--/.main_table-->
-            
+            <div><p>
+			<?php
+				for($number = 1; $number <= $pages; $number++){
+					echo "<a href='inbox.php?",(isset($_GET['type']) == true) ? "type=$type&" : "","page=$number'>$number</a>";
+				}
+			?></p>
+			</div>
             
         	<div class="clear"></div>
         </div>
@@ -196,44 +254,7 @@ $(function() {
         
     </div>
     
-    
-    
-    <footer>
-    	<div class="footer_inner">
-        	<div class="social">
-            	<h4>Lets Connect</h4>
-                <ul>
-                	<li><a class="twitter" href="#">twitter</a></li>
-                    <li><a class="fb" href="#">facebook</a></li>
-                    <li><a class="pin" href="#">pinterest</a></li>
-                    <li><a class="linkedin" href="#">linkedin</a></li>
-                    <li><a class="insta" href="#">instagram</a></li>
-                </ul>
-                <div class="clear"></div>
-            </div>
-            <div class="footer_nav">
-            	<h4>General</h4>
-                <ul>
-                	<li class="f_home"><a href="#">Home</a></li>
-                    <li class="f_sign"><a href="#">Sign in</a></li>
-                    <li class="f_support"><a href="#">Support</a></li>
-                </ul>    
-                <ul class="second">    
-                 	<li class="f_start"><a href="#">Start selling</a></li>
-                    <li class="f_join"><a href="#">Join</a></li>
-                    <li class="f_contact"><a href="#">Contact us</a></li>
-                    
-                </ul>
-                <div class="clear"></div>
-            </div>
-            <div class="copyright">
-            	<h4 class="f_logo">WalknSell</h4>
-                	<p>Copyright 2013 WalknSell.</p>
-					<p>All Rights Reserved</p> 
-            </div>
-            <div class="clear"></div>
-        </div>
-    </footer>
+    <?php include 'headers/menu-bottom-navigation.php'; ?>
 
 </div>
 

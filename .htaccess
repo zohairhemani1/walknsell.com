@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Make sure you only match on files/directories that don't actually exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite the first part after the `/` into a `username` parameter
+RewriteRule ^(.*)$ /korkster/user_profile.php?username=$1

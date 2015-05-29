@@ -5,26 +5,24 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
           <h1 class="modal-title" id="myModalLabel">WalknSell Login</h1>
-          <p>Please Enter valid Id and password for Signin!</p>
         </div>
         <div class="modal-body">
           <form id="login-form" method="post">
-            <div id="error-login"></div>
-            <input type="text" class="form-control txt_boxes" placeholder="Username" name="username-login" id="username-login" required= "true">
+            <input type="text" class="form-control txt_boxes" placeholder="Username" name="username-login" id="username-login" required>
             <input type="password" class="form-control txt_boxes" placeholder="Password" name="password-login" id="password-login" required>
             <div id="loading-login"></div>
             <input type="submit" class="btn_signup" value="login"/>
             <div class="forg_pass">
-              <input type="checkbox" name="remember" class="">
-              <p><a href="#">REMEMBER ME</a> / <a href="#">FORGET PASSWORD</a> ?</p>
+              <input type="checkbox" name="remember"><p>Remember me</p>
+			  <p><a href="#">Forgot Password?</a></p>
               <div class="clearfix"></div>
             </div>
           </form>
           <div class="clearfix"></div>
         </div>
-        <div class="modal-footer"> <a href="#"><img src="img/join_via_fb.png" width="251" alt="join using facebook" id="login_fb"></a> 
+        <div class="modal-footer"> <a href="#"><img src="img/login_via_fb.png" width="251" alt="join using facebook" id="login_fb"></a> 
           <script>
-									(function ($) {
+								(function ($) {
 									$(function () {
 										$("#login_fb").on("click", function () {
 											initfb('login');
@@ -33,7 +31,7 @@
 									});
 									})(jQuery);
     					</script>
-          <p>IF PROBLEM SIGNING IN THEN <a href="#">CLICK HERE »</a></p>
+		<p><a href="#" data-toggle='modal' data-target='#register'>I Can't Sign in!</a></p>
         </div>
       </div>
     </div>
@@ -59,7 +57,7 @@
             <input type="text" pattern=".{5,15}" class="form-control txt_boxes" placeholder="Create your Username" name="username" id="username" required>
             <input type="password" pattern=".{5,15}" class="form-control txt_boxes" placeholder="Create a Password" name="password" id="password" required>
             <input type="password" pattern=".{5,15}" class="form-control txt_boxes" placeholder="Confirm Password" name="verifyPassword" id="verifyPassword" required>
-             <input type="hidden" name="typeAcc" id="typeAcc">
+            <input type="hidden" name="typeAcc" id="typeAcc">
             <center>
               <div id="loading"></div>
               <input type="submit" class="btn_signup" value="submit" />
@@ -80,7 +78,7 @@
 									});
 									})(jQuery);
     					</script>
-          <p>ALREADY A MEMBER? <a href="#">SIGN IN »</a></p>
+          <p>Already a member? <a href="#" data-toggle='modal' data-target='#login'>Sign in</a></p>
         </div>
       </div>
     </div>
@@ -111,4 +109,3 @@
       </div>
     </div>
   </div>
-  

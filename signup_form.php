@@ -98,7 +98,7 @@
 			$sth->bindValue(':collegeID',$collegeID);
 			$sth->bindValue(':activationKey',$activationKey);
 			$sth->bindValue(':joinDate',date('Y/m/d H:i:s'));
-			$sth->bindValue(':profilePic','img/profile_pic.jpg');
+			$sth->bindValue(':profilePic','profile_pic.png');
 			//$sth ->execute();
 			 if($sth ->execute())
 			 { 
