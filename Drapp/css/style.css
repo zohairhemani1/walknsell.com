@@ -1,0 +1,106 @@
+body{
+    background-color:#000;
+}
+h1,h2,h3,p,a,label { color:#fff; font-family: "Calibri", sans-serif; }
+p,a,label,input[type="text"] { font-size: 14px; }
+h1 { font-size: 23px; }
+h3 { font-size: 18px!important; }
+header{
+    background-image: url('../img/header.png');
+    height: 20%;
+}
+header.home { text-align: center; }
+header.home img.logo{
+    margin: 40px 0px;
+    min-width:270px;
+    width:70%;
+    /*max-width: 361px;*/
+}
+header img.logo{
+    margin: 20px 0px;
+    min-width:200px;
+    width:45%;
+    /*max-width: 361px;*/
+}
+
+header form.sidelogo{
+    float: right;
+    padding-right: 6%;
+    padding-top: 13%;
+
+    /*max-width: 361px;*/
+}
+
+
+.wrapper{width: 96%; margin: 0 auto; }
+.wrapper2{text-align:left; width: 96%; margin: 0 auto;    padding-top: 10px; }
+.uppercase { text-transform: uppercase; font-size: 24t; margin-top: 4pt }
+.uppercase2 { text-transform: uppercase; font-size: 16pt; margin-top: 4pt }
+.title {display: block; height:55px; margin-top: 20px; /*width: 280px; margin-left: auto; margin-right:auto;*/ }
+.title .title-logo { width: 55px; float: left; }
+.title h1 { float: left; padding-left: 10px; }
+.footer { margin-bottom: 27px;  margin-top: 30px; }
+.footer2 {  text-align: center;padding-bottom:5%; }
+.footer.bottom  bottom:35px; left:0; margin-bottom: 0px; width:100%; }
+.footer.bottom * {text-align: center;}
+
+/* default style */
+.selectnav { display: none; }
+
+/* small screen */
+@media screen and (max-width: 600px) {
+    .js #nav { display: none; }
+    .js .selectnav { display: block; margin-left:10%;}
+}
+
+
+/*Menu*/
+.menu-row { margin: 18px 0px; padding: 0px 4%;    padding-right: 13%;}
+.menu-row img { width:125px; position:relative; }
+.menu-row div { width:100px; }
+.menu-row div:first-child { float:right; }
+.menu-row div p {     
+    position: relative;
+    top: -10px;
+    font-size: 14.5px;
+    width: 128px;
+    text-align: center;
+}
+/*Button*/
+.btns { text-decoration: none; padding: 15px; border-radius: 10px; }
+.callus { background: -webkit-linear-gradient(#fff -100%, #6699FF 25%);
+    background: -o-linear-gradient(#fff -100%, #6699FF 25%);
+    background: -moz-linear-gradient(#fff -100%, #6699FF 25%);
+    background: linear-gradient(#fff -80%, #6699FF 25%); color: white; }
+.dial { background: -webkit-linear-gradient(#fff -2%, #DF3E3E);
+    background: -o-linear-gradient(#fff -8%, #DF3E3E 65%);
+    background: -moz-linear-gradient(#fff -8%, #DF3E3E 65%);
+    background: linear-gradient(#fff -8%, #DF3E3E 65%); color: white; }
+.next { background: -webkit-linear-gradient(#fff -8%, #5aae22 45%);
+    background: -o-linear-gradient(#fff -8%, #5aae22 45%);
+    background: -moz-linear-gradient(#fff -8%, #5aae22 45%);
+    background: linear-gradient(#fff -8%, #5aae22 45%); color: white; }
+
+
+/*Practitioners*/
+.doctor-details img{ float:left; margin-right: 10px; min-width:120px; width: 13%;}
+.adjust {
+    font-size: 11;
+    font-weight: bolder;}
+
+/*Request*/
+.wrapper form { background-color: #ccc; border-radius: 10px; margin-top: 20px; padding:10px;}
+.wrapper form h3 { color:#000; margin:0px 0px 0px 0px; }
+.wrapper form label { display:inline-block; color:#000; margin-left: 0px; width: 25%; }
+.wrapper form input[type='text'],input[type='number'],textarea { margin-left: 5px; margin-top: 10px; }
+
+/* Payment */
+.wrapper form#location label { width: 33%; }
+.wrapper form#location textarea,label#directions { display:inline-block; vertical-align:middle; }
+
+/* Payment */
+.wrapper form#payment label { width: 42%; }
+.wrapper form#payment input[type='number'] { width: 145px; }
+.wrapper form#payment input[type='submit'] { margin: 0px auto; display: block; margin-top: 15px; }
+.wrapper form#payment p { margin: 0px; font-size: 9px; text-align: center; margin-top: 10px; color: #000; }
+

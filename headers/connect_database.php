@@ -7,7 +7,6 @@ $db_username = "root";
 $db_pass = "";  
 
 $db_name = "korkster"; 
-
 // Run the connection here  
 
 $con = mysqli_connect("$db_host", "$db_username", "$db_pass", "$db_name");

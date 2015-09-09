@@ -5,10 +5,11 @@ var _email;
 var _profilePic;
 
 
+
  // This is called with the results from from FB.getLoginStatus().
 
-  function statusChangeCallback(response,source) {
-
+  function statusChangeCallback(response,source) 
+{
     console.log('statusChangeCallback');
 
     console.log(response);
@@ -20,16 +21,15 @@ var _profilePic;
     // Full docs on the response object can be found in the documentation
 
     // for FB.getLoginStatus().
-
     if (response.status === 'connected') {
 
       // Logged into your app and Facebook.
-
   console.log('Welcome!  Fetching your information.... ');
 
-    FB.api('/me', function(response) {
+    FB.api('/me?fields=
+           ', function(response) {
 
-      console.log('Successful login for: ' + response.name+response.email+response.id);
+      console.log('Successful login for: ' + response.name+response.first_name+response.email+response.id);
 
       //document.getElementById('status').innerHTML =
 
@@ -40,7 +40,7 @@ var _profilePic;
 	_fname=response.first_name;
 	_lname=response.last_name;
 	_email=response.email;
-	_profilePic="http://graph.facebook.com/" + response.id + "/picture";
+	_profilePic="http://graph.facebook.com/1009701775721120/picture";
 	
 	
 	
@@ -55,7 +55,7 @@ var _profilePic;
 					$("#username").val(_userID);
 					$("#firstName").prop('readonly',true);
 					$("#lastName").prop('readonly',true);
-					$("#email").prop('readonly',true);
+//					$("#email").prop('readonly',true);
 					$("#username").prop('readonly',true);
 					$("#password").prop('readonly',true);
 					$("#verifyPassword").prop('readonly',true);	
@@ -67,7 +67,9 @@ var _profilePic;
 					//signupFormFB(_userID,_fname,_lname,_email,_profilePic);
 				}
 		
-		
+			FB.api('/me', function(response) {
+    console.log(JSON.stringify(response));
+});
 			
 			
     });
@@ -81,6 +83,8 @@ var _profilePic;
        // 'into this app.';
 
     } else {
+             document.getElementById('status').innerHTML = 'Please log ' +
+        'into this app.';
 
       // The person is not logged into Facebook, so we're not sure if
 
@@ -95,9 +99,7 @@ var _profilePic;
       //document.getElementById('status').innerHTML =
 
         //'Thanks for logging in, ' + response.name + '!';
-		
-		
-	
+
 	
 	FB.login(function(response) {
 		
@@ -107,7 +109,7 @@ var _profilePic;
 				
 					console.log('Welcome!  Fetching your information.... ');
 
-    FB.api('/me', function(response) {
+    FB.api('/me?fields=name,first_name,last_name,email', function(response) {
 
       console.log('Successful login for: ' + response.name+response.email+response.id);
 				
@@ -170,8 +172,10 @@ var _profilePic;
   }
 
 
-function initfb(source){
-  window.fbAsyncInit = function() {
+function initfb(source)
+{
+  window.fbAsyncInit = function() 
+  {
 
   FB.init({
 
@@ -179,12 +183,13 @@ function initfb(source){
 
     cookie     : true,  // enable cookies to allow the server to access 
 
+      xfbml      : true,
      status     : true,                   // the session
-	channelUrl : 'channel.html',
+//	channelUrl : 'channel.html',
 
     xfbml      : true,  // parse social plugins on this page
 
-    version    : 'v2.0' // use version 2.0
+   version    : 'v2.4'// use version 2.0
 
   });
 

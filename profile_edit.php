@@ -1,33 +1,47 @@
 <?php
 session_start();
+if(!isset($_SESSION['username']))
+   {
+    header('Location: index.php');
+   }
 include 'headers/_user-details.php';
 	
 	if($_SERVER['REQUEST_METHOD'] == "POST")
 	{
-		$imgFrom="users";
-		include 'headers/image_upload.php';
-		$fname = $_POST['fname'];
-		$description = $_POST['userDesc'];
-		$lname = $_POST['lname'];
-		//$school = $_POST['userSchool'];
-		if(!isset($profilePic)){
-			$profilePic = $_profilePic;
-		}
-		$query = "SELECT ID from colleges WHERE name = :cname";
-		$sth = $dbh->prepare($query);
-		$sth->bindValue(':cname','IBA INSTITUTE OF BUSINESS ADMINISTRATION');
-		$sth->execute();
-		$schoolID = $sth->fetchColumn();
-		
-		$sth = $dbh->prepare("UPDATE users SET fname = :fname, lname = :lname, profilePic = :profilePic, description = :desc, collegeID = :schoolID WHERE ID = :userID");
-		$sth->bindValue(':fname',$fname);
-		$sth->bindValue(':lname',$lname);
-		$sth->bindValue(':profilePic',$profilePic);
-		$sth->bindValue(':desc',$description);
-		$sth->bindValue(':schoolID',$schoolID);
-		$sth->bindValue(':userID',$_userID);
-		$sth->execute();
-		
+        if(isset($_POST['security_btn']) === false){
+            $imgFrom="users";
+            include 'headers/image_upload.php';
+            $fname = $_POST['fname'];
+            $description = $_POST['userDesc'];
+            $lname = $_POST['lname'];
+            $college = explode('-', $_POST['userSchool']);
+            $college = trim($college[0]);
+            if(!isset($profilePic)){
+                $profilePic = $_profilePic;
+            }
+            $query = "SELECT ID from colleges WHERE name LIKE :cname";
+            $sth = $dbh->prepare($query);
+            $sth->bindValue(':cname',$college);
+            $sth->execute();
+            $schoolID = $sth->fetchColumn();
+            $sth = $dbh->prepare("UPDATE users SET fname = :fname, lname = :lname, profilePic = :profilePic, description = :desc, collegeID = :schoolID WHERE ID = :userID");
+            $sth->bindValue(':fname',$fname);
+            $sth->bindValue(':lname',$lname);
+            $sth->bindValue(':profilePic',$profilePic);
+            $sth->bindValue(':desc',$description);
+            $sth->bindValue(':schoolID',$schoolID);
+
+        }else{
+            $password = $_POST['newPass'];
+            $passwordC = $_POST['newPass_confirm'];
+            if($password != null || $password != '' || $passwordC != null || $passwordC != ''){
+                $password = md5($password);
+                $sth = $dbh->prepare("UPDATE users SET password = :pass WHERE ID = :userID");
+                $sth->bindValue(':pass',$password);
+            }
+        }
+        $sth->bindValue(':userID',$_userID);
+        $sth->execute();
 		header("Location: $_username");
 	}		
 // ending if block of $_POST
@@ -100,44 +114,48 @@ $(document).ready(function() {
   <div id="backgroundPopup"></div>
   <div class="content_inbox">
   
-  <form name="create_gig" action="profile_edit.php" method="post" enctype="multipart/form-data">
-  
     <h2><?php echo $_username;?>'s Profile</h2>
+      <ul class="nav nav-pills">
+  <li class="active"><a data-toggle="pill" href="#general">General</a></li>
+  <li><a data-toggle="pill" href="#security">Security</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="general" class="tab-pane fade in active">
+  <form name="general_edit" id="general_submit" action="profile_edit.php" method="post" enctype="multipart/form-data">
     <div class="left_gig">
       <div class="form_row">
         <div class="label_wrap">
           <label for="firstname">First Name</label>
         </div>
-        <div class="input_wrap user_fname" style="width:auto;">
-          <input class="gig_text price" type="text" id="fname" value="<?php echo $_fname;?>" name="fname" style="width:198px;" required/>
-        
+        <div class="user_names user_fname">
+          <input class="gig_text price" type="text" id="fname" value="<?php echo $_fname;?>" maxlength="15" name="fname" style="width:100%;" required/>
         </div>
-		<div class="label_wrap user_lname">
+		<div class="label_wrap userl_lname">
           <label for="lastname">Last Name</label>
         </div>
-        <div class="input_wrap user_lname" style="width:auto;">
-          <input class="gig_text price" type="text" id="lname" value="<?php echo $_lname;?>" name="lname" style="width:198px;" required/>
+        <div class="user_names">
+          <input class="gig_text price" type="text" id="lname" value="<?php echo $_lname;?>" maxlength="10" name="lname" style="width:100%;" required/>
         </div>
       </div>
       <div class="form_row">
         <div class="label_wrap">
-          <label for="gig_category">School</label>
+          <label for="gig_category">Email</label>
         </div>
         <div class="input_wrap">
-		<input type="text" class="form-control gig_text school_txt" value="<?php echo $_collegeName; ?>" name="userSchool" placeholder="School" size="" id="regsearch" onKeyUp="regfindmatch();" autocomplete="off" style="width:95%" required>
-            <ul id ="regresults" name="schools" >
-            </ul>
+		<input type="text" disabled class="gig_text price" value="<?php echo $_useremail; ?>" name="" placeholder="Email" size="" style="width:95%" >
         </div>
-        <aside class="gig-tooltip">
-          <figure>
-            <figcaption>
-              <h3>Select a Category.</h3>
-              <p>This is your Gig category. Choose wisely for better promotion.</p>
-            </figcaption>
-            <div class="gig-tooltip-img"></div>
-          </figure>
-        </aside>
       </div>
+      <div class="form_row">
+    <div class="label_wrap">
+      <label for="gig_category">School</label>
+    </div>
+    <div class="input_wrap">
+    <input type="text"  class="form-control gig_text school_txt" value="<?php echo $_collegeName; ?>" name="userSchool" placeholder="School" size="" id="regsearch" onKeyUp="regfindmatch();" autocomplete="off" style="width:95%" required>
+        <ul id ="regresults" name="schools" >
+        </ul>
+    </div>
+  </div>    
       <div class="form_row">
         <div class="label_wrap">
           <label for="gig_gallery">Profile Picture</label>
@@ -146,9 +164,9 @@ $(document).ready(function() {
           <div class="file_input">
             <!--  <button type="file" class="btn_signup" name="file" id="name">Browse</button>  -->
             
-            <input id="fileupload" type="file" name="file" multiple >
+            <input id="fileupload" accept="image/*" type="file" onchange="return ValidateFileUpload()" name="file" multiple >
             
-            <p>JPEG file, 2MB Max, <span class="grey_c">you own the copyrights</span></p>
+            <p>JPEG,PNG,JPG file, 2MB Max, <span class="grey_c">you own the copyrights</span></p>
           </div>
         </div>
       </div>
@@ -161,6 +179,37 @@ $(document).ready(function() {
           <textarea class="gig_text desc" rows="10" maxlength="200" name="userDesc" required><?php echo $_description; ?></textarea>
         </div>
       </div>
+    <div class="error"></div>
+  <div id="loading-contact" class="genload"></div>
+    </div>
+      <div class="bottom_save_block">
+      <button type="submit" id="submit-all"  class="btn_signup">Save &amp; Continue</button>
+      <button id="cancel" class="btn_signup btn_cancel">Cancel</button>
+    </div>
+  </form>
+    </div>
+    <div id="security" class="tab-pane fade">
+    <form name="security_edit" id="security_edit" action="profile_edit.php" method="post">
+    <div class="left_gig">
+      <div class="form_row">
+        <div class="label_wrap">
+          <label for="newPass">New Password</label>
+        </div>
+        <div class="input_wrap newPass">
+          <input class="gig_text" type="password" id="newPass" name="newPass" style="width:90%;" required/>
+        </div>
+      </div>
+      <div class="form_row">
+        <div class="label_wrap">
+          <label style="width: 134px;" for="newPass_confirm">Confirm Password</label>
+        </div>
+        <div class="input_wrap newPass_confirm">
+          <input class="gig_text" type="password" id="newPass_confirm" name="newPass_confirm" style="width:90%;" required/>
+        </div>
+      </div>
+     <div class="error"></div>
+    </div>
+    
      <!-- <div class="form_row">
         <div class="label_wrap">
           <label for="gig_title">instruction for buyer</label>
@@ -169,60 +218,18 @@ $(document).ready(function() {
           <textarea class="gig_desc_text" rows="2" maxlength="80"></textarea>
         </div>
       </div> -->
+    <div style="margin-bottom: 180px;" class="bottom_save_block">
+      <button type="submit" id="submit-pass" name="security_btn" class="btn_signup">Save &amp; Continue</button>
+      <button type="button" id="cancel1" class="btn_signup btn_cancel">Cancel</button>
     </div>
-    <div class="bottom_save_block">
-      <button type="submit" class="btn_signup">Save &amp; Continue</button>
-      <button class="btn_signup btn_cancel">Cancel</button>
-    </div>
-    
-    
-    
     </form>
+    </div>
+    </div>
     
     <div class="clear"></div>
   </div>
-  <?php include 'headers/menu-bottom-navigation.php' ?>
 </div>
-
-<nav class="navbar navbar-default" role="navigation">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Company Name</a>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li class="divider"></li>                    
-                </ul>
-            </li>
-        </ul>
-        <div class="col-sm-3 col-md-3 pull-right">
-            <form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="q">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                    </div>
-                </div>
-            </form>
-        </div>        
-    </div>
-</nav>
-
+<?php include 'headers/menu-bottom-navigation.php' ?>
 
 <script>
 $(function() {      
@@ -236,8 +243,128 @@ $(function() {
 							           $( "nav.main_nav li#admin > ul" ).css( "display", "none" );
 				        });   
 				     });
-					 
+    
+    
+    // cancel button javascript    
+    $("#cancel").click(function(e){
+        window.stop();
+        return false
+    });
+    $("#cancel1").click(function(e){
+        window.stop();
+        return false
+    });
+    // cancel button javascript
+    
+//        validation for user name       
+$("#general_submit").on('submit',function(){
+   if ($("#fname").val().length < 4)
+    {
+		$('.error').css("padding-top", "20px");
+		$('.error').css("padding-bottom", "20px");
+        		$('.error').css("margin-left", "15%"); 
+		$('.error').html('<span class=\'alert alert-warning\'><strong>Oops! </strong>First Name Must be 4 Characters</strong></span>');
+		return false;    
+    }
+  if ($("#lname").val().length < 4)
+    {
+		$('.error').css("padding-top", "20px");
+		$('.error').css("padding-bottom", "20px");
+        		$('.error').css("margin-left", "15%"); 
+		$('.error').html('<span class=\'alert alert-warning\'><strong>Oops! </strong>Last Name Must be 4 Characters</strong></span>');
+		return false;    
+    }
+       else
+	{
+		$('.error').css("display", "none");
+	}
+    if($('#regresults').text() == "No results found!" || $('#regresults').text() == "Loading.."){
+            $('.error').css("padding-top", "20px");
+            $('.error').css("padding-bottom", "20px");
+                    $('.error').css("margin-left", "15%"); 
+            $('.error').html('<span class=\'alert alert-warning\'><strong>Sorry! No school found with the name "'+$('#regsearch').val()+'".</strong></span>');
+            return false;    
+            error.push('no school found');
+    }
+    else  if(booleanvalue == false){
+    $('.error').css("padding-top", "20px");
+    $('.error').css("padding-bottom", "20px");
+    $('.error').css("margin-left", "15%"); 
+    $('.error').html('<span class=\'alert alert-warning\'><strong>Sorry! Please Select any one college or university name from search result</strong></span>');
+    return false;
+    }
+
+});      
+    //        validation for user name
+
+    
+    //        Validation for password     
+
+$("#submit-pass").on('click',function(){ 
+    if ($("#newPass").val().length < 4)
+    {
+		$('.error').css("padding-top", "20px");
+		$('.error').css("padding-bottom", "20px");
+        		$('.error').css("margin-left", "15%"); 
+		$('.error').html('<span class=\'alert alert-warning\'><strong>Oops! </strong>Password Must be 4 Characters</strong></span>');
+		return false;    
+    }
+    else if($('#newPass').val() != $('#newPass_confirm').val())
+	{
+		$('.error').css("padding-top", "20px");
+		$('.error').css("padding-bottom", "20px");
+        		$('.error').css("margin-left", "15%"); 
+		$('.error').html('<span class=\'alert alert-warning\'><strong>Oops! </strong>Password did not match! Try again.</span>');
+		return false;
+	}
+    else
+	{
+		$('.error').css("padding-top", "20px");
+		$('.error').css("padding-bottom", "20px");
+        		$('.error').css("margin-left", "15%"); 
+		$('.error').html('<span class=\'alert alert-success\'><strong>Success! </strong>Password match..</span>');
+	}
+});
 </script> 
+    <script type="text/javascript">
+function ValidateFileUpload() {
+        var fuData = document.getElementById('fileupload');
+        var FileUploadPath = fuData.value;
+
+//To check if user upload any file
+        if (FileUploadPath == '') {
+            alert("Please upload an image");
+
+        } else {
+            var Extension = FileUploadPath.substring(
+                    FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+//The file uploaded is an image
+
+if ( Extension == "png" || Extension == "jpeg" || Extension == "jpg") {
+
+// To Display
+                if (fuData.files && fuData.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#blah').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(fuData.files[0]);
+                }
+
+            } 
+
+//The file upload is NOT an image
+else {
+                alert("Photo only allows file types of PNG, JPG and JPEG . ");
+    document.getElementById('fileupload').value = '';
+
+            }
+        }
+    }
+        </script>
 <script>
 	$(document).ready(function(e) {
         $('.input_wrap').on('focus', function(){
@@ -246,5 +373,6 @@ $(function() {
     });
 </script> 
 <script src="js/school-list.js"></script>
+
 </body>
 </html>

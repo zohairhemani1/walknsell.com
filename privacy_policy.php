@@ -7,20 +7,29 @@ include 'headers/_user-details.php';
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>::WalknSell::</title>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/media.css" type="text/css">
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
 <link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
-<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<style>
+*, *:before, *:after {
+	-webkit-box-sizing: initial;
+	-moz-box-sizing: initial;
+	box-sizing: initial;
+}
+img {
+	vertical-align: top;
+}
+</style>
 <script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/modern.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.sidr.min.js"></script>
 <script src="js/custom.js"></script>
-<script src="js/nav-admin-dropdown.js"></script>
 <script src="js/fb.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
 <script>
 $(document).ready(function() {
   $('#simple-menu').sidr();
@@ -43,17 +52,17 @@ function parallax(){
 
 <body id="policy">
 <div>
-	<div class="header_bg ">
-        <header>
-        <a id="simple-menu" class="icon-menu" href="#sidr"></a>
-
-       
-            <?php include 'headers/menu-top-navigation.php';?>
-        </header>
+    <div class="header_bg">
+        <div class="random_header">
+    <header class="main-header"> <a id="simple-menu" class="icon-menu" href="#sidr"></a>
+      <?php
+           include 'headers/menu-top-navigation.php';?>
+    </header>
+        </div>
        <nav class="category_nav main-category-search">
         	<div class="category_inner">
-            	<h1>Privacy Policy</h1>
-
+            	<h1>WalknSell's Privacy Policy</h1>
+                <h2>Last update: August 2015</h2>
                 <div class="clear"></div>  
            </div> 
         </nav>
@@ -62,8 +71,7 @@ function parallax(){
         <div class="clear"></div>
        
     </div><!--/.header_bg-->
-	<?php
-           include 'headers/popup.php';?>
+	<?php include 'headers/popup.php';?>
     <article class="privacy">
     	
         <div id="contentSub" class="clearfix">
@@ -121,9 +129,9 @@ function parallax(){
 				
 				<p><strong>WalknSell</strong><br>
 				www.WalknSell.com<br>
-				info [at] WalknSell.com</p>
+				info@WalknSell.com</p>
 
-				<p><em>This document was last updated on January 20, 2014</em></p>
+				<p><em>This document was last updated on  August, 2015</em></p>
 			</div>
 		</div>
         
@@ -147,8 +155,16 @@ function getlist(x){
     $("#veiwlist"+x).show();
 }
 </script>
+<script src ="js/register.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+
+  $('#simple-menu').sidr();
+
+});
+</script> 
+<script src="js/nav-admin-dropdown.js"></script>
 <script src="js/school-list.js"></script>
-
 </body>
 </html>

@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>Doctor Visit 247</title>
+        <link href="css/default.css" type="text/css" rel="stylesheet" />
+        <link href="css/style.css" type="text/css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="initial-scale=1.0,width=device-width,user-scalable=0, minimal-ui" />
+        <meta name="viewport" content="width=620, user-scalable=no" />
+        <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
+        <meta name="viewport" content="initial-scale=1.0,width=device-width,user-scalable=0" />
+        <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=yes" />
+
+    </head>
+    <body>
+        <header>
+            <img class="logo" src="img/logo.png" />  
+        </header>
+        <div class="wrapper">
+            <div class="title"><img src="img/first_aid.png" class="title-logo"/><h1 id="title-payments" class="uppercase"></h1></div>
+            <form id="payment">
+                <h3 id="payment_form_head"></h3>
+                <label id="first_name" for="first_name"></label><input id="first_name" size="16" name="first_name" type="text" /><br/>
+                <label id="last_name" for="last_name"></label><input id="last_name" size="16" name="last_name" type="text" /><br/>
+                <label id="email" for="email"></label><input id="email" name="patient_name" size="16" type="text" /><br/>
+                <label id="amount" for="amount"></label><input id="amount" name="amount" type="number" /><br/>
+                <label id="cardnumber" for="cardnumber"></label><input id="cardnumber" name="cardnumber" type="number" /><br/>
+                <label id="cvv" for="cvv"></label><input id="cvv" name="cvv" size="16" type="text" /><br/>
+                <label id="cardexpiry" for="cardexpiry"></label><input id="cardexpiry" name="cardexpiry" type="number" /><br/>
+                <input type="submit" id="btn_submit" />
+                <i><p id="payment_form_footer"></p></i>
+            </form>
+           <!-- <div class="footer"><a class="btns callus" id="callus" href="tel:" target="_blank">Call Us Now!</a></div>-->
+        </div>
+    </body>
+    <script src="js/string.js"></script>
+    <script>
+        if(localStorage.language == "French"){
+            var APP_CONSTANTS = FRENCH_CONSTANTS;
+        }else if(localStorage.language == "Spanish"){
+            var APP_CONSTANTS = SPANISH_CONSTANTS;
+        }else{
+            var APP_CONSTANTS = ENGLISH_CONSTANTS;
+        }
+        document.getElementById('title-payments').innerHTML = APP_CONSTANTS.REQUEST_VISIT + "<br /><span style='font-size:10px;'>"+APP_CONSTANTS.STEP_TWO+"</span>";
+        document.getElementById('first_name').innerHTML = APP_CONSTANTS.FIRST_NAME;
+        document.getElementById('last_name').innerHTML = APP_CONSTANTS.LAST_NAME;
+        document.getElementById('email').innerHTML = APP_CONSTANTS.EMAIL;
+        document.getElementById('amount').innerHTML = APP_CONSTANTS.AMOUNT;
+        document.getElementById('cardnumber').innerHTML = APP_CONSTANTS.CARD_NUMBER;
+        document.getElementById('cvv').innerHTML = APP_CONSTANTS.CVV;
+        document.getElementById('cardexpiry').innerHTML = APP_CONSTANTS.CARD_EXPIRY;
+        document.getElementById('payment_form_head').innerHTML = APP_CONSTANTS.PAYMENT_FORM_HEAD;
+        document.getElementById('payment_form_footer').innerHTML = APP_CONSTANTS.PAYMENT_FORM_FOOTER;
+        document.getElementById('btn_submit').value = APP_CONSTANTS.PAYMENT_SUBMIT;
+        document.getElementById('callus').innerHTML = APP_CONSTANTS.CALL_US;
+    </script>
+</html>

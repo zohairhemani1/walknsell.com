@@ -1,6 +1,18 @@
 <?php
 session_start();
 include 'headers/_user-details.php';
+if(isset($_SESSION['username']) === false){
+    header("Location: index.php");
+    die();
+}
+else if(isset($_POST['query'])){
+        $searchq = $_POST['query'];
+		/*preg_replace("#[^0-9a-z]#i","",$searchq);
+		$stmt = $dbh->prepare("SELECT ID FROM users WHERE username like :q");
+		$stmt->bindValue(':q', "%$searchq%");
+		$stmt->execute();
+		$searchRows = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);*/
+}
 ?>
 
 <!doctype html>
@@ -9,13 +21,13 @@ include 'headers/_user-details.php';
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>::WalknSell::</title>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/media.css" type="text/css">
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
 <link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
 <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 <style>
 *, *:before, *:after {
 	-webkit-box-sizing: initial;
@@ -24,6 +36,17 @@ include 'headers/_user-details.php';
 }
 img {
 	vertical-align: top;
+}
+.wrapper {
+  min-height: 100%;
+  margin-bottom: -118px; 
+}
+.wrapper:after {
+  content: "";
+  display: block;
+}
+.wrapper:after {
+  height: 118px; 
 }
 </style>
 <script src="js/jquery-1.10.2.min.js"></script>
@@ -38,12 +61,6 @@ img {
 $(document).ready(function() {
   $('#simple-menu').sidr();
 });
-
-$(document).ready(function() {
-   $(window).bind('scroll', function(e){
-	   parallax();
-	  });
-});
 </script>
 <!--[if lt IE 9]>
 			<script src="js/lib/html5shiv.js"></script>
@@ -51,37 +68,50 @@ $(document).ready(function() {
 </head>
 
 <body>
-<div >
-	<div class="header_bg static_top">
+<div class="wrapper">
+    <div class="header_bg">
         <header class="main-header">
         <a id="simple-menu" class="icon-menu" href="#sidr"></a>
-
-       
-            <?php include 'headers/menu-top-navigation.php';?>
-        </header>
-
+           <?php include "headers/menu-top-navigation.php"; ?>
+        </header></div>
+        <?php include 'headers/subhead.php' ?>
+        <div class="clear"></div>
+    
+<?php include 'headers/popup.php';?>
 <div class="full_article_bg">
     <article  class="prod_detail">
-    
-    
-    
+        
     <?php
-		
 	include 'headers/connect_database.php';
-		
-		
 	try {
 		/*** The SQL SELECT statement ***/
-		$sql = "SELECT k.id, k.title, k.userID, k.detail, k.price, k.image, k.expirydate, k.status, u.ID, u.collegeID, count(i.ID) as `bids` FROM `korks` k join `users` u on u.ID = k.userID left outer join `inbox` i on k.id = i.korkID where u.ID = $_userID group by k.id ORDER BY k.id DESC";
-		$result = mysqli_query($con,$sql);
+	if(isset($_GET['category']) == true || isset($_POST['query']) == true){
+				if(isset($_GET['category']) == true && isset($_POST['query']) == true){
+						$cat_id = $_GET['category'];
+						$sql = "SELECT k.status,k.id, k.title, k.userID, k.detail, k.price, k.image, k.expirydate, u.ID, u.username, u.collegeID, count(i.ID) as `bids` FROM `korks` k join `users` u on u.ID = k.userID left outer join `inbox` i on k.id = i.korkID where  k.catID = $cat_id AND k.status = 0 AND k.id IN ((Select kt.korkId FROM kork_tags kt where kt.tag like '%".mysqli_real_escape_string($con, $searchq)."%')) OR k.title Like '%".mysqli_real_escape_string($con, $searchq)."%' AND u.ID = $_userID group by k.id ORDER BY k.id DESC";
+				}else{
+					if(isset($_GET['category'])){
+						$cat_id = $_GET['category'];
+						$sql = "SELECT k.status,k.id, k.title, k.userID, k.detail, k.price, k.image, k.expirydate, u.ID, u.username, u.collegeID, count(i.ID) as `bids` FROM `korks` k join `users` u on u.ID = k.userID left outer join `inbox` i on k.id = i.korkID where k.catID = $cat_id AND k.status = 0 AND u.ID = $_userID  group by k.id ORDER BY k.id DESC";
+					}else {
+						$sql = "SELECT k.status,k.id, k.title, k.userID, k.detail, k.price, k.image, k.expirydate, u.ID, u.username, u.collegeID, count(i.ID) as `bids` FROM `korks` k join `users` u on u.ID = k.userID left outer join `inbox` i on k.id = i.korkID where k.status = 0 AND k.id IN ((Select kt.korkId FROM kork_tags kt where kt.tag like '%".mysqli_real_escape_string($con, $searchq)."%')) OR k.title Like '%".mysqli_real_escape_string($con, $searchq)."%' AND u.ID = $_userID  group by k.id ORDER BY k.id DESC";
+                        
+                        //$searchRows = implode(',',$searchRows);    
+                        /*"SELECT k.id, k.title, k.userID, k.detail, k.price, k.image, k.expirydate, u.ID, u.collegeID, count(i.ID) as `bids` FROM `korks` k join `users` u on u.ID = k.userID left outer join `inbox` i on k.id = i.korkID where u.collegeID = $school_id AND k.status = 0 AND k.userID IN ($searchRows) group by k.id ORDER BY k.id DESC";*/
+					}
+				}
+			}
+        else{$sql = "SELECT k.id, k.title, k.userID, k.detail, k.price, k.image, k.expirydate, k.status, u.ID, u.collegeID, u.username, count(i.ID) as `bids` FROM `korks` k join `users` u on u.ID = k.userID left outer join `inbox` i on k.id = i.korkID where u.ID = $_userID group by k.id ORDER BY k.id DESC";
+        }
+         $result = mysqli_query($con,$sql);
 		$count = mysqli_num_rows($result);
 		
 		if($count==0){
 			echo "<div id='contentSub' class='clearfix'>
 					  <div class='contentBox'>
-						  <p class='fontelico-emo-unhappy noKorks'> No Korks found.</p>
-						  <p class='noKorksCreate'>Are you looking to buy or sell something at Southern Polytechnic State University?</p>
-						  <p class='noKorksCreate'><a href='/create-kork' class='entypo-pencil'> Create Your Kork!</a></p>
+						  <p class='fontelico-emo-unhappy noKorks'> No Deals found.</p>
+						  <p class='noKorksCreate'>Are you looking to buy or sell something at Walk n Sell?</p>
+						  <p class='noKorksCreate'><a href='create_gig.php' class='entypo-pencil'> Create Your Deals!</a></p>
 					  </div>
 				  </div>";
 		}
@@ -97,27 +127,27 @@ $(document).ready(function() {
 				$image = $row['image'];
 				$expiryDate = $row['expirydate'];
 				$detail = $row['detail'];
-				$price=$row['price'];
-				$price=$row['price'];
-				$bids=$row['bids'];
+				$price = nice_number($row['price']);
+				$bids = $row['bids'];
+                $username = $row['username'];
 				$status = $row['status'];
-				if($status == 0){
+				if($status == 1){
 					$status = "available";
-				}else if($status == 1){
+				}else if($status == 0){
 					$status = "sold";
 				}else{
 					$status = "expired";
 				}
-				echo "<div class='prod_desc'>";
+				echo "<div id='action'  class='prod_desc'><a href='cate_desc.php?korkID={$id}'>";
 				echo "<span class='$status korkbadge'></span>";
-				echo "<img class='main-prod-pic' src='img/korkImages/$image' width='247' style='max-height:172px;' alt=''>";
+				echo "<img class='main-prod-pic' src='img/korkImages/$image' width='247px' height='194px' alt=''>
+                <a href='update_gig.php?id={$id}' target='_blank'><input title='Edit' class='update_button' type='button' value='' /></a>"
+                    ;
 				echo "<div class='details'>";
-				echo "<a href='cate_desc.php?korkID={$id}'><h3 style='font-weight:bold;height:2.5em;overflow:hidden;'>$title</h3></a>";
-				echo "<a href='cate_desc.php?korkID={$id}'><div class='kork_text_wrap'><h3> $detail </h3></div></a>";
-				
-				
-				echo"<p><span> $expiryDate <span> | <span>12:03 PM<span></p>
-					 <div class='price'><span class='price_first'>$ {$price}</span><span class='prod_scheme'>&nbsp; {$bids} <span class='off'>BIDS																	</span></span></div>
+				echo "<h3 class='block-ellipsis' style='font-weight:bold;'>$title</h3></a>";
+				echo "<h3 class='details-block-ellipsis'> $detail </h3></a>";
+				echo "<p>By: <a href='/$username'>$username</a></p><p class='detail_timestamp'><span>".date('m-d-Y | h:i A', strtotime($expiryDate))."</p>
+					 <div class='price'><span class='price_first'>Rs. {$price}</span><span class='prod_scheme'>&nbsp; {$bids} <span class='off'>BIDS</span></span></div>
 				
 					</div>
 					<div class='clear'></div>
@@ -139,9 +169,10 @@ $(document).ready(function() {
     <div class="clear"></div>
     </div>
 
-    <?php include 'headers/menu-bottom-navigation.php' ?>
 </div>
-<script>
+    <?php include 'headers/menu-bottom-navigation.php' ?>
+
+    <script>    
 function getlist(x){
     $(".hidee").hide();
     $("#veiwlist"+x).show();
@@ -149,6 +180,7 @@ function getlist(x){
 </script>
 
 <script src="js/school-list.js"></script>
-
+    <script src="js/nav-admin-dropdown.js"></script>
+<script src ="js/register.js"></script> 
 </body>
 </html>

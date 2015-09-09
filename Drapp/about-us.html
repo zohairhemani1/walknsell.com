@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Doctor Visit 247</title>
+        <link href="css/style.css" type="text/css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="initial-scale=1.0,width=device-width,user-scalable=0, minimal-ui" />
+        <meta name="viewport" content="width=620, user-scalable=no" />
+        <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
+        <meta name="viewport" content="initial-scale=1.0,width=device-width,user-scalable=0" />
+        <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=yes" />
+
+    <style>
+    #call_us {
+
+    }
+        
+    </style>
+    </head>
+    <body>
+        <header>
+            <img class="logo" src="img/logo.png" />
+            <form class="sidelogo" action="./menu.html">
+                <input type="image" src="img/doc2.png" alt="menu" >
+            </form>
+            
+        </header>
+        <div class="wrapper2">
+            <div class="title"><img src="img/primary_care.png" class="title-logo"/><h1 id="title-about" class="uppercase"></h1></div>
+          <b>  <p id="first_line" style="font-size:13;    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;"></p>
+            <p id="second_line"  style="font-size:13;    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;"></p>
+            <p id="third_line"  style="    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;"></p>
+            <p id="fourth_line"  style="font-size:13;    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;"></p></b>
+            <div style="text-align:center" class="footer"><button class="btns callus" id="call_us" href="tel:" target="_blank">Call US Now</button></div>
+        </div>
+    </body>
+    <script src="js/string.js"></script>
+    <script>
+        if(localStorage.language == "French"){
+            var APP_CONSTANTS = FRENCH_CONSTANTS;
+        }else if(localStorage.language == "Spanish"){
+            var APP_CONSTANTS = SPANISH_CONSTANTS;
+        }else{
+            var APP_CONSTANTS = ENGLISH_CONSTANTS;
+        }
+        document.getElementById('title-about').innerHTML = APP_CONSTANTS.ABOUT_US.toUpperCase();
+        document.getElementById('first_line').innerHTML = APP_CONSTANTS.ABOUT_FIRST_LINE.toUpperCase();
+        document.getElementById('second_line').innerHTML = APP_CONSTANTS.ABOUT_SECOND_LINE.toUpperCase();
+        document.getElementById('third_line').innerHTML = APP_CONSTANTS.ABOUT_THIRD_LINE.toUpperCase();
+        document.getElementById('fourth_line').innerHTML = APP_CONSTANTS.ABOUT_FOURTH_LINE.toUpperCase();
+        document.getElementById('call_us').innerHTML = APP_CONSTANTS.CALL_US.toUpperCase();
+    </script>
+</html>

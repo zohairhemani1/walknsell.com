@@ -1,3 +1,8 @@
+ $(document).ready(function(){
+ var booleanvalue = true;
+     console.log(booleanvalue);
+ });
+ 
 function findmatch()
 {
 		
@@ -42,7 +47,8 @@ $(document).on('click','#results li' , function() {
 
 function regfindmatch()
 {
-	
+	 booleanvalue = false;
+         console.log(booleanvalue);
 			document.getElementById('regresults').innerHTML = 'Loading..';
 		
 		if(window.XMLHttpRequest)
@@ -63,7 +69,9 @@ function regfindmatch()
 			//var li = document.createElement("li");
 			//li.appendChild(document.createTextNode(xmlhttp.responseText));
 			//ul.appendChild(li);
-			
+			/*if(xmlhttp.responseText == "No results found!"){
+				$('#regsearch').val('');
+			}*/
 			document.getElementById('regresults').innerHTML = xmlhttp.responseText;
 			}
 		}
@@ -74,8 +82,21 @@ function regfindmatch()
 
 
 $(document).on('click','#regresults li' , function() {
+    booleanvalue = true;
+    console.log(booleanvalue);
 	$('#regsearch').val($(this).text());
 	$('#regresults').empty();
-	
-
 });
+$(document).on('click','#results li' , function() {     
+	$('.tftextinput').val($(this).text());
+    $("#results").css("display", "none");
+    $('#search_url').val($(this).attr('class'));
+});
+$(document).on('click','.tfbutton' , function() {
+    if($('#search').val() == null){
+        return false;
+    }else{
+	window.location.href = $('#search_url').val();
+    //$("#search").attr("action", $('#school_url_hidden').val());
+    }
+    });

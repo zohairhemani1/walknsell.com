@@ -1,16 +1,23 @@
+@media only screen and (max-width:1278px){
+.create_gig .content_inbox .left_gig { width:83% }
+}
 @media only screen and (max-width:1199px){
+.create_gig .content_inbox .left_gig { }
 .single_product .price_tag_22 .offer_dt{width:auto;}
-.featured_prod li{margin-bottom:15px;}	
+.dropzone { background:none!important; }
+.featured_prod li{margin-bottom:15px;}
 }
 @media only screen and (max-width:999px){
-header, .content_inner, .lower_content_inner{width:95%;}
+header, .content_inner, .lower_content_inner{width:95%!important;}
 .detail{width:30%;}
 #tfheader{width:98%;}
-.footer_inner{width:100%; text-align:center;}
+.footer_inner{width:100%;}
 .footer_nav{margin-left:10%;}
 .copyright{float:right; margin-left:0;}
 .wrap-search{margin-right:5px;}
 .create_gig .content_inbox .left_gig{float:none; margin:0 auto;}
+.gig-tooltip { display:none; left:0px; }
+.create_gig .content_inbox h2 {padding: 10px 11px; }
 
 /*************STYLES FOR INBOX*******************/
 .main_table > table thead table td:first-child{width:14%;}
@@ -22,18 +29,20 @@ td.inbox_mail_row td.star{width:8%;}
 td.inbox_mail_row td.sender_dt{width:19%;}
 td.inbox_mail_row td.messege_subject{width:49%; padding-right:4%;}
 td.inbox_mail_row td.update{width:18%;}
-.category_inner{width:100%;}
+.actual_cat .category_inner{width:100%;}
 .header_bg_para{display:none;}
 .category_submenu{display:none;}
 .full_article_bg{margin-top:60px; position:static;}
 article.prod_detail{width:100%; position:static;}
 .prod_desc{margin:20px auto; float:none; width:480px;}
-
+.searchmsg { width:100%; }
 .inbox_des .content_inbox{width:100%;}
 .user_head{ width:100%;}
-.category_inner .wrap-search{margin-right:10px;}
+.category_inner .wrap-search {margin-right: 1.5%;width: 96.4%;}
+.category_inner .fake-dropdown {margin-left:10px;}
 .msg_wrap_11{padding-right:20px;}
 .gig_related_to{width:100%; float:left; margin-right:0; border-top:1px solid #ebebeb; border-left:0; margin-top:20px;}
+.msg_wrap_11 .msgtime {float: left;margin-right: 0px;top: 0px;margin-left: 89px;}    
 .gig_related_to .gig-desc{width:80%; float:left;}
 .gig-username{width:50%; float:left;}
 .conv_action .messege_push_1{width:auto;}
@@ -41,24 +50,32 @@ article.prod_detail{width:100%; position:static;}
 
 .cate_desc .full_article_bg{margin-top:100px;}
 .cate_desc .kork_desc{width:100%; padding-top:10px;}
+.bid_wrapper{width:100%;}
 .cate_desc .left_kork{width:58%; margin:10px}
 .cate_desc .right_kork{width:36%; padding-right:15px;}
 .kork_option{width:100%;}
 .kork_option ul li{float:none; margin:5px auto;}
 .kork_message{width:100%;}
 .kork_message ul li{float:none; margin:5px auto;}
+.kork_option .second_dt p, .kork_option .third_dt p, .kork_option .share_dt p { float:left; padding-left:63px; }
+.kork_option .second_dt p { background-position: 10%; }
+.kork_option .third_dt p, .kork_option .share_dt p { background-position: 7%; }
+.kork_option .share_dt .share-buttons { width: 205px; padding-top: 23px; }
 
 
 /*************STYLES FOR CREATE GIG*******************/
 .form_row .input_wrap .fake-dropdown{width:auto;}
-.create_gig .content_inbox .left_gig{width:95%;}
+.create_gig .content_inbox .left_gig{width:95%;margin-top: 61px;}
+ul.nav.nav-pills {margin-left: 1.5%;}    
 .form_row .fake-dropdown a.category:after{display:none;}
 }
 @media only screen and (max-width:900px){
 	.detail{width:90%; margin:20px auto 50px auto; float:none; text-align:center;}
 	.how_it_works{width:90%; float:none; margin:20px auto;}
 	.how_it_works ul li{width:24% !important; margin:20px 0 0 0;}
-	
+	.mp-user-info aside.user-bundle { float:left; margin:auto; }
+	.mp-user-info .box-row.bordered { padding-right:0px;
+
 }
 @media only screen and (max-width:800px){
 	.tftextinput{width:64%;}
@@ -73,7 +90,8 @@ article.prod_detail{width:100%; position:static;}
 	#simple-menu{display:block; position:absolute; top:0; left:0}
 	.main_nav{display:none;}
 	.content_inner label{font-size:240%;}
-	.logo{text-align:center; float:none; margin:0 auto;}
+	.logo{ text-align:center; float:none; margin:0 auto; }
+	.logo img{ margin-top: 8px; }
 	.tfbutton{font-size:25px;}
 	.sidebar-list ul li{width:100%; float:none; border:none;}
 	.social, .footer_nav{padding-bottom:20px;}
@@ -83,8 +101,9 @@ article.prod_detail{width:100%; position:static;}
 	.footer_inner .footer_nav{text-align:center; margin:10px auto; float:none;}
 	.copyright{text-align:center; float:none; margin:20px auto 0 auto;}
 	.copyright h4.f_logo{text-align:center; width:112px; display:block; margin:5px auto;}
-	.wrap-search{display:none;}
 	.footer_nav ul{width:100%; float:none;}
+    .content_inbox_inner .conversation_top {height: 94px;}
+    #search-inbox {margin: 11px 13px;}
 	
 	
 	.mail_selector, p.mark{display:none;}
@@ -99,7 +118,7 @@ article.prod_detail{width:100%; position:static;}
 	
 	.main_table table thead{display:none;}
 	a.search_icon{display:block; position:absolute; right:20px; top:96px;}
-	.category_nav{display:none;}
+	/*.category_nav{display:none;}*/
 	
 	.cate_desc .kork_desc{padding:0; padding-top:10px;}
 	.cate_desc .left_kork{width:90%; margin:0 auto; float:none;}
@@ -117,9 +136,26 @@ article.prod_detail{width:100%; position:static;}
 	.user_head h1.with-thumb{font-size:180%; line-height:normal;}
 	.maxsize, .char-count{display:none;}
 	.modal-dialog{width:95%;}
+	
+	/*************STYLES FOR PROFILE EDIT*******************/
+	.form_row .user_names { width: 71%; }
+	.form_row .userl_lname { text-align: left; }
+	.form_row .user_fname { margin-bottom: 20px; }
+	
+	/*************STYLES FOR USER PROFILE*******************/
+	.mp-user-info .user-bundle { width:90%; }
+	.mp-user-info .user-stats li { display:block; width:100%; }
 }
-
+@media only screen and (max-width:516px){
+	.wrap-search{float: left;margin-left: 11px;}
+	.category_inner .fake-dropdown{ right: 0px; width: 94%; margin-left: 2.1% !important; }
+}
+@media only screen and (max-width:562px){
+	.modal-dialog input.names { width: 93%; }
+	.modal-dialog #firstName { margin-bottom: 0px; }
+}
 @media only screen and (max-width:480px){
+    .gig_related_to .gig-desc {width: 40%;}
 	.how_it_works{padding:0;}
 	.how_it_works ul li{width:80% !important; float:none; margin:5px auto;}
 	.how_it_works ul li.enjoy{width:80%; margin:0 auto;}
@@ -132,17 +168,18 @@ article.prod_detail{width:100%; position:static;}
 	.content_inbox h1.with-thumb{margin-top:20px;}
 	.prod_desc{width:100%;}
 	.prod_desc .main-prod-pic{width:100%; float:none; margin:0 auto;}
-	.prod_desc .details{float:none; width:100%; margin-left:0;}
-	div.price{width:190px; margin:0 auto; float:none;}
+	.prod_desc .details{float:none; width:100%; margin-left:0; text-align:center;}
+	div.price{ margin:0 auto; float:none; width: 246px; }
+	div.price span.price_first { width: 90px; }
+	div.price span.prod_scheme { width: 100px; }
+	.prod_desc .details h3 { margin-top:10px; }
 	
-	.modal-header h1{font-size:28px; padding-right:25px;}
+	.modal-header h1{ font-size:28px!important; }
 	.modal-header p{font-size:13px; padding-right:25px;}
-	.modal-dialog button.close{right:9px; top:10px;}
+	/*.modal-dialog button.close{right:9px; top:10px;}*/
+	.modal-dialog button.close{ right: 11px; width: 10px; top: 10px; position: absolute; height: 19px; font-size: 15px; }
 	
 	.kork_option .first_dt{width:100%;}
-	
-	
-	
 	
 	.conv_action .messege_push_1{width:100%;}
 	
@@ -152,13 +189,19 @@ article.prod_detail{width:100%; position:static;}
 	
 	.create_gig .content_inbox .left_gig{padding-left:5px;}
 	
+	.mp-hero-new .hero-text h1 { font-size:40px; }
+	.mp-hero-new .hero-text h1 small { font-size:16px; }
+	
+	#policy .privacy { width:100%; margin:0px; }
+	#policy #contentSub { width: 100%; box-sizing: border-box; }
 }
 @media only screen and (max-width:400px){
 	#tfheader{width:100%;}
 }
 @media only screen and (max-width:380px){
 .conver_head .links_22{position:absolute; top:-16px;  width:90%; left:10%;}
-.conver_head .links_22 li{margin-right:10%; display:block;} 	
+.conver_head .links_22 li{margin-right:10%; display:block;} 
+.footer_nav { width:100% }
 }
 @media only screen and (max-width:360px){
 	.tftextinput{width:90%; border-radius:8px; float:none; display:block; margin:0 auto;}
@@ -168,4 +211,5 @@ article.prod_detail{width:100%; position:static;}
 	#results{top:40px; left:5px; width:95%;}
 	.form_row .label_wrap{width:80%; text-align:left;}
 	.form_row .input_wrap{width:95%;}
+	.form_row .user_names{width:90%;}
 	.form_row label{font-size:11px; text-align:left;}

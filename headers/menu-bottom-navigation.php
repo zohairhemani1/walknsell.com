@@ -8,15 +8,15 @@
 
                 <ul>
 
-                	<li><a class="twitter" href="#">twitter</a></li>
+                	<li><a class="twitter" target="_blank" href="https://twitter.com/WalkNSell/">twitter</a></li>
 
-                    <li><a class="fb" href="#">facebook</a></li>
+                    <li><a class="fb" target="_blank" href="https://www.facebook.com/pages/Walknsell/397029277161021">facebook</a></li>
 
-                    <li><a class="pin" href="#">pinterest</a></li>
+                    <li><a class="pin" target="_blank" href="https://www.pinterest.com/walknsell/">pinterest</a></li>
 
-                    <li><a class="linkedin" href="#">linkedin</a></li>
+                    <li><a class="linkedin" target="_blank" href="#">linkedin</a></li>
 
-                    <li><a class="insta" href="#">instagram</a></li>
+                    <li><a class="insta" target="_blank" href="https://instagram.com/walknsell/">instagram</a></li>
 
                 </ul>
 
@@ -33,29 +33,20 @@
                 	<li class=""><a href="index.php">Home</a></li>
                     <li class=""><a href="create_gig.php">Start selling</a></li>
 				</ul>
-                <ul class="second">
-                	 <?php
-	              	if(!isset($_SESSION['username'])) 
-	{
-                  
-                   echo"<li class=''><a href='#'  data-toggle='modal' data-target='#login'>Sign in</a></li>";
-	}
-	?> 
-    <?php
-	              	if(!isset($_SESSION['username'])) 
-	{
     
-                    echo "<li class=''><a href='#' data-toggle='modal' data-target='#register'>Join</a></li>";
-	}
-	?>
-                	
-                </ul>
-    
-             <ul class="third">
+             <ul class="second">
              	<li class=""><a href="privacy_policy.php">Policy</a></li>
                 <li class=""><a href='#' data-toggle='modal' data-target='#contactus'>Contact us</a></li>
 
-             </ul>    
+             </ul>
+            <?php
+                if(!isset($_SESSION['username'])) {
+                echo "<ul class='third'>
+                            <li class=''><a href='#' data-toggle='modal' data-target='#register'>Join</a></li>
+                            <li class=''><a href='#'  data-toggle='modal' data-target='#login'>Sign in</a></li>
+                    </ul>";
+                }
+            ?>
 
                
 

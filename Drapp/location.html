@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>Doctor Visit 247</title>
+        <link href="css/default.css" type="text/css" rel="stylesheet" />
+        <link href="css/style.css" type="text/css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="initial-scale=1.0,width=device-width,user-scalable=0, minimal-ui" />
+        <meta name="viewport" content="width=620, user-scalable=no" />
+        <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
+        <meta name="viewport" content="initial-scale=1.0,width=device-width,user-scalable=0" />
+        <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=yes" />
+
+    </head>
+    <body>
+        <header>
+            <img class="logo" src="img/logo.png" />
+            <form class="sidelogo" action="./menu.html">
+                <input type="image" src="img/doc2.png" alt="menu" >
+            </form>
+        </header>
+        <div class="wrapper">
+            <div class="title"><img src="img/first_aid.png" class="title-logo"/><h1 id="title-location" class="uppercase">Request a visit<br /><span style='font-size:10px;'>Step two</span></h1></div>
+            <form id="location" name="locationForm">
+                <h3 id="location_form_head"></h3>
+                <label id="unit" for="unit"></label><input id="unit" name="unit" type="text" /><br/>
+                <label id="street" for="street"></label><input id="street" name="street" type="text" /><br/>
+                <label id="city" for="city"></label><input id="city" name="city" type="text" /><br/>
+                <label id="zipcode" for="zipcode"></label><input id="zipcode" name="zipcode" type="text" /><br/>
+                <label id="directions" for="directions"></label><textarea rows="4" cols="22" id="directions"></textarea><br/>
+                <input type="hidden" name="burns">
+            </form>
+
+
+
+
+            <div style="text-align:center" class="footer bottom"><a class="btns next" id="next_step" href="tel:" target="_blank"></a></div>
+        </div>
+    </body>
+    <script src="js/string.js"></script>
+    <script>
+        if(localStorage.language == "French"){
+            var APP_CONSTANTS = FRENCH_CONSTANTS;
+        }else if(localStorage.language == "Spanish"){
+            var APP_CONSTANTS = SPANISH_CONSTANTS;
+        }else{
+            var APP_CONSTANTS = ENGLISH_CONSTANTS;
+        }
+        
+        document.getElementById('title-location').innerHTML = APP_CONSTANTS.REQUEST_VISIT + "<br /><span style='font-size:10px;'>"+APP_CONSTANTS.STEP_ONE+"</span>";
+        document.getElementById('location_form_head').innerHTML = APP_CONSTANTS.LOCATION.toUpperCase();
+        document.getElementById('unit').innerHTML = APP_CONSTANTS.UNIT.toUpperCase();
+        document.getElementById('street').innerHTML = APP_CONSTANTS.STREET.toUpperCase();
+        document.getElementById('city').innerHTML = APP_CONSTANTS.CITY.toUpperCase();
+        document.getElementById('zipcode').innerHTML = APP_CONSTANTS.ZIPCODE.toUpperCase();
+        document.getElementById('directions').innerHTML = APP_CONSTANTS.DIRECTIONS.toUpperCase();
+        document.getElementById('next_step').innerHTML = APP_CONSTANTS.NEXT_STEP.toUpperCase();
+        
+        document.locationForm.burns.value = window.location;
+        var text = document.locationForm.burns.value;
+        console.log(text);
+    </script>
+</html>

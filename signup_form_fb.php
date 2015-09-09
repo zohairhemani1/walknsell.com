@@ -1,5 +1,4 @@
 <?php
-	
 		header('Access-Control-Allow-Origin: *');
 		include 'headers/connect_database.php';      // Connection to Mysql Database.
 		//require_once('PHP/recaptchalib.php');   // Captcha Library.
