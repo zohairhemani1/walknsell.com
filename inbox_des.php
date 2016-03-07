@@ -2,8 +2,14 @@
 	session_start();
 	include 'headers/_user-details.php';
 	if(empty($_SESSION['username'])) {
-    header('Location: 404.php');
+    header('Location: /404.php');
     }
+    $username = $_GET['username'];
+
+    $query_sender  = "SELECT ID from users where username = '$username'";
+    $result_sender = mysqli_query($con,$query_sender);
+    $row_sender = mysqli_fetch_array($result_sender);
+    $ID = $row_sender['ID'];
 ?>
 <html>
 <head>
@@ -11,19 +17,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>::Inbox::</title>
-<link rel="stylesheet" href="css/style.css" type="text/css">
-<link rel="stylesheet" href="css/media.css" type="text/css">
-<link rel="stylesheet" href="css/fontello.css" type="text/css">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="/css/media.css" type="text/css">
+<link rel="stylesheet" href="/css/fontello.css" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
-    <link rel="stylesheet" href="css/bootstrap-dropdonw.css">
+<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/css/jquery.sidr.dark.css" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap-dropdonw.css">
 <!--<script src="js/jquery.min.js"></script>-->
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.sidr.min.js"></script>
-    <script src="js/moment.min.js"></script>
-<script src="js/custom.js"></script>
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.sidr.min.js"></script>
+    <script src="/js/moment.min.js"></script>
+<script src="/js/custom.js"></script>
 
     <script>
 $(document).ready(function() {
@@ -46,12 +52,11 @@ $(document).ready(function() {
 	echo "<script>
 
 var sender = $_userID;
-
-var receiver = $_GET[id];
+var receiver = $ID;
 var fname='${_fname}';
 var lname='${_lname}';
 var username='${_username}';
-var img = '${_profilePic}';
+var img = '/${_profilePic}';
 
 </script>";
 	?>
@@ -62,10 +67,13 @@ var error;
 
 $(document).ready(function(e) 
 {
-    
+// console.log('sender--> '+sender);
+// console.log('receiver-->'+ receiver);
+// console.log('fname-->'+ fname);
+// console.log('lname-->'+ lname);
+// console.log('username-->'+ username);
+// console.log('img-->'+ img);
 sendMessage();
-
-	
 });
 
 
@@ -86,7 +94,7 @@ function sendMessage()
             formData.append("sender",sender);
             formData.append("receiver",receiver);
 			request = $.ajax({
-				url: "inbox_sendmsg.php",
+				url: "/inbox_sendmsg.php",
                 contentType: false,
                 processData: false,
 				type: "post",
@@ -96,6 +104,7 @@ function sendMessage()
 			});
 				// callback handler that will be called on success
 			request.done(function (response, textStatus, jqXHR){
+
                    $('#msgForm *').attr('disabled', false);
                   $(".error-alert").html("");
                 $('.gif_image').hide();
@@ -112,7 +121,7 @@ function sendMessage()
                         }
                         if (filenames.length === 0){
                             $( "<div class='msg_wrap_2'> <div class='messege_push'><span class='user-pict_50'>"
-                            +"<a href='/"+username+"'><img src='img/users/"+img+"' width='50' height='50' /></a></span>"
+                            +"<a href='/"+username+"'><img src='/img/users/"+img+"' width='50' height='50' /></a></span>"
                             +"<h4><a href='/"+username+"'>"+fname + " "+lname+"</a></h4> <div class='msg_body'>"
                              +" <p class='texttype'>"+$('#reply_texts').val()+"</p></div></div>"
                               +"<div class='msgtime'>"
@@ -121,13 +130,14 @@ function sendMessage()
                            +"<div class='clear'></div>" ).insertBefore( ".reply_box_22" );
                         }else{
                             filenames_final = response.files;
-                            var filename ="";
+                            var filename = "";
                             for (var i = 0; i < filenames.length; i++) {
+
                                 filename += "<p class='attachment-para'><a class='attachment-anchor' href='assets/inboxData/"+filenames_final[i]+"' download>"+filenames[i]+"</a></p>";
                             }
                             
                             $( "<div class='msg_wrap_2'> <div class='messege_push'><span class='user-pict_50'>"
-                            +"<a href='/"+username+"'><img src='img/users/"+img+"' width='50' height='50' /></a></span>"
+                            +"<a href='/"+username+"'><img src='/img/users/"+img+"' width='50' height='50' /></a></span>"
                             +"<h4><a href='/"+username+"'>"+fname + " "+lname+"</a></h4> <div class='msg_body'>"
                              +" <p class='texttype'>"+$('#reply_texts').val()+"</p>"+filename+"</div></div>"
                            +"<div class='clear'></div>" ).insertBefore( ".reply_box_22" );
@@ -155,7 +165,8 @@ function sendMessage()
 			request.always(function () {
 				// reenable the inputs
 			});
-			}else{
+			}
+      else{
 				$(".error-alert").text("Your message should contain atleast 4 characters.");
 			}
 	       return false;
@@ -199,18 +210,19 @@ function sendMessage()
       <?php
 
 
-	if(isset($_GET['id']))
+	if(isset($_GET['username']))
 	{		
-		$ID = $_GET['id'];
-		$query = "SELECT * from users WHERE ID = :ID";
+		$username = $_GET['username'];
+		$query = "SELECT * from users WHERE username = :username";
 		$sth = $dbh->prepare($query);
-		$sth->bindValue(':ID',$ID);
+		$sth->bindValue(':username',$username);
 		$sth->execute();
 		$result = $sth->fetch(PDO::FETCH_ASSOC);
+		$id_recieve = $result['ID'];
 		$name = $result['fname']." ".$result['lname'];
 	
     echo"<span class='user-picture'>
-                	<img src='img/users/$result[profilePic]' alt='$result[username]' width='50' height='50' class=''>
+                	<img src='/img/users/$result[profilePic]' alt='$result[username]' width='50' height='50' class=''>
                	</span>
                 Conversation with <a href='/$result[username]'>$result[fname] $result[lname]</a>
             </h1>
@@ -220,7 +232,7 @@ function sendMessage()
             
             <div class='wrap-search'>
 					<input id='query' maxlength='80' name='query' type='text' placeholder='SEARCH'>
-		            <input type='image' src='img/glass_small.png' alt='Go'>
+		            <input type='image' src='/img/glass_small.png' alt='Go'>
                   </div>
                      
                <div class='clear'></div>
@@ -229,17 +241,17 @@ function sendMessage()
 		
 			<div class='conver_body'>
         	<div class='div_aside'>
-            	<a href='inbox_des.php?id=$ID&mode=2' class='read_un unread'>unread</a>
-		    	<a href='inbox_des.php?id=$ID&mode=1' class='read_un read'>read</a>
-                <a href='inbox_des.php?id=$ID&mode=0' class='read_un'>All</a>
+            	<a href='unread' class='read_un unread'>unread</a>
+		    	<a href='read' class='read_un read'>read</a>
+                <a href='all' class='read_un'>All</a>
                 <div class='clear'></div>      
             </div>";
 			
 			$readindex=0;
-		if($_GET['mode']==1){
+		if($_GET['mode']=='read'){
 			$query = "SELECT i.*, u.fname,u.username,u.lname,u.profilePic,k.image,k.title from inbox i join users u on u.ID = i.senderID left outer join korks k on k.ID = i.korkID WHERE ((i.senderID = :sID && i.receiverID = :rID) || (i.senderID = :rID && i.receiverID = 	:sID)) && i.isRead=1 order by i.dateM";
 			$readindex=1;
-		}else if($_GET['mode']==2){
+		}else if($_GET['mode']=='unread'){
 			$query = "SELECT i.*, u.fname,u.username,u.lname,u.profilePic,k.image,k.title from inbox i join users u on u.ID = i.senderID left outer join korks k on k.ID = i.korkID WHERE ((i.senderID = :sID && i.receiverID = :rID) || (i.senderID = :rID && i.receiverID = :sID))  && i.isRead=0 order by i.dateM";
 			$readindex=2;
 		}else{
@@ -247,7 +259,7 @@ function sendMessage()
 			$readindex=0;
 		}
 		$sth = $dbh->prepare($query);
-		$sth->bindValue(':sID',$ID);
+		$sth->bindValue(':sID',$result[ID]);
 		$sth->bindValue(':rID',$_userID);
 		$sth->execute();
 		
@@ -266,7 +278,7 @@ function sendMessage()
             <div class='conv_action'>
             	<div class='messege_push_1'>
 				<span class='user-pict_50'>
-                		<a href='/$result[username]'><img src='img/users/$result[profilePic]' alt='$result[username]' width='50' height='50' class=''></a>
+                		<a href='/$result[username]'><img src='/img/users/$result[profilePic]' alt='$result[username]' width='50' height='50' class=''></a>
                		</span>
                     <h4><a href='/$result[username]'>$result[fname] $result[lname]</a></h4>
                       <div class='msg_body'>
@@ -279,8 +291,8 @@ function sendMessage()
             <div class='gig_related_to'>
             	<h4>THIS MESSAGE IS RELATED TO:</h4>
                 <div class='msg-gig'>
-                        <span class='gig-pict-74'><a href='cate_desc.php?korkID=$result[korkID]'><img src='img/korkImages/$result[image]' width='50px' class='related-gig-pict' alt=''></a></span>
-                        <p class='gig-desc'><a href='#'>$result[title]</a></p>
+                        <span class='gig-pict-74'><a href='cate_desc.php?korkID=$result[korkID]'><img src='/img/korkImages/$result[image]' width='50px' class='related-gig-pict' alt=''></a></span>
+                        <p class='gig-desc'><a href='#' style='display:block;overflow:hidden;'>$result[title]</a></p>
                         <p class='gig-username'>by <a href='/$result[username]'>$result[username]</a><span class='flag-in'></span></p>
                     </div>
             </div>
@@ -293,7 +305,7 @@ function sendMessage()
             <div class='msg_wrap_2'>
             <div class='messege_push'>
                 	<span class='user-pict_50'>
-                			<a href='#'><img src='img/users/$result[profilePic]' alt='$result[username]' width='50' height='50' class=''></a>
+                			<a href='#'><img src='/img/users/$result[profilePic]' alt='$result[username]' width='50' height='50' class=''></a>
                		</span>
                     <h4><a href='/$result[username]'>$result[fname] $result[lname]</a></h4>
                       <div class='msg_body'>
@@ -314,7 +326,7 @@ function sendMessage()
             <div class='msg_wrap_3'>
             <div class='messege_push'>
                 	<span class='user-pict_50'>
-                			<a href='#'><img src='img/users/$result[profilePic]' alt='$result[username]' width='50' height='50' class=''></a>
+                			<a href='#'><img src='/img/users/$result[profilePic]' alt='$result[username]' width='50' height='50' class=''></a>
                		</span>
                     <h4><a href='/$result[username]'>$result[fname] $result[lname]</a></h4>
                       <div class='msg_body'>
@@ -341,18 +353,17 @@ function sendMessage()
 						//$query = "UPDATE inbox i SET i.isRead=1 WHERE ((i.senderID = :sID && i.receiverID = :rID) || (i.senderID = :rID && i.receiverID = :sID)) order by i.ID";
 						$query = "UPDATE inbox i SET i.isRead=1 WHERE (i.senderID = :sID && i.receiverID = :rID) order by i.ID";						
                         $sth = $dbh->prepare($query);
-                        $sth->bindValue(':sID',$ID);
+                        $sth->bindValue(':sID',$id_recieve);
                         $sth->bindValue(':rID',$_userID);
                         $sth->execute();
-					
 ?>
       <div class="write_wrap">
       <form id="msgForm" method="post" enctype="multipart/form-data">
-        <textarea class="reply_text" id='reply_texts' name="msgText" cols="75" placeholder="Type your text here..." rows="3"></textarea>
+        <textarea class="reply_text" id='reply_texts' name="msgText" cols="75" placeholder="Type your text here" rows="3"></textarea>
         <div class="bottom_div">
           <a class="btn btn_file read_un" id="fileAttach" onclick='$("#FileUpload").click()'><span class="fa fa-file"> &nbsp;</span>ATTACH FILE</a>
           <input type="file" style="display:none;" name="FileUpload[]" id="FileUpload" multiple="multiple" />
-          <p class="maxsize"> <span>Maxsize 30MB <img class="gif_image" src="img/loading.gif" /></span> <br>
+          <p class="maxsize"> <span>Max Size 30MB <img class="gif_image" src="/img/loading.gif" /></span> <br>
           <span><span class="upload_prob" href="#">Multiple File Select</span></span> </p>
 		  <p class="error-alert"></p>
             <button class="button_send" id="msgsend">SEND</button></form>
@@ -381,8 +392,8 @@ $(function() {
 				     });
 					 
 </script> 
-    <script src="js/nav-admin-dropdown.js"></script>
-<script src ="js/register.js"></script> 
+    <script src="/js/nav-admin-dropdown.js"></script>
+<script src ="/js/register.js"></script> 
     <script>
     
     $("#FileUpload").trigger('click');

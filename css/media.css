@@ -170,8 +170,8 @@ ul.nav.nav-pills {margin-left: 1.5%;}
 	.prod_desc .main-prod-pic{width:100%; float:none; margin:0 auto;}
 	.prod_desc .details{float:none; width:100%; margin-left:0; text-align:center;}
 	div.price{ margin:0 auto; float:none; width: 246px; }
-	div.price span.price_first { width: 90px; }
-	div.price span.prod_scheme { width: 100px; }
+	div.price span.price_first { width: 72px; }
+	div.price span.prod_scheme { width: 96px; }
 	.prod_desc .details h3 { margin-top:10px; }
 	
 	.modal-header h1{ font-size:28px!important; }

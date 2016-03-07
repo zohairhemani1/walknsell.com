@@ -46,7 +46,7 @@ $message = '<table cellspacing="0" cellpadding="0" style="padding:30px 10px;back
 					<td style="color:#666;padding:15px;font-size:14px;line-height:18px;text-align:left;">
 					
 						<div style="">
-							<p>Hi, We&#39;ve received a request to reset your WalknSell password.</p><p>To initiate the process, please click the following link:<br><a href='.$link.' style="color:#00b22c;text-decoration:none;" target="_blank">http://www.walknsell.com/password_forgotten.php</a></p><p>Your new password, after you visit the link: <b>'.$newPass.'</b></p><p>If clicking the link above does not work, copy and paste the URL in a new browser window. If you did not make this request, simply ignore this message.</p>
+							<p>Hi, We&#39;ve received a request to reset your WalknSell password.</p><p>To initiate the process, please click the following link:<br><a href='.$link.' style="color:#00b22c;text-decoration:none;" target="_blank">http://www.walknsell.com/forget_password.php</a></p><p>Your new password, after you visit the link: <b>'.$newPass.'</b></p><p>If clicking the link above does not work, copy and paste the URL in a new browser window. If you did not make this request, simply ignore this message.</p>
 						</div>
 
 						

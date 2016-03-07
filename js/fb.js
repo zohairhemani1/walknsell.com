@@ -40,7 +40,7 @@ var _profilePic;
 	_fname=response.first_name;
 	_lname=response.last_name;
 	_email=response.email;
-	_profilePic="http://graph.facebook.com/1009701775721120/picture";
+    _profilePic="http://graph.facebook.com/" + response.id + "/picture";
 	
 	
 	
@@ -179,7 +179,7 @@ function initfb(source)
 
   FB.init({
 
-    appId      : '1422834004652463',
+    appId      : '928091423923007',
 
     cookie     : true,  // enable cookies to allow the server to access 
 

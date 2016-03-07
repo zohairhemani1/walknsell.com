@@ -1,4 +1,5 @@
 <?php
+echo $sRoot;
 session_start();
 	include 'headers/_user-details.php';
 	$korkID = $_GET['korkID'];
@@ -12,7 +13,7 @@ session_start();
 	$row = $result[0];
     $publish = $row['publish'];
     if(empty($row) || $publish == "0"){
-        header("Location: 404.php");
+        header("Location: /404");
         die();
     }
 	if(!empty($_SESSION['username']) && $row['userID'] != $_userID){
@@ -24,8 +25,10 @@ session_start();
 
     $id  = $row['id'];
 	$title = $row['title'];
+    $title_url = str_replace(' ', '-', $title);
 	$detail = $row['detail'];
 	$status = $row['status'];
+	$username = $row['username'];
     $kork_price = $row['price'];    
 	$kork_category = $row['category'];
 	$dateOfCreation = $row['expirydate'];
@@ -186,15 +189,15 @@ session_start();
 <meta property="twitter:url" content="<?php echo "http://walknsell.com".$_SERVER['REQUEST_URI']?>" />
     
 <title><?php echo $title ?> | WalknSell</title>
-<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="css/style.css" type="text/css">
-<link rel="stylesheet" href="css/jquery.bxslider.css" type="text/css">
-<link rel="stylesheet" href="css/media.css" type="text/css">
-<link rel="stylesheet" href="css/fontello.css" type="text/css">
-<link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
-<link href='css/font-open-sans.css' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="css/font-awesome.css" type='text/css'>
-<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="/css/jquery.bxslider.css" type="text/css">
+<link rel="stylesheet" href="/css/media.css" type="text/css">
+<link rel="stylesheet" href="/css/fontello.css" type="text/css">
+<link rel="stylesheet" href="/css/jquery.sidr.dark.css" type="text/css">
+<link href='/css/font-open-sans.css' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/css/font-awesome.css" type='text/css'>
+<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <style>
 .modal-dialog {
 	padding-top: 180px;
@@ -224,15 +227,15 @@ var price = $kork_price;
 
 ?>
 
-<script src="js/modern.js"></script>
-<script src="js/jquery-1.10.2.min.js"></script>
+<script src="/js/modern.js"></script>
+<script src="/js/jquery-1.10.2.min.js"></script>
 
-<script src="js/jquery.fitvids.js"></script>
-<script src="js/jquery.bxslider.js"></script>
-<script src="js/jquery.sidr.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/fb.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/jquery.fitvids.js"></script>
+<script src="/js/jquery.bxslider.js"></script>
+<script src="/js/jquery.sidr.min.js"></script>
+<script src="/js/custom.js"></script>
+<!-- <script src="/js/fb.js"></script> -->
+<script src="/js/bootstrap.min.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -377,37 +380,37 @@ function sendMessage()
   				</li> -->
 	<?php
 		foreach($korkImages as $img){
-			echo "<li><img src='img/korkImages/$img' /></li>";
+			echo "<li><img src='/img/korkImages/$img' /></li>";
 		}
 	?>
     </ul>
   </div>
   <div class="right_kork">
-    <h3><?php echo $title;	?></h3>
-    <h4> Created <span class="orange"><?php echo time_elapsed_string($dateOfCreation);//$daysPassed > 1 ? "$daysPassed days ago" : ($daysPassed == 0 ? "today" : "$daysPassed day ago");?></span><br>
-        in <span class="orange"><?php echo $kork_category; ?> category</span><br><br><span class="l_bold">PRICE <span class="orange">Rs. <?php echo $kork_price; ?></span></span> </h4>
-    <p><?php echo $detail; ?></p>
+    <h3 style="word-wrap: break-word;"><?php echo $title;	?></h3>
+    <h4>in <span class="orange"> <?php echo $kork_category ;//$daysPassed > 1 ? "$daysPassed days ago" : ($daysPassed == 0 ? "today" : "$daysPassed day ago");?> category</span><br>
+        Created <span class="orange"><?php echo time_elapsed_string($dateOfCreation) ?></span><br><br><span class="l_bold">PRICE <span class="orange">Rs. <?php echo $kork_price; ?></span></span> </h4>
+    <p style="word-wrap: break-word;"><?php echo $detail; ?></p>
     <?php
     if($status == "1"){
 if(!empty($_SESSION['username']) && $userID != $_userID && $collegeID == $_college) { echo "<a href='#' class='btn_signup' data-toggle='modal' data-target='#message'>",($hasBid === true) ? 'Update Bid' : 'Bid Now',"</a>";}
        if (empty($_SESSION['username'])){ echo "<a href='#' id='login_error' class='btn_signup'>Bid Now</a>"; }
-        if (!empty($_SESSION['username']) && $userID == $_userID && $bidCount == 0){ echo "<a class='btn_signup' href='update_gig.php?id=$korkID'>Update Deal</a>";}
+        if (!empty($_SESSION['username']) && $userID == $_userID && $bidCount == 0){ echo "<a class='btn_signup' href='/manage_deals/$title_url/$korkID'>Update Deal</a>";}
         else if($userID == $_userID && $bidCount != 0){echo "<span class='btn_signup' data-toggle='modal' data-target='#sell'>Sell Deal</span>";}
     }
       else{
-        echo "<span class='sold_deal'><img src='img/soldOut.png'></span>";
+        echo "<span class='sold_deal'><img src='/img/soldOut.png'></span>";
       }
         
       ?></div>
-    <p class="btn_para" ><img src="img/wait.GIF" /></p>
+    <p class="btn_para" ><img src="/img/wait.GIF" /></p>
   <div class="clear"></div>
 </div>
 <div class="kork_option">
 <ul>
 <li>
-  <div class="first_dt"> <span> <img src="img/users/<?php echo $userPic; ?>" width="50" height="50" alt=""> </span>
-    <h2>By <?php echo "<a href='$korkUser'> $korkUser </a>"; ?></h2>
-    <p>From: <?php //echo "$korkCollege (joined ",$joinedAgo > 1 ? "$joinedAgo days ago" : ($joinedAgo == 0 ? "today $joinedAgo" : "$joinedAgo day ago");
+  <div class="first_dt"> <span> <img src="/img/users/<?php echo $userPic; ?>" width="50" height="50" alt=""> </span>
+    <h2>By <?php echo "<a href='/$korkUser'> $korkUser </a>"; ?></h2>
+    <p> <?php //echo "$korkCollege (joined ",$joinedAgo > 1 ? "$joinedAgo days ago" : ($joinedAgo == 0 ? "today $joinedAgo" : "$joinedAgo day ago");
 					echo $korkCollege; ?></p>
   </div>
 </li>
@@ -428,9 +431,9 @@ if(!empty($_SESSION['username']) && $userID != $_userID && $collegeID == $_colle
   <ul class="share-buttons">
 	<!--<li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwalknsell.com<?php echo urlencode($_SERVER['REQUEST_URI']);?>&t=<?php echo $title; ?>" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.URL)); return false;"><img src="img/Facebook.png"></a></li>
 <li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fwalknsell.com%2F&text=WalknSell%20share%20kro%20babes%20%3AP:%20http%3A%2F%2Fwalknsell.com%2F" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"><img src="img/Twitter.png"></a></li>-->
-      <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwalknsell.com<?php echo urlencode($_SERVER['REQUEST_URI']);?>" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL)); return false;"><img src="img/Facebook.png"></a></li>
-	<li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fwalknsell.com<?php echo urlencode($_SERVER['REQUEST_URI']);?>:%20http%3A%2F%2Fwalknsell.com%2F" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/share?text=Hello there! Check out my deal on WalknSell.&url=' + encodeURIComponent(document.URL)); return false;"><img src="img/Twitter.png"></a></li>
-	<li><a href="https://plus.google.com/share?url=http%3A%2F%2Fwalknsell.com<?php echo urlencode($_SERVER['REQUEST_URI']);?>" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"><img src="img/Google+.png"></a></li>
+      <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwalknsell.com<?php echo urlencode($_SERVER['REQUEST_URI']);?>" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL)); return false;"><img src="/img/Facebook.png"></a></li>
+	<li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fwalknsell.com<?php echo urlencode($_SERVER['REQUEST_URI']);?>:%20http%3A%2F%2Fwalknsell.com%2F" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/share?text=Hello there! Check out my deal on WalknSell.&url=' + encodeURIComponent(document.URL)); return false;"><img src="/img/Twitter.png"></a></li>
+	<li><a href="https://plus.google.com/share?url=http%3A%2F%2Fwalknsell.com<?php echo urlencode($_SERVER['REQUEST_URI']);?>" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"><img src="/img/Google+.png"></a></li>
 </ul>
       </div>
 </li>
@@ -487,8 +490,8 @@ if(!empty($_SESSION['username']) && $userID != $_userID && $collegeID == $_colle
 						$bid = $row['bid'];
 						$bidDate = $row['dateM'];
                     
-						echo "<tr><td data-title='Bidders'><div class='first_dt'><span><img src='img/users/$profilePic' width='50' height='50'></span>
-                    <h2><a href='$sender'>$sender</a> (sent ",time_elapsed_string($bidDate),")</h2>
+						echo "<tr><td data-title='Bidders'><div class='first_dt'><span><img src='/img/users/$profilePic' width='50' height='50'></span>
+                    <h2><a href='/$sender'>$sender</a> (",time_elapsed_string($bidDate),")</h2>
                     </div></td>";
 						echo "<td data-title='Message'>$message</td>";
 						echo "<td data-title='Bid' class='numeric'>Rs. ".$bid."</td></tr>";
@@ -519,8 +522,8 @@ if(!empty($_SESSION['username']) && $userID != $_userID && $collegeID == $_colle
                 if($justInserted === true){
 					echo "<tr class='kork_message alert-notice'><p>Your bid has been submitted. You can update the bid anytime later.</p></tr>";
 				}
-				echo "<tr><td data-title='Bidders'><div class='first_dt'><span><img src='img/users/$_profilePic' width='50' height='50'></span>
-                    <h2><a href='$_username'>$_username</a> (sent $bidDate)</h2>
+				echo "<tr><td data-title='Bidders'><div class='first_dt'><span><img src='/img/users/$_profilePic' width='50' height='50'></span>
+                    <h2><a href='/$_username'>$_username</a> ( $bidDate)</h2>
                     </div></td>";
                 echo "<td data-title='Message'>$message</td>";
                 echo "<td data-title='Bid' class='numeric'>Rs ".$bid."</td></tr></tbody></table></div>";
@@ -544,7 +547,7 @@ if(!empty($_SESSION['username']) && $userID != $_userID && $collegeID == $_colle
                 </thead>
                 <tbody>
                     <tr>
-                        <td data-title="Bidders"><div class="first_dt"><span><img src="img/users/profile_pic.jpg" width="50" height="50" alt=""> </span>
+                        <td data-title="Bidders"><div class="first_dt"><span><img src="/img/users/profile_pic.jpg" width="50" height="50" alt=""> </span>
                     <h2><a href="ShahrukhS">ShahrukhS</a> (sent today)</h2>
                     </div></td>
                         <td data-title="Message">AUSTRALIAN AGRICULTURAL COMPANY LIMITED.</td>
@@ -568,7 +571,7 @@ if(!empty($_SESSION['username']) && $userID != $_userID && $collegeID == $_colle
           <p>Fill all item given below to sell your deal</p>
         </div>
         <div class="modal-body">
-          <form id="contact-form" action="soldKork.php?id=<?php echo $korkID ?>" method="post">
+          <form id="contact-form" action="/soldKork.php?id=<?php echo $korkID ?>" method="post">
             <div id="error-login"></div>
             <select required name='userID' id="sellusername" class="form-control txt_boxes contact-form" onChange="getPrice(this.value);">
                 <option value="Select Buyer Name">Select Buyer Name</option>
@@ -603,7 +606,7 @@ if(!empty($_SESSION['username']) && $userID != $_userID && $collegeID == $_colle
         <h1 class="modal-title" id="myModalLabel"><?php if($hasBid == true) { echo "Update Bid"; } else{echo "Bid Now";}  ?></h1>
       </div>
       <div class="modal-body">
-        <form id="msg-form" method="post" action="cate_desc.php?korkID=<?php echo $korkID; ?>">
+        <form id="msg-form" method="post" action="<?php echo "/$username/$title_url/$id" ; ?>">
           <input required maxlength="100"  type="text" name="msg" id="msg" <?php echo ($hasBid === true) ? "value='{$userBid['message']}'" : ""; ?> class="form-control txt_boxes" placeholder="Enter Your Message" />
           <div style="width:80%;margin-left:30px">
             <table>
@@ -654,10 +657,9 @@ $.ajax({ url: 'soldKork.php?id=<?php echo $korkID ?>',
 function getPrice(val) {
 	$.ajax({
 	type: "POST",
-	url: "get_price.php?korkID=<?php echo $korkID ;?>",
+	url: "/get_price.php?korkID=<?php echo $korkID ;?>",
 	data:'senderID='+val,
 	success: function(data){
-        console.log(data);
 		$("#bid").val(data);
             $('input[type="number"]').keyup(function(){
 	    if($("#bid").val() > data){
@@ -669,7 +671,7 @@ function getPrice(val) {
 	});
 }
 </script>
-<script src ="js/register.js"></script>
+<script src ="/js/register.js"></script>
     <script>
         $('#login_error').click(function() {
             $('#login').modal('toggle');
@@ -723,8 +725,8 @@ function getlist(x){
     $("#veiwlist"+x).show();
 }
 </script> 
-<script src="js/nav-admin-dropdown.js"></script>
-<script src="js/school-list.js"></script>
+<script src="/js/nav-admin-dropdown.js"></script>
+<script src="/js/school-list.js"></script>
 <script>
 	$(document).ready(function() {
 	$("#bid").keyup(function(){

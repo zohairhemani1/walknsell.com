@@ -1,10 +1,13 @@
 <?php
 session_start();
 include 'headers/_user-details.php';
-	if(isset($_GET['page'])){
+	if(isset($_GET['username'])){
+		$usernmae = $_GET['username'];
+	} 
+    if(isset($_GET['page'])){
 		$page = $_GET['page'];
 	}else{
-        (!empty($_SERVER['QUERY_STRING'])) ? header("Location: inbox.php?{$_SERVER['QUERY_STRING']}&page=1") : header('Location: inbox.php?page=1');
+        (!empty($_SERVER['QUERY_STRING'])) ? header("Location: inbox.php?type={$_SERVER['QUERY_STRING']}&page=$page") : header("Location: inbox.php?page=$page");
 	}
 	$perpage = 10;
 	$start = (($page - 1)*$perpage);
@@ -49,13 +52,13 @@ include 'headers/_user-details.php';
 			
             if(isset($_GET['query']) && !empty($_GET['query'])){
             $query = '%'.$_GET['query'].'%';
-            $stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`, i.ID, i.isRead,i.message, i.dateM, u.profilePic, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE (i.message LIKE :search OR u.lname LIKE :search OR u.fname LIKE :search) AND i.isArchive = :isarch and i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
+            $stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`, i.ID, i.isRead,i.message, i.dateM, u.profilePic,u.username, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE (i.message LIKE :search OR u.lname LIKE :search OR u.fname LIKE :search) AND i.isArchive = :isarch and i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
 			$stmt->bindParam(':user', $_userID);
             $stmt->bindParam(':isarch', $temp);
             $stmt->bindParam(':search', $query);
             $stmt->execute();
             }else{
-			$stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`, i.ID, i.isRead, i.message, i.dateM, u.profilePic, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE i.isArchive = :isarch and i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
+			$stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`, i.ID, i.isRead, i.message, i.dateM, u.profilePic, u.fname,u.username, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE i.isArchive = :isarch and i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
 			$stmt->bindParam(':user', $_userID);
             $stmt->bindParam(':isarch', $temp);
 			$stmt->execute();
@@ -72,13 +75,13 @@ include 'headers/_user-details.php';
             if(isset($_GET['query']) && !empty($_GET['query'])){
             $query = '%'.$_GET['query'].'%';
 
-            $stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`, i.ID, i.message,i.isRead, i.dateM, u.profilePic, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE (i.message LIKE :search OR u.lname LIKE :search OR u.fname LIKE :search) AND i.isStarred = :isStarred and i.isArchive = 0 and i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
+            $stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`, i.ID, i.message,i.isRead, i.dateM, u.profilePic,u.username, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE (i.message LIKE :search OR u.lname LIKE :search OR u.fname LIKE :search) AND i.isStarred = :isStarred and i.isArchive = 0 and i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
             $stmt->bindParam(':user', $_userID);
             $stmt->bindParam(':isStarred', $temp);
             $stmt->bindParam(':search', $query);
             $stmt->execute();
             }else{
-            $stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`, i.isRead,i.ID, i.message, i.dateM, u.profilePic, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE i.isStarred = :isStarred and i.isArchive = 0 and i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
+            $stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`, i.isRead,i.ID, i.message, i.dateM, u.profilePic, u.fname,u.username, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE i.isStarred = :isStarred and i.isArchive = 0 and i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
             $stmt->bindParam(':user', $_userID);
             $stmt->bindParam(':isStarred', $temp);
             $stmt->execute();
@@ -96,13 +99,13 @@ include 'headers/_user-details.php';
             if(isset($_GET['query']) && !empty($_GET['query'])){
             $query = '%'.$_GET['query'].'%';
 
-            $stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`,i.isRead, i.ID, i.message, i.dateM, u.profilePic, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE (i.message LIKE :search OR u.lname LIKE :search OR u.fname LIKE :search) AND i.isRead = :isRead AND i.isArchive = 0 AND i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
+            $stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`,i.isRead, i.ID, i.message, i.dateM, u.profilePic,u.username, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE (i.message LIKE :search OR u.lname LIKE :search OR u.fname LIKE :search) AND i.isRead = :isRead AND i.isArchive = 0 AND i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
 			$stmt->bindParam(':user', $_userID);
 			$stmt->bindParam(':isRead', $readS);
             $stmt->bindParam(':search', $query);
             $stmt->execute();
             }else{
-			$stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`,i.isRead, i.ID, i.message, i.dateM, u.profilePic, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE i.isRead = :isRead and i.isArchive = 0 and i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
+			$stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`,i.isRead, i.ID, i.message, i.dateM, u.profilePic,u.username, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE i.isRead = :isRead and i.isArchive = 0 and i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
 			$stmt->bindParam(':user', $_userID);
 			$stmt->bindParam(':isRead', $readS);
 			$stmt->execute();
@@ -123,7 +126,7 @@ include 'headers/_user-details.php';
             $stmt->bindParam(':search', $query);
             $stmt->execute();
         }else{
-            $stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`,i.isRead, i.ID, i.message, i.dateM, u.profilePic, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
+            $stmt = $dbh->prepare("SELECT (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) as `sender`,i.isRead, i.ID, i.message, i.dateM, u.profilePic,u.username, u.fname, u.lname FROM inbox i INNER JOIN users u ON (CASE WHEN (i.senderID=:user) THEN i.receiverID else i.senderID end) = u.ID WHERE i.ID IN (select max(ID) from (select senderID, receiverID, concat(senderID,receiverID) as `Conversation ID`, max(ID) as `ID` FROM inbox where receiverID = :user GROUP BY senderID union select senderID,receiverID,concat(receiverID,senderID) as `Conversation ID`, max(ID) as `ID` FROM inbox where senderID = :user GROUP BY receiverID) as `tab` group by `Conversation ID`) LIMIT $start, $perpage");
             $stmt->bindParam(':user', $_userID);
             $stmt->execute();
         }
@@ -211,30 +214,36 @@ window.onload=function() {
 <?php include 'headers/popup.php';?>
     <div class="content_inbox">
     	<h1>Inbox</h1>
-        <a href="#" class="search_icon"><img src="img/magnifying.png" width="30" alt="search"></a>
+        <a href="#" class="search_icon"><img src="/img/magnifying.png" width="30" alt="search"></a>
         <div class="content_inbox_inner">
         	<div class="conversation_top">
             	<div class="mail_selector">
                 	<div class="dropdown">
                 		<a data-toggle="dropdown" href="#"><input type="checkbox" id="mail_select">
-                    	<label for="mail_select"><img src="img/arrow.png" width="14" alt=""></label></a>
+                    	<label for="mail_select"><img src="/img/arrow.png" width="14" alt=""></label></a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-    						<li><a href="inbox.php">ALL</a></li>
-                            <li><a href="inbox.php?type=read">READ</a></li>
-                            <li><a href="inbox.php?type=unread">UNREAD</a></li>
-							<li><a href="inbox.php?type=archive">ARCHIVE</a></li>
-                            <li><a href="inbox.php?type=unarchive">UNARCHIVE</a></li>
+    						<li><a href="/">ALL</a></li>
+                            <li><a href="conversation/read">READ</a></li>
+                            <li><a href="Conversation/unread">UNREAD</a></li>
+							<li><a href="Conversation?type=archive">ARCHIVE</a></li>
+                            <li><a href="Conversation?type=unarchive">UNARCHIVE</a></li>
   						</ul>
                     </div>
   		
 
                 </div>
-                  <p class="mark">mark as</p>
+                  <p style="display:none;" class="mark">mark as</p>
                   <div class="btn-group">
-                  	<a href="inbox.php?<?php echo (isset($_GET['type']) == true) ? "type=$type&" : "","action=archive&page=$page" ?>"  id="btnArchive" class="btn_top archive">ARCHIVE</a>
-                      <a href="inbox.php?<?php echo (isset($_GET['type']) == true) ? "type=$type&" : "","action=unarchive&page=$page" ?>"  id="btnUnarchive" class="btn_top unarchive">UNARCHIVE</a>
-                  	<a href="inbox.php?<?php echo (isset($_GET['type']) == true) ? "type=$type&" : "","action=unread&page=$page" ?>" id="btnUnread" class="btn_top unread">UNREAD</a>
-                  	<a href="inbox.php?<?php echo (isset($_GET['type']) == true) ? "type=$type&" : "","action=read&page=$page" ?>" id="btnRead" class="btn_top read">READ</a>
+        	<div class='div_aside'>
+            	<a href='/inbox.php?type=unread&page=<?php echo $page; ?>' class='read_un unread'>unread</a>
+		    	<a href='/inbox.php?type=read&page=<?php echo $page; ?>' class='read_un read'>read</a>
+                <a href='/inbox.php?page=<?php echo $page; ?>' class='read_un'>All</a>
+                <div class='clear'></div>      
+            </div>
+                  	<a href="Conversation?<?php echo (isset($_GET['type']) == true) ? "type=$type&" : "","action=archive&page=$page" ?>"  id="btnArchive" class="btn_top archive">ARCHIVE</a>
+                      <a href="Conversation?<?php echo (isset($_GET['type']) == true) ? "type=$type&" : "","action=unarchive&page=$page" ?>"  id="btnUnarchive" class="btn_top unarchive">UNARCHIVE</a>
+                  	<a href="Conversation?<?php echo (isset($_GET['type']) == true) ? "type=$type&" : "","action=unread&page=$page" ?>" id="btnUnread" class="btn_top unread">UNREAD</a>
+                  	<a href="Conversation?<?php echo (isset($_GET['type']) == true) ? "type=$type&" : "","action=read&page=$page" ?>" id="btnRead" class="btn_top read">READ</a>
                     <div class="clear"></div>
                   </div>
                     
@@ -248,7 +257,7 @@ window.onload=function() {
                         }
                         ?>
                         <input id="query" maxlength="80" name="query" type="text" value="<?php echo (isset($_GET['query'])) ? $_GET['query'] : ""; ?>" placeholder="SEARCH">
-                        <input type="image" src="img/glass_small.png" alt="Go">
+                        <input type="image" src="/img/glass_small.png" alt="Go">
                     </form>
                   </div>
             </div>
@@ -281,16 +290,17 @@ window.onload=function() {
 						$sender = $row['fname'].' '.$row['lname'];
 						$profileImg = $row['profilePic'];
                         $Readtrue = $row['isRead'];
+                        $senderUsenrname = $row['username'];
 
 						echo "<tr class='",($Readtrue == 0) ? "inbox_unread" : "","'>
 							<td class='inbox_mail_row '>
 								<table class='ellip'>
                             
 									<tr>
-										<td class='checkbox'><input class='msgChecks' type='checkbox' name='allChecks[]' value='$messageID'></td>
+										<td style='display:none;' class='checkbox'><input class='msgChecks' type='checkbox' name='allChecks[]' value='$messageID'></td>
 										<td class='star'></td>
-										<td class='sender_dt'><img src='img/users/$profileImg' width='42' alt='sender'>${sender}</td>
-										<td class='messege_subject'><a href='inbox_des.php?id=$senderID&mode=0'>${lastmessage}</a></td>
+										<td class='sender_dt'><img src='/img/users/$profileImg' width='42' alt='sender'>${sender}</td>
+										<td class='messege_subject'><a href='/conversation/$senderUsenrname/All'>${lastmessage}</a></td>
 										<td class='update'>${date}</td>
 								   </tr>
 								</table>
@@ -310,7 +320,7 @@ window.onload=function() {
                     </li>
                     <?php
                         for($number = 1; $number <= $pages; $number++){
-                            echo "<li><a href='inbox.php?",(isset($_GET['type']) == true) ? "type=$type&" : "","page=$number'>$number</a></li>";
+                            echo "<li><a href='Conversation?",(isset($_GET['type']) == true) ? "type=$type&" : "","page=$number'>$number</a></li>";
                         }
                     ?>
                     <li><a href="#" aria-label="Next">

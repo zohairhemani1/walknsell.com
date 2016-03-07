@@ -2,6 +2,8 @@
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 session_start();
+
+
 if(isset($_GET['status']) && $_GET['status'] == 'logout')
 	{
         unset($_SESSION);
@@ -30,12 +32,14 @@ include 'headers/_user-details.php';
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel='shortcut icon' href='img/icon.ico' />
+<link rel="icon" type="image/png" href="img/icon.png" />  
 <link rel="stylesheet" href="css/media.css" type="text/css">
 <link rel="stylesheet" href="css/fontello.css" type="text/css">
 <link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
 <link href='css/font-open-sans.css' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/font-awesome.css" type='text/css'>
 <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
 <style>
 *, *:before, *:after {
 	-webkit-box-sizing: initial;
@@ -50,11 +54,64 @@ img {
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.sidr.min.js"></script>
 <script src="js/custom.js"></script>
-<script src="js/fb.js"></script>
+<?php
+if(isset($_COOKIE['video'])){
+  // echo "cookie saved";
+}
+else{
+echo"
+   <script type='text/javascript'>
+$(document).ready(function(e){
 
+    $('#video').modal('show');
+    document.getElementById('playerid').src='https://www.youtube.com/embed/kttOM-GurEU?autoplay=1';
+});
+    </script>
+";
+    setcookie('video', md5(rand()*1000000000), time()+3600 * 24 * 365, '/');
+}
+    ?>
+
+<script type='text/javascript'>
+$(document).ready(function(e){
+    $('#video').on('hidden.bs.modal', function (e) {
+    document.getElementById('playerid').src='';
+    });
+$('#demo').click(function(){
+    $('#video').modal('show');
+    document.getElementById('playerid').src='https://www.youtube.com/embed/kttOM-GurEU?autoplay=1';
+});
+});
+
+</script>
+<script>
+$(document).ready(function() {
+$('#mydeals').carousel({
+  interval: 2500
+});
+
+$('.carousel .item').each(function(){
+  var next = $(this).next();
+  if (!next.length) {
+    next = $(this).siblings(':first');
+  }
+  next.children(':first-child').clone().appendTo($(this));
+  
+  for (var i=0;i<2;i++) {
+    next=next.next();
+    if (!next.length) {
+      next = $(this).siblings(':first');
+    }
+    
+    // next.children(':first-child').clone().appendTo($(this));
+  }
+});
+});
+    </script>
 </head>
 
 <body>
+<!-- <a  href='#' onclick='return closeMenu();' data-toggle='modal' data-target='#video'>LOGIN</a> -->
 <?php
 	if(isset($_GET['password']))
 	{
@@ -64,6 +121,15 @@ img {
                             </div>
                 </div>";
 		}
+	if(isset($_GET['login']) == 'false')
+	{
+			echo "<div class='main-flashes'>
+                            <div style='height: 49px;padding-top: 0px;background-color:#ff9326' class='flash-message flash-warning'>
+                                <p>Warning! You must be logged in before creating a deal &nbsp;
+								 <a href='#' data-toggle='modal' style='text-decoration:underline !important;' data-target='#login'>Click here to login</a></p>
+                            </div>
+                </div>";
+		}	
 if(isset($_GET['activate']))
 	{
 		include 'headers/connect_database.php';
@@ -80,9 +146,9 @@ if(isset($_GET['activate']))
 
 		else
 		{
-			echo "<div class='main-flashes'>
+            echo "<div class='main-flashes'>
                             <div class='flash-message flash-warning'>
-                                <p>Uh-oh! We are sorry but something did not go well with your activation.<br>To fix, please contact our <a href='#'>support.</a></p>
+                                <p>Uh-oh! We are sorry but something did not go well with your activation.<br>To fix, please contact our <a href='#'>support.                               </a></p>
                             </div>
                 </div>";
 		}	
@@ -103,14 +169,14 @@ if(isset($_GET['activate']))
   
   <article class="content">
     <div class="content_inner">
-      <form method="post"  id="search" name="search">
+      <form method="post"  id="searchSchool" name="search">
         <label for="search">Find Your School</label>
         <div id="tfheader">
-          <input type="text" class="tftextinput" name="search_text" id="search" placeholder="" onKeyUp="findmatch();" autocomplete="off" >
+          <input type="text" class="tftextinput" name="search_text" id="search" placeholder="" autocomplete="off" >
             <input type="hidden" value="" id="search_url" />  
         <ul id ="results" name="school">
             </ul>
-            <input value="Search" type="button" class="tfbutton">
+            <input value="Search" id="school" onclick="schoolfield();" type="button" class="tfbutton">
           <div class="clear"></div>
         </div>
       </form>
@@ -118,36 +184,19 @@ if(isset($_GET['activate']))
     <div class="clear"></div>
   </article>
   <div class="full_article_bg featured_prod">
-    <article  class="prod_detail col-lg-12">
-      	<ul class="row">
+                <article  class="prod_detail col-lg-12">
+<!--               <h2 class="deal_type">Favourite Deals</h2> -->
+                <ul class="row">
+<div class="carousel slide" id="mydeals">
+  <div class="carousel-inner">
 		<?php
-		/*$sql = "Select a.id, a.title, a.detail, a.price, a.expirydate, a.status, a.image, COUNT(b.korkID), u.username, kc.category from korks a INNER JOIN inbox b ON a.id = b.korkID INNER JOIN kork_categories kc ON a.catID = kc.cat_id INNER JOIN users u ON a.userID = u.ID where b.bid IN (select max(i.bid) from inbox i, korks k where k.id = i.korkID GROUP BY k.catID) LIMIT 4";*/
-		
-		/*$sql = "Select catID, korkID, bids from (Select k.catID, i.korkID, count(i.korkID) bids FROM inbox i INNER JOIN korks k ON i.korkID = k.id GROUP BY i.korkID order by bids DESC) tabs GROUP BY catID";*/
-		$sth = $dbh->query("Select id, title, detail, price, expirydate, status, image, bids, username, category from (Select k.id, k.title, k.detail, k.price, k.expirydate, k.status, k.image, count(i.korkID) bids, u.username, kc.category, k.catID FROM inbox i INNER JOIN korks k ON i.korkID = k.id INNER JOIN users u ON k.userID = u.ID INNER JOIN kork_categories kc ON k.catID = kc.cat_id GROUP BY i.korkID order by bids DESC) b where status = 1 GROUP BY catID LIMIT 4");
+		$sth = $dbh->query("Select id, title, detail, price, expirydate, status, image, bids, username, category from (Select k.id, k.title, k.detail, k.price, k.expirydate, k.status, k.image, count(i.korkID) bids, u.username, kc.category, k.catID FROM inbox i RIGHT OUTER JOIN korks k ON i.korkID = k.id INNER JOIN users u ON k.userID = u.ID INNER JOIN kork_categories kc ON k.catID = kc.cat_id GROUP BY k.id order by bids DESC) b where status = 1 GROUP BY catID LIMIT 4");
         $topresults = $sth->fetchAll(PDO::FETCH_ASSOC);
-        /*$numRes = count($topresults);
-        if($numRes == 0){
-            $sth = $dbh->query("Select k.id, k.title, k.detail, k.price, k.expirydate, k.status, k.image, count(i.korkID) bids, u.username, kc.category, k.catID FROM inbox i INNER JOIN korks k ON i.korkID = k.id INNER JOIN users u ON k.userID = u.ID INNER JOIN kork_categories kc ON k.catID = kc.cat_id GROUP BY i.korkID order by k.expirydate DESC LIMIT 4");
-            $topresults = $sth->fetchAll(PDO::FETCH_ASSOC);
-        }else if($numRes < 4){
-            $sth = $dbh->query("Select k.id, k.title, k.detail, k.price, k.expirydate, k.status, k.image, count(i.korkID) bids, u.username, kc.category, k.catID FROM inbox i INNER JOIN korks k ON i.korkID = k.id INNER JOIN users u ON k.userID = u.ID INNER JOIN kork_categories kc ON k.catID = kc.cat_id GROUP BY i.korkID order by bids DESC LIMIT 4");
-            $restresults = $sth->fetchAll(PDO::FETCH_ASSOC);
-            //$topresults = array_unique(array_merge($topresults, $restresults));
-            for($j=0; $j<count($restresults); $j++){
-                if($numRes == 4){
-                    break;
-                }
-                if($topresults[$j]['id'] !== $restresults[$j]['id']){
-                    echo $topresults[$j]['id'] . " " .$restresults[$j]['id'];
-                    $topresults[] = $restresults[$j];
-                    $numRes++;
-                }
-            }
-        }*/
+        $count = 0;
         foreach ($topresults as $row){
             $kork_id = $row['id'];
             $kork_title = $row['title'];
+            $title_withDashes = str_replace(' ', '-', $kork_title);
             $kork_detail = $row['detail'];
             $kork_price = nice_number($row['price']);
             $kork_date = $row['expirydate'];
@@ -156,26 +205,46 @@ if(isset($_GET['activate']))
             $kork_category = $row['category'];
             $kork_user = $row['username'];
             $kork_bids = $row['bids'];
-
-            echo "<li class='col-lg-3 col-md-6 col-sm-6'><a href='cate_desc.php?korkID=$kork_id'>
-                    <span class='available korkbadge'></span>
-                    <div class='col-lg-12 single_product'>
+            ++$count;
+            if($count == 1){echo "<div class='item active'>";}
+            else{echo "<div class='item'>";}
+            echo "
+            <li class='col-lg-3 col-md-6 col-sm-6'>
+            <a href='$kork_user/{$title_withDashes}/{$kork_id}' id='gig_link'>
+                   
+                    <div class='col-lg-12 single_product' style='width: 234px;;height: 260px;'>
+                        <p style='position:absolute;top: 4px;padding-top: 6px;font-size: 12px;' class='prod_cat_22'><b>By:</b> $kork_user</p>
                         <div class='img_wrap'>
                             <img src='img/korkImages/$kork_image' width='234' alt='' class='img-responsive'>
-                        </div>
-                        <h3 class='block-ellipsis'>$kork_title</h3>
-                        <p class='prod_cat_22'>$kork_category Category</p>
-                        <p class='prod_cat_22'>By $kork_user</p>
-                        <p class='attributes'>".date('m-d-Y | h:i A', strtotime($kork_date))."</p>
-                        <div class='price_tag_22'>
-                            <span class='price_main'>Rs. $kork_price</span>
-                            <span class='offer_dt'>$kork_bids BID",($kork_bids > 1) ? "S" : "","</span>
-                        </div>
+                        <h3 style='margin-top: 143px;position: absolute;' class='block-ellipsis'>$kork_title</h3>
+                     ";
+            if($kork_status == 1){
+                echo "<p class='gig_avialable'>Available</p>";
+              }          
+              echo "   
+                  </div>
+              <div class='price'>
+                            <span class='price_first'>Rs. $kork_price</span>
+                            <span class='prod_scheme'>$kork_bids BID",($kork_bids > 1) ? "S" : "","</span>
+                        </div>     
                    </div>
-                </a></li>";
-        }
+                </a></li></div>";
+          }
+      
+          // remove after li 
+         // <span class='available korkbadge'></span>
+        // <p class='prod_cat_22'>$kork_category Category</p>
+        // <p class='attributes'>".date('m-d-Y | h:i A', strtotime($kork_date))."</p>
+              // <div class='price_tag_22'>
+              //               <span class='price_main'></span>
+              //               <span class='offer_dt'></span>
+              //           </div>
 		$dbh = null;
 		?>
+  </div>
+  <a class="left carousel-control" href="#mydeals" data-slide="prev"><i id='arrow' class="fa fa-chevron-left"></i></a>
+  <a class="right carousel-control" href="#mydeals" data-slide="next"><i id='arrow' class="fa fa-chevron-right"></i></a>
+</div>
 		</ul>
         <div class="clear"></div>
     </article>
@@ -196,7 +265,7 @@ if(isset($_GET['activate']))
         <p>We take multiple security measures to ensure that only legitimate
           
           classifieds are shown and spam is minimized. </p>
-        <p>WalknSell is safe and simple.</p>
+        <p>WalknSell is safe and simple. <a href='#' id="demo">Watch demo</a></p>
       </div>
       <div class="how_it_works">
         <h2>How it Works</h2>
@@ -221,20 +290,137 @@ if(isset($_GET['activate']))
       <div class="clear"></div>
     </div>
   </article>
-    <?php include 'headers/menu-bottom-navigation.php' ?>
-  </div>
 
+  </div>
+</div>
+    <?php include 'headers/menu-bottom-navigation.php' ?>
+  
     <script src ="js/register.js"></script>
 <script type="text/javascript">
-
 
 $(document).ready(function() {
 
   $('#simple-menu').sidr();
+  $(".single_product").hover(
+
+    function () {
+       
+
+       $(this).find(".img_wrap img ,.img_wrap h3,.gig_avialable").stop().animate({
+            top: '36px'
+        }, 'fast');
+      $(this).find('.gig_avialable').slideDown('normal');
+      $(this).find('.block-ellipsis').css('color','#00b22d');
+      $(this).find('.block-ellipsis').css('text-decoration','underline'); 
+    },
+
+    function () {
+        $(this).find(".img_wrap img ,.img_wrap h3,.gig_avialable").stop().animate({
+            top: '6'
+        }, 'normal');
+        // $(this).find('.gig_avialable').slideUp('fast');
+          $(this).find('.block-ellipsis').css('color','#030303');
+        $(this).find('.block-ellipsis').css('text-decoration','none');
+  });
 
 });
 
 </script> 
+    <script>
+        function schoolfield(){
+            if($('#search_url').val() == '' || $('#search_url').val() == null){
+                e.preventDefault();
+                return false;
+            }
+        }
+        
+    </script>
+
+<script type="text/javascript">
+$('#regsearch').keyup(function(e)
+{
+    var $listItems = $('#regresults li');
+
+    var key = e.keyCode,
+        $selected = $listItems.filter('.selected'),
+        $current;
+
+    if ( key != 40 && key != 38 ) return;
+
+    $listItems.removeClass('selected');
+
+    if ( key == 40 ) // Down key
+    {
+        if ( ! $selected.length || $selected.is(':last-child') ) {
+            $current = $listItems.eq(0);
+        }
+        else {
+            $current = $selected.next();
+        }
+    }
+    else if ( key == 38 ) // Up key
+    {
+        if ( ! $selected.length || $selected.is(':first-child') ) {
+            $current = $listItems.last();
+        }
+        else {
+            $current = $selected.prev();
+        }
+    }
+          $current.addClass('selected');
+        $('#regsearch').val($('.selected').text());
+
+        if(key == 13){
+        if($('#regsearch').val() != null || $('#regsearch').val() != ''){
+              $("#regresults").css("display", "block");
+        }
+
+      }
+});
+</script>
+
+    <script type="text/javascript">
+
+$('#search').keyup(function(e)
+{
+
+var $listItems = $('#results li');
+
+var key = e.keyCode,
+        $selected = $listItems.filter('.selected'),
+        $current;
+
+    if ( key != 40 && key != 38 ) return;
+
+    $listItems.removeClass('selected');
+
+
+
+    if ( key == 40 ) // Down key
+    {
+        if ( ! $selected.length || $selected.is(':last-child') ) {
+            $current = $listItems.eq(0);
+        }
+        else {
+            $current = $selected.next();
+        }
+    }
+    else if ( key == 38 ) // Up key
+    {
+        if ( ! $selected.length || $selected.is(':first-child') ) {
+            $current = $listItems.last();
+        }
+        else {
+            $current = $selected.prev();
+        }
+    }
+
+    $current.addClass('selected');
+        $('.tftextinput').val($('.selected').text());
+        $('#search_url').val($('.selected').attr('id'));
+
+});
+    </script>
 <script src="js/school-list.js"></script>
 <script src="js/nav-admin-dropdown.js"></script>
 </body>

@@ -9,16 +9,18 @@ $selectd_category = $row['category'];
  }
 if(isset($_GET['schoolName'])){ $schoolName = $_GET['schoolName'];}
 if(isset($_GET['schoolID'])){ $schoolID = $_GET['schoolID'];}
+if(isset($_GET['username'])){ $username = $_GET['username'];}
  
 $url_page = basename($_SERVER['PHP_SELF']);
 if($url_page == "deals.php"){
-     $nam_key = "deals.php";
-}
-if ($url_page == "school-category.php" && $_GET['schoolName']){
-$nam_key = "school-category.php?schoolID=$schoolID&schoolName=$schoolName";
+     $nam_key = "deals/{$username}";
+ }
+else if ($url_page == "school-category.php" && $_GET['schoolName']){
+$nam_key = "/$schoolID/$schoolName";
 }
 else{
-$nam_key = "school-category.php?schoolID=$_college&schoolName=$_collegeName";
+$nam_key = "/$_college/$_collegeName";
+
 }
 ?>
 <nav class="category_nav main-category-search actual_cat">
@@ -39,15 +41,21 @@ $nam_key = "school-category.php?schoolID=$_college&schoolName=$_collegeName";
 												$cat_id = $row['cat_id'];
                                                 $pageurl = basename($_SERVER['PHP_SELF']);
                                                 if($pageurl == "deals.php" || $pageurl == "school-category.php"){
-                                                    echo "<li><a href='". $pageurl. "?";
+                                                if($pageurl == "deals.php"){
+                                                $pageurl = "deals/{$username}";
+                                                }
+                                                else if($pageurl == "school-category.php"){
+                                                $pageurl = "$schoolID/$schoolName";
+                                                }
+                                                    echo "<li><a href='/". $pageurl. "";
                                                     if(isset($_GET)){
                                                         foreach($_GET as $keyname => $keyvalue){
                                                             if($keyname !== "category")
-                                                                echo "$keyname=$keyvalue&";
+                                                                echo "&";
                                                         }
                                                     }
                                                 }else{
-                                                    echo "<li><a  href='$collegeURL&";
+                                                    echo "<li><a  href='/$collegeURL&";
                                                 }
 												echo "category=$cat_id'>$category</a></li>";
                                                 
@@ -137,19 +145,20 @@ $nam_key = "school-category.php?schoolID=$_college&schoolName=$_collegeName";
 			<?php
 			$pageurl = basename($_SERVER['PHP_SELF']);
             if(isset($_GET) && ($pageurl == "deals.php" || $pageurl == "school-category.php")){
-                $pageurl .= "?";
-                foreach($_GET as $keyname => $keyvalue){
-                    $pageurl .= "$keyname=$keyvalue&";
-                }
-                $pageurl = substr($pageurl, 0, -1);
+             if($pageurl == "deals.php"){
+            $pageurl = "/deals/{$username}";
+            }
+            else if($pageurl == "school-category.php"){
+            $pageurl = "/$schoolID/$schoolName";
+            }
             }else{
-                $pageurl = "school-category.php?schoolID={$_college}&schoolName={$name_hypens}";
+                $pageurl = "/{$_college}/{$name_hypens}";
             }
         ?>
             <div class="wrap-search">
 					<form action="<?php echo $pageurl; ?>" method="post">
 						<input id="query" required maxlength="80" name="query" type="text" value="<?php echo isset($_POST['query']) ? $_POST['query'] : ""; ?>" placeholder="SEARCH">
-						<input type="image" src="img/glass_small.png" alt="Go">
+						<input type="image" src="/img/glass_small.png" alt="Go">
 					</form>
                   </div>
                 <div class="clear"></div>  

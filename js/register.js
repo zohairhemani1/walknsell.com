@@ -47,11 +47,11 @@ function contactForm()
 			$('.genload').css("padding-top", "20px");
 			$('.genload').css("padding-bottom", "20px");
 			
-			$('#loading-contact').html("<img src='img/loading.gif'>");
+			$('#loading-contact').html("<img src='/img/loading.gif'>");
 			 $inputs.prop("disabled", true);
 		// fire off the request to /form.php
 			request = $.ajax({
-				url: "contactus.php",
+				url: "/contactus.php",
 				type: "post",
 				data: serializedData
 			});
@@ -70,7 +70,7 @@ function contactForm()
 				}
 				else
 				{
-					$('#loading-contact').html('<span class=\'alert alert-danger\'>Sorry, There has been an error in our system!</span>');
+					$('#loading-contact').html('<span class=\'alert alert-danger\'></span>');
 				}
 			});
 		
@@ -167,11 +167,11 @@ function signupForm()
 			$('.genload').css("padding-top", "20px");
 			$('.genload').css("padding-bottom", "20px");
 				
-			$('#loading').html("<img src='img/loading.gif'>");
+			$('#loading').html("<img src='/img/loading.gif'>");
 			 $inputs.prop("disabled", true);
 		// fire off the request to /form.php
 			request = $.ajax({
-				url: "signup_form.php",
+				url: "/signup_form.php",
 				type: "post",
 				data: serializedData
 			});
@@ -206,7 +206,7 @@ function signupForm()
 					$('#loading').html('<span class=\'alert alert-warning\'><strong>Oops! Password did not match! Try again.</strong></span>');
 				}*/
 				else{
-					$('#loading').html('<span class=\'alert alert-danger\'>Sorry, There has been an error in our system!' + response+'</span>');
+					$('#loading').html('<span class=\'alert alert-danger\'>' + response+'</span>');
 				}
 			});
 		
@@ -255,7 +255,7 @@ function signupFormFB(userID, fname,lname,email,profilePic)
 		
 			console.log(userID+fname+lname+email+profilePic);
 		
-			$('#loading').html("<img src='img/loading.gif'>");
+			$('#loading').html("<img src='/img/loading.gif'>");
 			
 			request = $.ajax({
 				url: "signup_form_fb.php",
@@ -286,8 +286,7 @@ function signupFormFB(userID, fname,lname,email,profilePic)
 				}
 				else
 				{
-					$('#loading').html('<span class=\'alert alert-danger\'>Sorry, There has been an error in our system!' + response+'</span>');
-
+					$('#loading').html('<span class=\'alert alert-danger\'>' + response+'</span>');
 					console.log('Sorry, There has been an error in our system! We are working on it. Thank You for your patience. ' + response);
 				}
 				
@@ -418,7 +417,7 @@ function LoginFormFB()
 		// Note: we disable elements AFTER the form data has been serialized.
 		// Disabled form elements will not be serialized.
 			
-			$('#loading-login').html("<img src='img/loading.gif'>");
+			$('#loading-login').html("<img src='/img/loading.gif'>");
 		// fire off the request to /form.php
 			request = $.ajax({
 				url: "login_form_fb.php",
@@ -438,7 +437,7 @@ function LoginFormFB()
 				if(response=="success")
 				{
 					$('#loading-login').html('<span class=\'alert alert-success\'><strong>Login Successfull</strong></span>');
-					window.location.href = "index.php";
+					window.location.href = "/walknell.com";
 				}
 				else if(response == "incorrect credentials")
 				{
@@ -447,7 +446,7 @@ function LoginFormFB()
 				}
 				else
 				{
-					$('#loading-login').html('<span class=\'alert alert-danger\'><strong>Sorry, There has been an error in our system!</strong>' + response+'</span>');
+					$('#loading-login').html('<span class=\'alert alert-danger\'><strong></strong>' + response+'</span>');
 				}
 				
 				//window.location.href = "your-questions.html";
@@ -514,11 +513,11 @@ function loginForm()
 			$('.genload').css("padding-top", "20px");
 			$('.genload').css("padding-bottom", "20px");
 			
-			$('#loading-login').html("<img src='img/loading.gif'>");
+			$('#loading-login').html("<img src='/img/loading.gif'>");
 			 $inputs.prop("disabled", true);
 		// fire off the request to /form.php
 			request = $.ajax({
-				url: "login_form.php",
+				url: "/login_form.php",
 				type: "post",
 				data: serializedData
 			});
@@ -549,7 +548,7 @@ function loginForm()
 				}
 				else
 				{
-					$('#loading-login').html('<span class=\'alert alert-danger\'><strong>Sorry, There has been an error in our system!</strong>' + response+'</span>');
+					$('#loading-login').html('<span class=\'alert alert-danger\'><strong></strong>' + response+'</span>');
 				}
 			});
 		

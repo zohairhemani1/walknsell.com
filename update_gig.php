@@ -2,7 +2,7 @@
 session_start();
 include 'headers/_user-details.php';
 
-    $korkID = $_GET['id'];//$_GET['id'];
+    $korkID = $_GET['id'];
     $query_status = "SELECT status,userID from korks where id = $korkID"
         or die('error');
     $result_status = mysqli_query($con,$query_status);
@@ -16,10 +16,10 @@ include 'headers/_user-details.php';
     $row_bid = mysqli_fetch_array($result_bid);
 
 if(empty($_SESSION['username']) || $row_status['userID'] != $_userID){
-    header('Location: error.php');
+    header('Location: /Error');
 }
-else if ($row_user['status'] == "0" || $row_bid['bid'] !== null){
-    header("Location: cate_desc.php?korkID=$korkID&message=true");
+else if ($row_status['status'] == "0" || $row_bid['bid'] !== null){
+    header("Location: /Deal-Detail/$korkID");
 }
 if (isset($_GET['id']))
 {
@@ -55,52 +55,32 @@ if (isset($_GET['id']))
             $tag = implode(',', $tag_before);
     
     // dropzone remking existing images code below
-    
-    
-    $query_pics  = "select k.*,ki.*, ki.attachment as attachments from `korks` k, `kork_img` ki where k.id = ki.korkID and k.id = 199";
-    $result_pics = mysqli_query($con,$query_pics);
-    $result_count = mysqli_num_rows($result_pics);
-    
-    
-    
-    while($row_image = mysqli_fetch_assoc($result_pics))
-    {
-     //get an array which has the names of all the files and loop through it 
-        
-        $obj['name'] = $row_image['attachments']; //get the filename in array
-        $obj['size'] = filesize("img/korkImages/".$row_image['attachments']); //get the flesize in array
-        $result_temp_array[] = $obj; // copy it to another array
-    }
-    
-     //  header('Content-Type: application/json');
-//       echo json_encode($result_temp_array); now you have a json response which you can use in client side
-    
-    
 }
 else{
-    header('Location: 404.php');
+    header('Location: /404.php');
 }
 ?>
 
 <!doctype html>
 <html>
 <head>
+     
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>Update Deal</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap-tagsinput.css" type="text/css">
-<link rel="stylesheet" href="css/style.css" type="text/css">
-<link rel="stylesheet" href="css/media.css" type="text/css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/bootstrap-tagsinput.css" type="text/css">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="/css/media.css" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="css/fontello.css" type="text/css">
-<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
-<link href="css/tooogle.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/fontello.css" type="text/css">
+<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/css/jquery.sidr.dark.css" type="text/css">
+<link href="/css/tooogle.css" rel="stylesheet">
 
-<script src="js/dropzone.js"></script>
-<link href="css/dropzone.css" rel="stylesheet">
+<script src="/js/update_dropzone.js"></script>
+<link href="/css/dropzone.css" rel="stylesheet">
 
 <style>
 *, *:before, *:after {
@@ -119,17 +99,12 @@ margin: initial;
 }
 </style>
 <!--<script src="js/jquery.min.js"></script>-->
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.sidr.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/bootstrap-tagsinput.js"></script>
-
-<script>
-$(document).ready(function() {
-  $('#simple-menu').sidr();
-});
-</script>
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.sidr.min.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/bootstrap-tagsinput.js"></script>
+  
 
 <!--[if lt IE 9]>
 	<script src="js/lib/html5shiv.js"></script>
@@ -147,7 +122,7 @@ $(document).ready(function() {
   <!--/.header_bg-->
 <?php include 'headers/popup.php';?>
   <div class="content_inbox">
-  <form action="updating_gig.php?id=<?php echo $korkID ?>" name="update_gig" id="fileupload" method="post" enctype="multipart/form-data">
+  <form name="update_gig" id="fileupload" method="post" enctype="multipart/form-data">
   	<!--<form id="fileupload"  method="POST" enctype="multipart/form-data">    action="create_gig.php" -->
 
   <!--<form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">-->
@@ -226,16 +201,14 @@ $(document).ready(function() {
           </figure>
         </aside>
       </div>
-     <div class="form_row">
+         <div class="form_row">
         <div class="label_wrap">
           <label for="gig_gallery">Deal gallery</label>
         </div>
         <div class="input_wrap">
         <div id="my-dropzone" class="dropzone">
-			<div class="dropzone-previews">
-			</div>
+			<div class="dropzone-previews"></div>
 		</div>
-    
           <!--<div class="file_input_inner">
             <!--  <button type="file" class="btn_signup" name="file" id="name">Browse</button>  -->
             
@@ -248,7 +221,7 @@ $(document).ready(function() {
         <aside class="gig-tooltip">
           <figure>
             <figcaption>
-              <h3>Add ypur deal images .</h3>
+              <h3>Add your deal images .</h3>
               <p>Upload photos that describe or relate to your Gig. They can be samples of your work. Allowed: JPEG | JPG | PNG, Minimum: 550 pixels wide, 370 pixels height, up to 5 MB.</p>
             </figcaption>
             <div class="gig-tooltip-gallery"></div>
@@ -307,7 +280,7 @@ $(document).ready(function() {
       </div>
         <div class="form_row">
         <div class="label_wrap" style="float: left;">
-          <label for="status">Deal Status</label>
+          <label file_label for="status">Deal Status</label>
         </div>
         <div class="input_wrap gig_price">
             <input type="hidden" value="0" name="publish" />
@@ -338,7 +311,7 @@ $(document).ready(function() {
     </div>
     <div class="bottom_save_block">
   <div id="shoading" class="genload"></div>
-      <button id="submit-all" type="submit" class="btn_signup">Update &amp; Continue</button>
+        <button id="submit-all" type="submit" class="btn_signup" >Update &amp; Continue</button>
       <!--<button class="btn_signup btn_cancel">Cancel</button>-->
     </div>
 	</form>
@@ -386,6 +359,9 @@ $(function() {
 </script>
 <script>
     $("#submit-all").on('click',function(){
+    var dealTtitle = document.getElementById('korkName').value;
+    var tilte_withDash = dealTtitle.split(' ').join('-');
+    
     if($('#korkName').val() != '')
     {
         if ($("#korkName").val().length < 10)
@@ -418,7 +394,6 @@ $(function() {
     }
         });
 </script>
-
 <script>
 function submitForm(action)
     {
@@ -442,10 +417,11 @@ function nullCheck(inputField)
 	}	
 }
 </script>
-
+    
 <script type="text/javascript">
-	var myDropzone = new Dropzone("div#my-dropzone", { 
-	url: "",
+  
+    var myDropzone = new Dropzone("div#my-dropzone", { 
+	url: "/updating_gig.php?id=<?php echo $korkID ?>",
 	method:"post",
 	autoProcessQueue: false,
 	paramName: "files",
@@ -454,37 +430,39 @@ function nullCheck(inputField)
         maxFiles: 4,
         maxFilesize: 5,
         parallelUploads: 4,
-        addRemoveLinks : true,
-        
-        init: function() 
-        {
-            
-//        alert('hello');
-            
-            
-        var thisDropzone = this;
-            
-        alert('before getjson');
-            
-        $.get('file_temp.php', function(data) { // get the json response
-            alert('insode getjson');
-            console.log("DATA IN STRING FORM " + JSON.stringify(data));
-
+     
+        addRemoveLinks: true,
+        init: function() {
+   		 $.getJSON('/file_temp.php?id=<?php echo $korkID; ?>', function(data) { // get the json response
+                         
             $.each(data, function(key,value){ //loop through it
+  
+                // Create the mock file:
+            var mockFile = { name: value.name, size: value.size , accepted: true};                
+                
+//                alert(JSON.stringify(mockFile));
+                
+            // Call the default addedfile event handler
+            myDropzone.emit("addedfile", mockFile);
 
-                var mockFile = { name: value.name, size: value.size }; // here we get the file name and size as response 
+            // And optionally show the thumbnail of the file:
+            myDropzone.createThumbnailFromUrl(mockFile, "/img/korkImages/"+value.name);
 
-                thisDropzone.options.addedfile.call(thisDropzone, mockFile);
+            // Make sure that there is no progress bar, etc...
+            myDropzone.emit("complete", mockFile);
 
-                thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "img/korkImages/"+value.name);//uploadsfolder is the folder where you have all those uploaded files
-
+            // If you use the maxFiles option, make sure you adjust it to the
+            // correct amount:
+            var existingFileCount = 1; // The number of files already uploaded
+            myDropzone.options.maxFiles = myDropzone.options.maxFiles + existingFileCount;    
             });
-
         });
+            
+
             var submitButton = document.querySelector("#submit-all")
             dropzone = this; // closure
-
         submitButton.addEventListener("click", function(e) {
+        if ($("#korkName").val().length >= 10 && $("#korkDesc").val().length >= 120){
             error = [];
             var korkName = document.getElementById('korkName').value;
             var priceinput = document.getElementById('priceinput').value;
@@ -502,6 +480,7 @@ function nullCheck(inputField)
                 dropzone.processQueue(); // Tell Dropzone to process all queued files.
         
             }
+        }
         });
         this.on("maxfilesexceeded", function(file){
             alert("No more files please!");
@@ -524,24 +503,40 @@ function nullCheck(inputField)
 				var vals = elem.split('=');
 				formData.append(vals[0],vals[1]);
 			});
-            $('#shoading').html('<div class =\'alert alert-success\' style=\'margin-left: 5%;width: 87%;\'><strong>Please Wait! images are uploading... </strong>.');
+            
         });
         this.on("successmultiple", function(files, response) {
+        var dealTtitle = document.getElementById('korkName').value;
+        var tilte_withDash = dealTtitle.split(' ').join('-');
           // Gets triggered when the files have successfully been sent.
-          // Redirect user or notify of success.
-			if(response.request == "Deal created!"){
-				window.location = "cate_desc.php?korkID="+response.id;
-			}else{
-                alert('request failed');
-            }
+          // Redirect user or notify of success.   
+         window.location = "/<?php echo $_username; ?>/"+ tilte_withDash +"/<?php echo $korkID; ?>";
         });
         this.on("errormultiple", function(files, response) {
+            alert('error on images');
           // Gets triggered when there was an error sending the files.
           // Maybe show form again, and notify user of error
         });
 		}
 	});
+        
 </script>
+    <script>
+        $("#submit-all").on('click',function(){
+        var dealTtitle = document.getElementById('korkName').value;
+        var tilte_withDash = dealTtitle.split(' ').join('-');
+        if(myDropzone.getAcceptedFiles().length == 0){
+          window.setTimeout(function(){
+        window.location = "/<?php echo $_username; ?>/"+ tilte_withDash +"/<?php echo $korkID; ?>";
+        }, 1000);
+          }
+    else{
+    $('#shoading').html('<div class =\'alert alert-success\' style=\'margin-left: 5%;width: 87%;\'><strong>Please Wait! images are uploading..</strong>.');
+        }
+});
+        
+        
+    </script>
     <script>
 var usedNames = {};
 $("select[name='category'] > option").each(function () {
@@ -596,8 +591,8 @@ function limitTextarea(limitField, limitCount, limitNum) {
 }
 </script>
 
-<script src="js/nav-admin-dropdown.js"></script>
-    <script src ="js/register.js"></script>
+<script src="/js/nav-admin-dropdown.js"></script>
+    <script src ="/js/register.js"></script>
 <script>
 	$(document).ready(function() {
 	var maxnum = 500000;

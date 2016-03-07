@@ -2,8 +2,14 @@
 session_start();
 include 'headers/_user-details.php';
 if(empty($_SESSION['username'])){
-    header('Location: error.php');
+    header('Location: /?login=false');
 }
+
+
+$query_id = "SELECT max(id)+1 as kork_id from korks";
+$result=  mysqli_query($con,$query_id);
+$row_id = mysqli_fetch_assoc($result);
+$kork_id = $row_id['kork_id'];
 ?>
 
 <!doctype html>
@@ -13,19 +19,19 @@ if(empty($_SESSION['username'])){
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>Create Deal</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap-tagsinput.css" type="text/css">
-<link rel="stylesheet" href="css/style.css" type="text/css">
-<link rel="stylesheet" href="css/media.css" type="text/css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/bootstrap-tagsinput.css" type="text/css">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel='shortcut icon' href='img/icon.ico' />
+<link rel="stylesheet" href="/css/media.css" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="css/fontello.css" type="text/css">
-<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css"> 
-<link href="css/tooogle.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/fontello.css" type="text/css">
+<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/css/jquery.sidr.dark.css" type="text/css">
+<link href="/css/tooogle.css" rel="stylesheet">
 
-
-<script src="js/dropzone.js"></script>
-<link href="css/dropzone.css" rel="stylesheet">
+<script src="/js/dropzone.js"></script>
+<link href="/css/dropzone.css" rel="stylesheet">
 
 <style>
 *, *:before, *:after {
@@ -44,11 +50,11 @@ margin: initial;
 }
 </style>
 <!--<script src="js/jquery.min.js"></script>-->
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.sidr.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/bootstrap-tagsinput.js"></script>
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.sidr.min.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/bootstrap-tagsinput.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -85,16 +91,16 @@ $(document).ready(function() {
         </div> 
         <div class="input_wrap gig_title">
             <input class="gig_text title" style="width:95%" maxlength="81" id="korkName" name="korkName"
-            onKeyDown="limitText(this.form.korkName,this.form.em,80);" 
-            onKeyUp="limitText(this.form.korkName,this.form.em,80);" required>
-            <span id="minimum" class="minmum_1">Minimum 10 character</span>
-            <font class='warning'>You have <input class="limit" style="border: none;padding-left: 3px;width: 12px;" readonly type="text" name="em" size="1" value="80"> characters left.</font>
+            onKeyDown="limitText(this.form.korkName,this.form.em,60);" 
+            onKeyUp="limitText(this.form.korkName,this.form.em,60);" required>
+            <span id="minimum" class="minmum_1">Minimum 15 characters</span>
+            <font class='warning'>You have <input class="limit" style="border: none;padding-left: 3px;width: 13px;" readonly type="text" name="em" size="1" value="60"> characters left.</font>
         </div>
         <aside class="gig-tooltip">
           <figure>
             <figcaption>
               <h3>Describe your Deal.</h3>
-              <p>This is your Deal title. Choose wisely, you can only use 80 characters.</p>
+              <p>This is your Deal title. Choose wisely, you can only use 60 characters.</p>
             </figcaption>
             <div class="gig-tooltip-title"></div>
           </figure>
@@ -197,7 +203,7 @@ $(document).ready(function() {
         </div>
         <div class="input_wrap gig_price">
           <input class="gig_text price" type="number" min="1" max="500000" pattern="^[1-9]\d*$" id="priceinput" name="priceinput" 
-                 style="width:93.5%;display:block;padding-left:25px;" required/>
+                 style="width:92.5%;display:block;padding-left:25px;" required/>
             <span class="unit">Rs</span>
           </div>
       </div>
@@ -229,7 +235,7 @@ $(document).ready(function() {
         </div>
         <div class="input_wrap gig_price">
             <input type="hidden" value="0" name="publish" />
-            <input name="publish" id="cmn-toggle-7" class="cmn-toggle cmn-toggle-yes-no" type="checkbox">
+            <input name="publish" id="cmn-toggle-7" class="cmn-toggle cmn-toggle-yes-no" checked type="checkbox">
             <label for="cmn-toggle-7" data-on="Publish" data-off="UnPublish"></label>
           </div>
       </div>
@@ -273,7 +279,7 @@ $(function() {
         });
     });
 </script> 
-<script src="js/school-list.js"></script>
+<script src="/js/school-list.js"></script>
 <!--multiple image upload starts here -->
 <script>
     $('input[type="number"]').keyup(function(){
@@ -294,33 +300,34 @@ $(function() {
     $("#submit-all").on('click',function(){
     if($('#korkName').val() != '')
     {
-        if ($("#korkName").val().length < 10)
+        if ($("#korkName").val().length < 15)
         {
 		$('.genload').css("padding-top", "20px");
 		$('.genload').css("padding-bottom", "20px");
-		$('.genload').html('<span class=\'alert alert-danger\'><strong>Oops! </strong>Deal Title Must contain at atleast 10  Characters </strong></span>');
+		$('.genload').html('<span class=\'alert alert-danger\'><strong></strong>Deal Title Must contain at atleast 10  Characters </strong></span>');
 		return false;    
         }
-        if($("#gigCategory option:selected" ).text() == 'Select Category')
+        else if($("#gigCategory option:selected" ).text() == 'Select Category')
         {
 		$('.genload').css("padding-top", "20px");
 		$('.genload').css("padding-bottom", "20px");
-		$('.genload').html('<span class=\'alert alert-danger\'><strong>Oops! </strong>Please Select any Category to define your Deal</strong></span>');
+		$('.genload').html('<span class=\'alert alert-danger\'><strong></strong>Please Select any Category to define your Deal</strong></span>');
 		return false;    
         }
-        if($('#taginput').val() == ''){
+        else if($('#taginput').val() == ''){
 		$('.genload').css("padding-top", "20px");
 		$('.genload').css("padding-bottom", "20px");
-		$('.genload').html('<span class=\'alert alert-danger\'><strong>Oops! </strong>Deal Tag field Cannot be left empty!  </strong></span>');
+		$('.genload').html('<span class=\'alert alert-danger\'><strong></strong>Deal Tag field Cannot be left empty!  </strong></span>');
 		return false;    
         }
-        if ($("#korkDesc").val().length < 120)
+        else if ($("#korkDesc").val().length < 120)
         {
 		$('.genload').css("padding-top", "20px");
 		$('.genload').css("padding-bottom", "20px");
-		$('.genload').html('<span class=\'alert alert-danger\'><strong>Oops! </strong>Deal Description Must contain at atleast 120 Characters </strong></span>');
+		$('.genload').html('<span class=\'alert alert-danger\'><strong></strong>Deal Description Must contain at atleast 120 Characters </strong></span>');
 		return false;    
-        } 
+        }
+
     }
         });
 </script>
@@ -351,7 +358,7 @@ function nullCheck(inputField)
 <script type="text/javascript">
   
     var myDropzone = new Dropzone("div#my-dropzone", { 
-	url: "creating_gig.php",
+	url: "/creating_gig.php",
 	method:"post",
 	autoProcessQueue: false,
 	paramName: "files",
@@ -391,7 +398,7 @@ function nullCheck(inputField)
         this.on("thumbnail", function(file) {
             if(file.width < 550 || file.height < 370){
                 dropzone.removeFile(file);
-                alert("Minimum image size: 550x370 pixels");
+                alert("Minimum image size: 550 X 370 pixels");
             }
         });
             
@@ -412,9 +419,9 @@ function nullCheck(inputField)
           // Gets triggered when the files have successfully been sent.
           // Redirect user or notify of success.
 			if(response.request == "Deal created!"){
-				window.location = "cate_desc.php?korkID="+response.id;
+				window.location = "/deals/"+response.id;
 			}else{
-                alert('request failed');
+				window.location = "/deals/<?php echo $_username; ?>";
             }
         });
         this.on("errormultiple", function(files, response) {
@@ -468,8 +475,8 @@ function limitTextarea(limitField, limitCount, limitNum) {
     }
 }
 </script>
-<script src="js/nav-admin-dropdown.js"></script>
-    <script src ="js/register.js"></script>
+<script src="/js/nav-admin-dropdown.js"></script>
+    <script src ="/js/register.js"></script>
 <script>
 	$(document).ready(function() {
 	var maxnum = 500000;

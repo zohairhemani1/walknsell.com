@@ -20,20 +20,56 @@ include 'headers/_user-details.php';
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>::WalknSell::</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/style.css" type="text/css">
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/modern.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.sidr.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/nav-admin-dropdown.js"></script>
-<script src="js/fb.js"></script>
-<script src ="js/register.js"></script> 
-<link rel="stylesheet" href="css/media.css" type="text/css">
-<link rel="stylesheet" href="css/fontello.css" type="text/css">
-<link rel="stylesheet" href="css/jquery.sidr.dark.css" type="text/css">
-<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<script src="/js/jquery-1.10.2.min.js"></script>
+	<script>
+// 	$(document).ready(function () {
+// 	$('.imgae-loader').css("display","none");
+// 	$('.result-text').css("display","none");
+//     var size_div = $("#prod_desc").size();	
+//   	console.log(size_div);
+//     x=10;
+
+//  	$(window).scroll(function() {
+//    if($(window).scrollTop() + $(window).height() == $(document).height()) {
+// 		console.log($(window).height()+"<window height");
+// 		console.log($(document).height()+"<document height");
+// 		console.log($(window).scrollTop()+"<window scroll top");
+	    
+// 	   if(x != size_div){
+// 		$('.imgae-loader').css("display","block");
+
+// 	   var myVar = setInterval(myTimer, 3000);
+// 	   function myTimer() {
+// 	   x = (x+6 <= size_div) ? x+6 : size_div;
+// 		$('.imgae-loader').css("display","none");
+//         $('#prod_desc:lt('+x+')').show();
+// 		   window.scrollBy(0, -25);
+// 		   clearInterval(myVar);
+// 	   }
+// 					}
+// 	else{
+// 			$('.result-text').css("display","block");
+// 	}	
+
+// }
+// });
+
+// });
+</script>
+
+<script src="/js/modern.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.sidr.min.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/nav-admin-dropdown.js"></script>
+<!-- <script src="/js/fb.js"></script> -->
+<script src ="/js/register.js"></script> 
+<link rel="stylesheet" href="/css/media.css" type="text/css">
+<link rel="stylesheet" href="/css/fontello.css" type="text/css">
+<link rel="stylesheet" href="/css/jquery.sidr.dark.css" type="text/css">
+<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>-->
 <style>
 *, *:before, *:after {
@@ -101,7 +137,7 @@ $(document).ready(function() {
         </div>
     </article>
     <?php include 'headers/popup.php';?>
-    <div class="full_article_bg">
+     <div class="full_article_bg featured_prod">
     
     <?php
 		include 'headers/connect_database.php';
@@ -135,15 +171,15 @@ $(document).ready(function() {
                     </div>";
             } ?>
         
-<article class="prod_detail">
-			
+    <article  class="prod_detail col-lg-12">
+      	<ul class="row">			
     <?php if($count==0){
 				echo "<div id='contentSub' class='clearfix'>
 						  <div class='contentBox'>
 							  <p class='fontelico-emo-unhappy noKorks'> No Deal found.</p>";
                             if(isset($_SESSION['username']) && $_college == $school_id){
 							  echo "<p class='noKorksCreate'>Are you looking to buy or sell something at ".ucwords(strtolower($school))."?</p>
-                              <p class='noKorksCreate'><a href='create_gig.php' class='entypo-pencil'> Create Your Deal!</a></p>";
+                              <p class='noKorksCreate'><a href='/manage_deals/new' class='entypo-pencil'> Create Your Deal!</a></p>";
                             }
 						  echo" </div>
 					  </div>";
@@ -169,24 +205,41 @@ $(document).ready(function() {
                     if($status == "1"){
                     $status = "available";
                     }    
-                    echo "<div class='prod_desc'><a href='cate_desc.php?korkID={$id}'>";
-					echo "<span class='$status korkbadge'></span>";
-					echo "<img class='main-prod-pic' src='img/korkImages/$image' width='247px' height='194px' alt=''>";
-					echo "<div class='details'>";
-					echo "<h3 class='block-ellipsis' style='font-weight:bold;'>$title</h3>";
-					echo "<h3 class='details-block-ellipsis'> $detail </h3></a>";
-                    echo "<p>By: <a href='/$username'>$username</a></p><p class='detail_timestamp'><span> ".date('m-d-Y | h:i A', strtotime($expiryDate))." </span></p>
-						 <div class='price'><span class='price_first'>Rs. {$price}</span><span class='prod_scheme'>&nbsp;&nbsp; {$bids} <span class='off'>BID",$bids > 1 ? "S" : "","</span></span></div>
+            echo "<li id='prod_desc' class='col-lg-3 col-md-6 col-sm-6'>
+            <a href='/$username/{$title_withDashes}/{$id}' id='gig_link'>
+                   
+                    <div class='col-lg-12 single_product' style='width:234px;height: 260px;'>
+                        <p style='position:absolute;top: 4px;padding-top: 6px;font-size: 12px;' class='prod_cat_22'><b>By:</b> $username</p>
+                        <div class='img_wrap'>
+                            <img src='/img/korkImages/$image' width='234' alt='' class='img-responsive'>
+                        <h3 style='margin-top: 143px;position: absolute;' class='block-ellipsis'>$title</h3>
+             <p class='gig_avialable'>Available</p>
+                        </div>
+              <div class='price'>
+                            <span class='price_first'>Rs. $price</span>
+                            <span class='prod_scheme'>$bids BID",($bids > 1) ? "S" : "","</span>
+                        </div>
+                     </div>
+                </a></li>
+";
+
+     //                echo "<div class='prod_desc'><a href='/$username/$title_withDashes/{$id}'>";
+					// echo "<span class='$status korkbadge'></span>";
+					// echo "<img class='main-prod-pic' src='/img/korkImages/$image' width='247px' height='194px' alt=''>";
+					// echo "<div class='details'>";
+					// echo "<h3 class='block-ellipsis' style='font-weight:bold;'>$title</h3>";
+					// echo "<h3 class='details-block-ellipsis'> $detail </h3></a>";
+     //                echo "<p>By: <a href='/$username'>$username</a></p>
+					// 	 <div class='price'><span class='price_first'>Rs. {$price}</span><span class='prod_scheme'>&nbsp;&nbsp; {$bids} <span class='off'>BID",$bids > 1 ? "S" : "","</span></span></div>
 					
-						</div>
-						<div class='clear'></div>
-						</div>";
+					// 	</div>
+						
                     }
                 }
 
 
                     }
-
+// <p class='detail_timestamp'><span> ".date('m-d-Y | h:i A', strtotime($expiryDate))." </span></p>
 			/*** close the database connection ***/
 //				$dbh = null;
 			
@@ -198,6 +251,9 @@ $(document).ready(function() {
 
 	?>
     <div class="clear"></div>
+<!-- 	<div class='imgae-loader'><img src='/img/bx_loader.gif' /></div>
+	<div class="result-text"><p>No More Deals Found!</p></div> -->
+ 		</ul>
     </article>
     <div class="clear"></div>
     </div>
@@ -210,8 +266,36 @@ function getlist(x){
     $("#veiwlist"+x).show();
 }
 </script>
+<script type="text/javascript">
+$(document).ready(function() {
 
-<script src="js/school-list.js"></script>
+  $(".single_product").hover(
+
+    function () {
+
+       $(this).find(".img_wrap img ,.img_wrap h3,.gig_avialable").stop().animate({
+            top: '36px'
+        }, 'fast');
+      $(this).find('.gig_avialable').slideDown('normal');
+      $(this).find('.block-ellipsis').css('color','#00b22d');
+      $(this).find('.block-ellipsis').css('text-decoration','underline'); 
+    },
+
+    function () {
+        $(this).find(".img_wrap img ,.img_wrap h3,.gig_avialable").stop().animate({
+            top: '6'
+        }, 'normal');
+	      // $(this).find('.gig_avialable').slideUp('fast');
+          $(this).find('.block-ellipsis').css('color','#030303');
+	      $(this).find('.block-ellipsis').css('text-decoration','none');
+  });
+
+});
+
+</script> 
+
+
+<script src="/js/school-list.js"></script>
 
 </body>
 </html>

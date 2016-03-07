@@ -19,7 +19,7 @@ session_start();
 		$college_name = $row['name'];
 		$city = $row['city'];
 	}else{
-		header("Location: 404.php");
+		header("Location: 404");
 		exit();
 	}
 	
@@ -269,7 +269,7 @@ function sendMessage()
 		<div class="box-row bordered p-b-30">
 
                         <header>
-                            <h2>About <?php echo $fullname; ?>
+                            <h2><?php echo $fullname; ?>
                                 <span class="user-is-online js-user-is-online" data-user-id="umaisdesigns"><em></em>online</span>
                             </h2>
                             <div class="desc">
@@ -296,7 +296,8 @@ function sendMessage()
                                 <?php
                                 if(!empty($_SESSION['username'])){
                                     if($username == $_username){
-                                        echo '<a class="btn-standard btn-edit js-btn-edit-user" href="profile_edit.php" rel="nofollow"><i></i>Edit</a>';
+                                        // echo '<a class="btn-standard btn-edit js-btn-edit-user" href="/'.$_username .'/edit" rel="nofollow"><i></i>Edit</a>';
+                                        echo '<a class="btn-standard btn-green-grad btn-contact js-btn-user-contact js-gtm-event-auto" href="/'.$_username .'/edit" rel="nofollow"><i></i>Edit</a>';
                                     }
                                     else {
                                         echo "<a href='#' class='btn-standard btn-green-grad btn-contact js-btn-user-contact js-gtm-event-auto' data-toggle='modal' data-target='#message'><i></i>Contact</a>";
@@ -338,15 +339,16 @@ function sendMessage()
         if(!empty($allKorks)){
             echo "<div class='mp-box mp-box-grey'>
                     <div class='featured_prod'>
-					<header style='width: 64.6%; margin: auto;'>
+					<header style='width: 71%; margin: auto;'>
 						<h2>$username's Deals</h2>
 					</header>		
-					<article  class='prod_detail col-lg-12'>
+					<article  class='prod_detail' style='background:#eee;' col-lg-12'>
       	            <ul class='row'>";
 			foreach ($allKorks as $row){
 			$kork_id = $row['id'];
 			$kork_title = $row['title'];
 			$kork_detail = $row['detail'];
+
 			$kork_price = nice_number($row['price']);
 			$kork_date = $row['expiryDate'];
 			$kork_status = $row['status'];
@@ -356,21 +358,38 @@ function sendMessage()
 			$kork_bids = $row['bids'];
 			if($kork_status == 0 || $kork_status == 1 && $kork_publish == 1){
 				($kork_status == 0) ? $kork_status = "sold" : $kork_status = "available";
-                echo "<li class='col-lg-3 col-md-6 col-sm-6'><a href='cate_desc.php?korkID=$kork_id'>
-						<span class='$kork_status korkbadge'></span>
-						<div class='col-lg-12 single_product'>
-							<div class='img_wrap'>
-								<img src='img/korkImages/$kork_image' alt='' class='img-responsive'>
-							</div>
-                            <h3 class='block-ellipsis'>$kork_title</h3>
-							<p class='prod_cat_22'>$kork_category Category</p>
-							<p class='attributes'>".date('m-d-Y | h:i A', strtotime($kork_date))."</p>
-							<div class='price_tag_22'>
-								<span class='price_main'>Rs. $kork_price</span>
-								<span class='offer_dt'>$kork_bids BID",($kork_bids > 1) ? "S" : "","</span>
-							</div>
-					   </div>
-					</a></li>";
+
+            echo "<li class='col-lg-3 col-md-6 col-sm-6'>
+            <a href='$kork_user/{$title_withDashes}/{$kork_id}' id='gig_link'>                   
+                    <div class='col-lg-12 single_product' style='width:234px;height: 260px;'>
+                        <div class='img_wrap'>
+                            <img src='img/korkImages/$kork_image' width='234' alt='' class='img-responsive'>
+                        <h3 style='margin-top: 143px;position: absolute;' class='block-ellipsis'>$kork_title</h3>
+                     ";
+                echo "<p class='gig_avialable'>Available</p>";
+              echo "   
+                        </div>
+              <div class='price'>
+                            <span class='price_first'>Rs. $kork_price</span>
+                            <span class='prod_scheme'>$kork_bids BID",($kork_bids > 1) ? "S" : "","</span>
+                        </div>     
+                   </div>
+                </a></li>";
+
+
+     //            echo "<li class='col-lg-3 col-md-6 col-sm-6'><a href='cate_desc.php?korkID=$kork_id'>
+					// 	<div class='col-lg-12 single_product'>
+					// 		<div class='img_wrap'>
+					// 			<img src='img/korkImages/$kork_image' alt='' class='img-responsive'>
+					// 		</div>
+     //                        <h3 class='block-ellipsis'>$kork_title</h3>
+					// 		<p class='prod_cat_22'>$kork_category Category</p>
+					// 		<div class='price_tag_22'>
+					// 			<span class='price_main'>Rs. $kork_price</span>
+					// 			<span class='offer_dt'>$kork_bids BID",($kork_bids > 1) ? "S" : "","</span>
+					// 		</div>
+					//    </div>
+					// </a></li>";
 			}
 			}
             echo "</ul>
@@ -380,8 +399,8 @@ function sendMessage()
         }else if(!empty($_SESSION['username']) && $_username == $username){
             echo "<div id='contentSub' class='clearfix'>
               <div class='contentBox'>
-                  <p class='noKorks'> You have no deals to sell.</p>
-                  <p class='noKorksCreate'><a href='create_gig.php' class='entypo-pencil'> Do you want to start selling today?</a></p>
+                  <p class='fontelico-emo-unhappy noKorks'> You have no deals to sell.</p>
+                  <p class='noKorksCreate'><a href='manage_deals/new' class='entypo-pencil'> Do you want to start selling today?</a></p>
               </div>
             </div>";
         }

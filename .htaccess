@@ -1,15 +1,43 @@
 RewriteEngine On
 
-
-
 # Make sure you only match on files/directories that don't actually exist
 
+RewriteRule ^privacy-policy$ /privacy_policy.php [L]
+RewriteRule ^manage_deals/new$ /create_gig.php [L]
+RewriteRule ^walknsell.com$ /index.php [L]
+RewriteRule ^error$ /error.php [L]
+RewriteRule ^404$ /404.php [L]
+RewriteRule ^forget_password$ /password_forgotten.php [L]
+RewriteRule ^([^/]*)/edit$ /profile_edit.php?username=$1 [L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
-
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^conversation/([^/]*)/([^/]*)$  /inbox_des.php?username=$1&mode=$2 [L]
 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^conversation/([^/]*)/([^/]*)/([^/]*)$ /inbox.php?username=$1/type=$2&page=$3 [L]
 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^manage_deals/([^/]*)/([^/]*)$ update_gig.php?title=$1&id=$2 [L]
 
-# Rewrite the first part after the `/` into a `username` parameter
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]*)/([^/]*)/([^/]*)$ /cate_desc.php?username=$1&title=$2&korkID=$3 [L] 
 
-RewriteRule ^(.*)$ /walknsell.com/user_profile.php?username=$1
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^deals/([^/]*)$ /deals.php?username=$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)$ /user_profile.php?username=$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]*)/([^/]*)$ /school-category.php?schoolID=$1&schoolName=$2 [L]
+
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+

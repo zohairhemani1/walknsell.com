@@ -140,21 +140,22 @@ input.cmn-toggle-round-flat:checked + label:after {
   SWITCH 3 - YES NO
 ============================================================ */
 input.cmn-toggle-yes-no + label {
-  padding: 2px;
-  width: 125px;
-  height: 35px;
+    padding: 2px;
+    width: 92px;
+    height: 32px;
 }
 input.cmn-toggle-yes-no + label:before, input.cmn-toggle-yes-no + label:after {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  color: #fff;
-  font-size: 20px;
-  text-align: center;
-  line-height: 41px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    line-height: 36px;
+    font-weight: 500;
 }
 input.cmn-toggle-yes-no + label:before {
   background-color: #dddddd;

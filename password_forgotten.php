@@ -4,20 +4,20 @@ include 'headers/_user-details.php';
 function insertAtPosition($string, $insert, $position) {
     return implode($insert, str_split($string, $position));
 }
-if(!empty($_SESSION['username'])){
-    header('Location: 404.php');
+if(isset($_SESSION['username'])){
+    header('Location: /404.php');
 }
 if(isset($_GET['cre'])){
     $emailTo = $_GET['email'];
     $changePass = md5(substr($_GET['cre'],3,8));
-    $sth = $dbh->prepare("UPDATE users SET password = :pass, recover_password = 0 WHERE email = :email AND recover_password = 1");
+    $sth = $dbh->prepare("UPDATE users SET password = :pass WHERE email = :email ");
     $sth->bindValue(':pass',$changePass);
     $sth->bindValue(':email',$emailTo);
     $flag = $sth->execute();
     if($flag){
-        header('Location: index.php?password=changed');
+        header('Location: /password=changed');
     }else{
-        header('Location: password_forgotten.php?status=failed');
+        header('Location: forget_password?status=failed');
     }
 }
 ?>
@@ -86,29 +86,29 @@ $(document).ready(function() {
   <?php include 'headers/popup.php';?>
   <div style="width:41%;margin-top: 114px;" class="content_inbox">
     <h2>Forgot password?</h2>
-      <form action="password_forgotten.php" method="POST">
+      <form action="forget_password" method="POST">
         <div style="width: 87%;" class="left_gig">
     <?php
-    if($_SERVER['REQUEST_METHOD'] == "POST"){
+    if($_POST){
         $newPass = substr(md5(rand(999,999999)), 0, 8);
         $email = $_POST['useremail'];
-        $sth = $dbh->prepare("UPDATE users SET recover_password = 1 WHERE email = :email");
+        $sth = $dbh->prepare("SELECT email from users WHERE email = :email");
         $sth->bindValue(':email',$email);
         $sth->execute();
         $flag = $sth->rowCount();
         $randomNum = md5(time());
         $randomNum = insertAtPosition($randomNum, $newPass, 3);
-        $link = "http://www.walknsell.com/password_forgotten.php?email=$email&cre=$randomNum";
+        $link = "http://www.walknsell.com/forget_password?email=$email&cre=$randomNum";
         if($flag){
             $to = $email;    
             include "newsletters/forgot_password.php";
             mail($to, $subject, $message, $headers);
             echo "<h3>Email has been successfully sent to you, please check and try loging in again.</h3>";
         }else{
-                    echo '<p style="color:red;" class="paragraph">Sorry, thye email you have enter is not correct. Please try again.</p>
+                    echo '<p style="color:red;" class="paragraph">The email you entered is incorrect</p>
             <div class="form_row">
                 <div class="input_wrap gig_title">
-                    <input class="gig_text price" placeholder="Enter email address" type="email" style="width:100%;margin-left: 26px;padding-left: 13px;height: 32px;"            maxlength="80" name="useremail" required>
+                    <input class="gig_text price" placeholder="Enter email address" type="email" style="width:100%;margin-left: -5px;padding-left: 13px;height: 32px;" maxlength="80" name="useremail" required>
                 </div>
             </div>
             </div>
@@ -125,10 +125,10 @@ $(document).ready(function() {
         }
         echo '</div>';
     }else{
-        echo '<p class="paragraph">Enter your email address below, you will recieve an email from us very soon.</p>
+        echo '<p class="paragraph">Enter your email address.</p>
             <div class="form_row">
-                <div class="input_wrap gig_title">
-                    <input class="gig_text price" placeholder="Enter email address" type="email" style="width:100%;margin-left: 26px;padding-left: 13px;height: 32px;"            maxlength="80" name="useremail" required>
+                <div style="width:94%" class="input_wrap gig_title">
+                    <input class="gig_text price" placeholder="Enter email address" type="email" style="width:100%;margin-left: -5px;padding-left: 13px;height: 32px;" maxlength="80" name="useremail" required>
                 </div>
             </div>
             </div>

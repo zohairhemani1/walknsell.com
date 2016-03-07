@@ -36,7 +36,7 @@
 	}
 	else
 	{
-		echo " Account not active";
+		echo " Account is not activated";
 	}
 	// Validation 
 	

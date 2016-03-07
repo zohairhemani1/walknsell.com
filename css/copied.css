@@ -7671,8 +7671,9 @@ z-index:4
 	font: 500 24px/32px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	text-transform: none;
 	letter-spacing: 0;
-	padding-top: 6px;
+	padding: 6px;
 	display: block;
+	color:white;
 	text-align: center;
 	background: rgba(52,52,52,0.7);
   border-radius: 50px;
