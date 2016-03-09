@@ -11,12 +11,11 @@ $message = '<table cellspacing="0" cellpadding="0" style="padding:30px 10px;back
 		
 		<tbody>
 			<tr>
-				<td>
-					<table align="center" cellspacing="0" style="max-width:650px;min-width:320px;">
+				<td style="background: #0084a6;border-bottom: 5px solid #007492;">
+					<table align="center" cellspacing="0" style="max-width:650px;min-width:320px;    float: left;">
 						<tbody>
 							<tr>
-								<td style="text-align:left;padding-bottom:14px;">
-									<img align="left" alt="WalknSell" src="http://walknsell.com/img/walk_sell_logo_f.png">
+		  <td style="text-align:left;padding-bottom:14px;"><img align="left" alt="WalkNSell" style="padding-left: 12px;padding-top: 9px;" src="http://walknsell.com/img/walk_sell_logo.png"></td>
 								</td>
 							</tr>
 							<tr>

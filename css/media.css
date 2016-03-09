@@ -1,6 +1,12 @@
 @media only screen and (max-width:1278px){
 .create_gig .content_inbox .left_gig { width:83% }
 }
+@media only screen and (max-width:768px){
+#main_deals, #prod_desc{
+    margin: 20px auto;
+    float: none;
+ }
+}    
 @media only screen and (max-width:1199px){
 .create_gig .content_inbox .left_gig { }
 .single_product .price_tag_22 .offer_dt{width:auto;}
@@ -31,6 +37,7 @@ td.inbox_mail_row td.messege_subject{width:49%; padding-right:4%;}
 td.inbox_mail_row td.update{width:18%;}
 .actual_cat .category_inner{width:100%;}
 .header_bg_para{display:none;}
+.cd-hero{display: none;}
 .category_submenu{display:none;}
 .full_article_bg{margin-top:60px; position:static;}
 article.prod_detail{width:100%; position:static;}
@@ -38,8 +45,9 @@ article.prod_detail{width:100%; position:static;}
 .searchmsg { width:100%; }
 .inbox_des .content_inbox{width:100%;}
 .user_head{ width:100%;}
-.category_inner .wrap-search {margin-right: 1.5%;width: 96.4%;}
-.category_inner .fake-dropdown {margin-left:10px;}
+/*.category_inner .wrap-search {margin-right: 1.5%;width: 96.4%;}*/
+.category_inner .wrap-search {margin-right: 15px;width: 97.4%;}
+.category_inner .fake-dropdown {margin-left:10px;width:94.5%;}
 .msg_wrap_11{padding-right:20px;}
 .gig_related_to{width:100%; float:left; margin-right:0; border-top:1px solid #ebebeb; border-left:0; margin-top:20px;}
 .msg_wrap_11 .msgtime {float: left;margin-right: 0px;top: 0px;margin-left: 89px;}    
@@ -147,8 +155,9 @@ ul.nav.nav-pills {margin-left: 1.5%;}
 	.mp-user-info .user-stats li { display:block; width:100%; }
 }
 @media only screen and (max-width:516px){
-	.wrap-search{float: left;margin-left: 11px;}
+	.wrap-search{float: left;margin-left: 1.5%;}
 	.category_inner .fake-dropdown{ right: 0px; width: 94%; margin-left: 2.1% !important; }
+	.category_inner .wrap-search{    margin-right: 1%;}
 }
 @media only screen and (max-width:562px){
 	.modal-dialog input.names { width: 93%; }
@@ -169,9 +178,9 @@ ul.nav.nav-pills {margin-left: 1.5%;}
 	.prod_desc{width:100%;}
 	.prod_desc .main-prod-pic{width:100%; float:none; margin:0 auto;}
 	.prod_desc .details{float:none; width:100%; margin-left:0; text-align:center;}
-	div.price{ margin:0 auto; float:none; width: 246px; }
+	div.price{ margin:0 auto; float:none; width: 231px; }
 	div.price span.price_first { width: 72px; }
-	div.price span.prod_scheme { width: 96px; }
+	div.price span.prod_scheme { width: 92px; }
 	.prod_desc .details h3 { margin-top:10px; }
 	
 	.modal-header h1{ font-size:28px!important; }

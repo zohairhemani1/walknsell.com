@@ -119,12 +119,12 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-          <h1 class="modal-title" id="myModalLabel">Welcome to WalknSell</h1>
+          <h1 class="modal-title" id="myModalLabel">Welcome to WalknSell.com</h1>
           <p></p>
         </div>
         <div class="modal-body">
-          <iframe width="505" height="315"
-          src="http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1">
+          <iframe width="505" id='playerid' height="315"
+          src="">
           </iframe>
           <div class="clearfix"></div>
         </div>

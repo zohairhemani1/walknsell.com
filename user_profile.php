@@ -343,7 +343,7 @@ function sendMessage()
 						<h2>$username's Deals</h2>
 					</header>		
 					<article  class='prod_detail' style='background:#eee;' col-lg-12'>
-      	            <ul class='row'>";
+      	            <ul class='row' style='margin-left:0px;margin-right:0px;'>";
 			foreach ($allKorks as $row){
 			$kork_id = $row['id'];
 			$kork_title = $row['title'];
@@ -359,7 +359,7 @@ function sendMessage()
 			if($kork_status == 0 || $kork_status == 1 && $kork_publish == 1){
 				($kork_status == 0) ? $kork_status = "sold" : $kork_status = "available";
 
-            echo "<li class='col-lg-3 col-md-6 col-sm-6'>
+            echo "<li class='col-lg-3 col-md-6 col-sm-6' id='main_deals' style='width: 255px;'>
             <a href='$kork_user/{$title_withDashes}/{$kork_id}' id='gig_link'>                   
                     <div class='col-lg-12 single_product' style='width:234px;height: 260px;'>
                         <div class='img_wrap'>

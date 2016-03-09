@@ -133,7 +133,7 @@ function sendMessage()
                             var filename = "";
                             for (var i = 0; i < filenames.length; i++) {
 
-                                filename += "<p class='attachment-para'><a class='attachment-anchor' href='assets/inboxData/"+filenames_final[i]+"' download>"+filenames[i]+"</a></p>";
+                                filename += "<p class='attachment-para'><a class='attachment-anchor' href='http://walknsell.com/assets/inboxData/"+filenames_final[i]+"' download>"+filenames[i]+"</a></p>";
                             }
                             
                             $( "<div class='msg_wrap_2'> <div class='messege_push'><span class='user-pict_50'>"
@@ -312,7 +312,7 @@ function sendMessage()
                       <p class='texttype'>$result[message]</p>";
                         if(!empty($attachments)){
                             foreach($attachments as $attach){
-                                echo "<p class='attachment-para'><a class='attachment-anchor' href='assets/inboxData/$attach[attachment]' download>$attach[displayname]</a></p>";
+                                echo "<p class='attachment-para'><a class='attachment-anchor' href='http://walknsell.com/assets/inboxData/$attach[attachment]' download>$attach[displayname]</a></p>";
                             }
                         }
                     echo "</div>
@@ -333,7 +333,7 @@ function sendMessage()
                       <p class='texttype'>$result[message]</p>";
                         if(!empty($attachments)){
                             foreach($attachments as $attach){
-                                echo "<p class='attachment-para'><a class='attachment-anchor' href='assets/inboxData/$attach[attachment]' download>$attach[displayname]</a></p>";
+                                echo "<p class='attachment-para'><a class='attachment-anchor' href='/assets/inboxData/$attach[attachment]' download>$attach[displayname]</a></p>";
                             }
                         }
                     echo "</div>

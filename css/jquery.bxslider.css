@@ -25,14 +25,14 @@
 /*	max-width: 100%;*/
 /*    width: 634px;
     height: 396px;*/
-    max-height: 410px;
-    max-width: 608px;
+    height: 410px;
+    width: 608px;
     padding: 14px;
     padding-top: 14px;
 }
 
 .bx-viewport{
-	height: 377px !important;
+	height: 441px !important;
 }
 
 

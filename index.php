@@ -1,4 +1,4 @@
-<?php
+    <?php
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 session_start();
@@ -84,30 +84,6 @@ $('#demo').click(function(){
 });
 
 </script>
-<script>
-$(document).ready(function() {
-$('#mydeals').carousel({
-  interval: 2500
-});
-
-$('.carousel .item').each(function(){
-  var next = $(this).next();
-  if (!next.length) {
-    next = $(this).siblings(':first');
-  }
-  next.children(':first-child').clone().appendTo($(this));
-  
-  for (var i=0;i<2;i++) {
-    next=next.next();
-    if (!next.length) {
-      next = $(this).siblings(':first');
-    }
-    
-    // next.children(':first-child').clone().appendTo($(this));
-  }
-});
-});
-    </script>
 </head>
 
 <body>
@@ -207,9 +183,10 @@ if(isset($_GET['activate']))
             $kork_bids = $row['bids'];
             ++$count;
             if($count == 1){echo "<div class='item active'>";}
+            else if($count > 1 && $count <= 4){echo "<div class='item' style='display:block;'>";}
             else{echo "<div class='item'>";}
             echo "
-            <li class='col-lg-3 col-md-6 col-sm-6'>
+            <li class='col-lg-3 col-md-6 col-sm-6' id='main_deals'>
             <a href='$kork_user/{$title_withDashes}/{$kork_id}' id='gig_link'>
                    
                     <div class='col-lg-12 single_product' style='width: 234px;;height: 260px;'>
@@ -242,8 +219,13 @@ if(isset($_GET['activate']))
 		$dbh = null;
 		?>
   </div>
-  <a class="left carousel-control" href="#mydeals" data-slide="prev"><i id='arrow' class="fa fa-chevron-left"></i></a>
-  <a class="right carousel-control" href="#mydeals" data-slide="next"><i id='arrow' class="fa fa-chevron-right"></i></a>
+<?php 
+  if($count > 4){
+  echo '
+  <a class="left carousel-control" href="#mydeals" data-slide="prev"><i id="arrow" class="fa fa-chevron-left"></i></a>
+  <a class="right carousel-control" href="#mydeals" data-slide="next"><i id="arrow" class="fa fa-chevron-right"></i></a>';
+}
+?>
 </div>
 		</ul>
         <div class="clear"></div>
@@ -419,6 +401,42 @@ var key = e.keyCode,
         $('.tftextinput').val($('.selected').text());
         $('#search_url').val($('.selected').attr('id'));
 
+});
+    </script>
+<script>
+$(document).ready(function() {
+$('#mydeals').carousel({
+  <?php
+  if($count > 4){
+ echo " interval: 2500";
+  }
+  else{
+     echo " interval: 2500000000000";
+  }
+  ?>
+
+});
+
+$('.carousel .item').each(function(){
+  var next = $(this).next();
+  if (!next.length) {
+    next = $(this).siblings(':first');
+  }
+  <?php  
+ if($count > 4){
+ echo "next.children(':first-child').clone().appendTo($(this));";
+  }
+  ?>
+  
+  for (var i=0;i<2;i++) {
+    next=next.next();
+    if (!next.length) {
+      next = $(this).siblings(':first');
+    }
+    
+    // next.children(':first-child').clone().appendTo($(this));
+  }
+});
 });
     </script>
 <script src="js/school-list.js"></script>

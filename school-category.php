@@ -70,6 +70,13 @@ include 'headers/_user-details.php';
 <link rel="stylesheet" href="/css/fontello.css" type="text/css">
 <link rel="stylesheet" href="/css/jquery.sidr.dark.css" type="text/css">
 <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="stylesheet" href="/css/reset.css"> <!-- CSS reset -->
+  <link rel="stylesheet" href="/css/slide.css"> <!-- Resource style -->
+  <script src="/js/modernizr.js"></script> <!-- Modernizr -->
+
 <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>-->
 <style>
 *, *:before, *:after {
@@ -80,11 +87,13 @@ include 'headers/_user-details.php';
 img {
 	vertical-align: top;
 }
+
 </style>
 
 <script>
 $(document).ready(function() {
   $('#simple-menu').sidr();
+
 });
 </script>
 
@@ -126,17 +135,37 @@ $(document).ready(function() {
       </nav>
     </div>
   </div>
-    <article class="header_bg_para">
-    	<div class="banner_static">
-        	<div class="left_alpha">
+  <article>
+  <section class="cd-hero">
+    <ul class="cd-hero-slider autoplay">
+
+      <li class="selected">
+      <div class="banner_static">
+          <div class="left_alpha">
             <h2>Over 2 Thousand Services</h2>
-        	<p>WalknSell is a social website that helps students and teachers like you post classifieds related to your school or university.</p>
+          <p>WalknSell is a social website that helps students and teachers like you post classifieds related to your school or university.</p>
             </div>
             <div class="right_link"><a href="#"></a></div>
             <div class="clear"></div>
         </div>
-    </article>
-    <?php include 'headers/popup.php';?>
+      </li>
+
+      <li>
+      <div class="banner_static">
+          <div class="left_alpha">
+            <h2>Over 2 Thousand Services</h2>
+          <p>WalknSell is a social website that helps students and teachers like you post classifieds related to your school or university.</p>
+            </div>
+            <div class="right_link"><a href="#"></a></div>
+            <div class="clear"></div>
+        </div>
+      </li>
+    </ul> <!-- .cd-hero-slider -->
+  </section> <!-- .cd-hero -->
+
+  </article>
+
+  <?php include 'headers/popup.php';?>
      <div class="full_article_bg featured_prod">
     
     <?php
@@ -205,7 +234,7 @@ $(document).ready(function() {
                     if($status == "1"){
                     $status = "available";
                     }    
-            echo "<li id='prod_desc' class='col-lg-3 col-md-6 col-sm-6'>
+            echo "<li id='prod_desc' class='col-lg-3 col-md-6 col-sm-6' id=''>
             <a href='/$username/{$title_withDashes}/{$id}' id='gig_link'>
                    
                     <div class='col-lg-12 single_product' style='width:234px;height: 260px;'>
@@ -296,6 +325,6 @@ $(document).ready(function() {
 
 
 <script src="/js/school-list.js"></script>
-
+<script src="/js/slide.js"></script>
 </body>
 </html>
